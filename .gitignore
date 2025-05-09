@@ -36,4 +36,4 @@ build/
 node_modules/
 
 ### tailwind ###
-!**/src/main/**tailwind.output.css
+/src/main/resources/static/css/tailwind.output.css
