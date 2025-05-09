@@ -3,7 +3,12 @@
     "@tailwindcss/cli": "^4.1.6",
     "tailwindcss": "^4.1.6"
   },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  },
   "scripts": {
-    "tailwind": "npx tailwindcss -i ./src/main/resources/static/css/tailwind.config.css -o ./src/main/resources/static/css/tailwind.output.css --watch"
-  }
+    "tailwind": "npx tailwindcss -i ./src/main/resources/static/css/tailwind.config.css -o ./src/main/resources/static/css/tailwind.output.css --watch",
+    "prettier": "prettier --write \"src/**/*.{js,json,css,html}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,json,css,html}\""
+  }  
 }
