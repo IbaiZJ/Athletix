@@ -9,5 +9,5 @@ public class AthletixApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AthletixApplication.class, args);
 	}
-
+	
 }
