@@ -1,1 +1,1 @@
-// Tailwind autokonpletatzeko, bug batengatik artxibo hau gehitu behar da
+// Tailwind autokonpletatzeko, bug batengatik ez doanez, artxibo hau gehitu behar da
