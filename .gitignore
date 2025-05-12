@@ -33,7 +33,7 @@ build/
 .vscode/
 
 ### node_modules ###
-# node_modules/
+node_modules/
 
 ### tailwind ###
 /src/main/resources/static/css/tailwind.output.css
