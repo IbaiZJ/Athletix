@@ -1,19 +1,33 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/cleanLayout}"
+  class="h-screen"
+>
   <head>
-    <title>Spring Security Example</title>
+    <title>Athletix - Login</title>
   </head>
-  <body>
-    <div th:if="${param.error}">Invalid username and password.</div>
-    <div th:if="${param.logout}">You have been logged out.</div>
-    <form th:action="@{/login}" method="post">
-      <div>
-        <label> User Name : <input type="text" name="username" /> </label>
+  <body class="h-screen bg-gray-100">
+    <main layout:fragment="content" class="flex h-full items-center justify-center">
+      <div class="rounded-lg bg-white p-4 shadow-lg transition-shadow hover:shadow-2xl">
+        <div>
+          <img src="/img/favicon.png" alt="Athletix img" class="mx-auto h-16 w-16" />
+          <span class="self-center text-2xl font-semibold whitespace-nowrap">Athletix</span>
+        </div>
+        <h1 class="mb-4 flex justify-center text-3xl">Sign in to your account</h1>
+        <form th:action="@{/login}" method="post">
+          <div>
+            <label> User Name : <input type="text" name="username" /> </label>
+          </div>
+          <div>
+            <label> Password: <input type="password" name="password" /> </label>
+          </div>
+          <div><input type="submit" value="Sign In" /></div>
+        </form>
       </div>
-      <div>
-        <label> Password: <input type="password" name="password" /> </label>
-      </div>
-      <div><input type="submit" value="Sign In" /></div>
-    </form>
+
+      <div th:if="${param.error}">Invalid username and password.</div>
+      <div th:if="${param.logout}">You have been logged out.</div>
+    </main>
   </body>
 </html>

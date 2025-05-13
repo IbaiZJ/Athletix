@@ -14,6 +14,9 @@ public class SecurityConfig {
 
     private final String[] PATH_WHITELIST = {
             "/",
+            "/about",
+            "/contact",
+            "/services",
             "/css/**",
             "/js/headerNav.js", // ||| botoira bakarrik sartu ahal izateko
             "/img/**",
