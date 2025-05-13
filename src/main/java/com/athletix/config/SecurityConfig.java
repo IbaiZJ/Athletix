@@ -17,6 +17,7 @@ public class SecurityConfig {
             "/about",
             "/contact",
             "/services",
+            "/create-account",
             "/css/**",
             "/js/headerNav.js", // ||| botoira bakarrik sartu ahal izateko
             "/img/**",
