@@ -7,15 +7,46 @@
   <head>
     <title>Athletix - Create Account</title>
   </head>
-  <body class="mt-28 bg-gray-100">
+  <body class="bg-gray-100">
     <main layout:fragment="content" class="p-6">
-      <form th:action="@{/create-account}" method="post" class="mx-auto">
-        <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Email address')}"></div>
-        <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Email address')}"></div>
-        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
-        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
-        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
+      <div class="mb-5 inline-flex w-full items-center justify-center space-x-3 rtl:space-x-reverse">
+        <img src="/img/favicon.png" class="h-10 w-10" alt="Athletix Logo" />
+        <h1 class="self-center text-4xl font-semibold whitespace-nowrap">Athletix</h1>
+      </div>
+      <form th:action="@{/create-account}" method="post" class="mx-auto w-full max-w-4xl">
+        <div class="flex flex-col md:w-full md:flex-row md:gap-10">
+          <div class="w-full">
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'username', 'Username')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'password', 'Password')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', '', 'Repeat Password')}"></div>
+            <!-- https://flowbite.com/docs/typography/lists/ -->
+            <!-- !!! Validate password -->
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Name')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Surname')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname2', 'Second Surname')}"></div>
+          </div>
+          <div class="w-full">
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'height', 'Height (cm)')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'weight', 'Weight (kg)')}"></div>
+            <div>
+              <label class="mb-2 block text-xl font-medium text-gray-700" for="file_input">Profile Photo</label>
+              <div th:replace="~{fragments/login/fileInput}"></div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="bg-primary hover:cursor-pointer mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4 md:w-auto"
+        >
+          Create account
+        </button>
       </form>
+      <div class="mt-4 flex w-full items-center justify-center">
+        <p class="w-full max-w-4xl text-sm font-light text-gray-500">
+          Already have an account?
+          <a href="/login" class="text-primary font-medium hover:underline">Sing up</a>
+        </p>
+      </div>
     </main>
   </body>
 </html>
