@@ -5,11 +5,13 @@
   layout:decorate="~{layouts/cleanLayout}"
 >
   <head>
-    <title>Athletix - Create user</title>
+    <title>Athletix - Create Account</title>
   </head>
-  <body>
-    <main layout:fragment="content">
-      create user
+  <body class="mt-28 bg-gray-100">
+    <main layout:fragment="content" class="p-6">
+      <form th:action="@{/create-account}" method="post" class="mx-auto">
+        <!-- <div th:replace="fragments :: inputLabel('email', "EmailAddress", "Email address")"></div> -->
+      </form>
     </main>
   </body>
 </html>
