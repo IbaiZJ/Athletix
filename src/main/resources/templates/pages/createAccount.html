@@ -10,7 +10,11 @@
   <body class="mt-28 bg-gray-100">
     <main layout:fragment="content" class="p-6">
       <form th:action="@{/create-account}" method="post" class="mx-auto">
-        <!-- <div th:replace="fragments :: inputLabel('email', "EmailAddress", "Email address")"></div> -->
+        <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Email address')}"></div>
+        <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Email address')}"></div>
+        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
+        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
+        <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email address')}"></div>
       </form>
     </main>
   </body>

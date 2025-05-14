@@ -12,7 +12,7 @@
         <img src="/img/favicon.png" class="h-10 w-10" alt="Athletix Logo" />
         <h1 class="self-center text-4xl font-semibold whitespace-nowrap">Athletix</h1>
       </div>
-      <div class="w-full p-4 px-6">
+      <div class="w-full max-w-96 p-4 px-6">
         <form th:action="@{/login}" method="post" class="mx-auto">
           <div class="group relative z-0 mb-5 w-full">
             <input
@@ -62,11 +62,11 @@
               class="bg-primary hover:bg-primary-800 focus:ring-primary-300 flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4"
             />
           </div>
-          <p class="mt-4 text-sm font-light text-gray-500">
-            Don’t have an account yet?
-            <a href="/create-account" class="text-primary font-medium hover:underline">Create account</a>
-          </p>
         </form>
+        <p class="mt-4 text-sm font-light text-gray-500">
+          Don’t have an account yet?
+          <a href="/create-account" class="text-primary font-medium hover:underline">Create account</a>
+        </p>
       </div>
     </main>
   </body>
