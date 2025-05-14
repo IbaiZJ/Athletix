@@ -9,9 +9,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    // https://www.baeldung.com/spring-boot-security-autoconfiguration
-    // https://spring.io/guides/gs/securing-web
-
     private final String[] PATH_WHITELIST = {
             "/",
             "/about",
@@ -19,10 +16,11 @@ public class SecurityConfig {
             "/services",
             "/create-account",
             "/css/**",
-            "/js/headerNav.js", // ||| botoira bakarrik sartu ahal izateko
+            "/js/headerNav.js",
             "/img/**",
             "/svg/**"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,9 +29,13 @@ public class SecurityConfig {
                 .anyRequest().authenticated())
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         // .defaultSuccessUrl("/", true) // redirect
+                        .failureUrl("/login?error=true")
                         .permitAll())
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        // .logoutSuccessUrl("/login?logout=true")
+                        .permitAll());
 
         return http.build();
     }
