@@ -1,4 +1,4 @@
-package com.athletix.service;
+package com.athletix.service.custom;
 
 import java.util.List;
 

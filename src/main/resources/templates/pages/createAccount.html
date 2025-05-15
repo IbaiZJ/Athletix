@@ -24,12 +24,13 @@
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Name')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Surname')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname2', 'Second Surname')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'town', 'Town')}"></div>
           </div>
           <div class="w-full">
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'height', 'Height (cm)')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'weight', 'Weight (kg)')}"></div>
             <div>
-              <label class="mb-2 block text-xl font-medium text-gray-700" for="file_input">Profile Photo</label>
+              <label class="mb-2 block text-xl font-medium text-gray-700">Profile Photo</label>
               <div th:replace="~{fragments/login/fileInput}"></div>
             </div>
           </div>
@@ -44,7 +45,7 @@
       <div class="mt-4 flex w-full items-center justify-center">
         <p class="w-full max-w-4xl text-sm font-light text-gray-500">
           Already have an account?
-          <a href="/login" class="text-primary font-medium hover:underline">Sing up</a>
+          <a href="/login" class="text-primary font-medium hover:underline">Sign up</a>
         </p>
       </div>
     </main>
