@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +21,16 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
         String username = authentication.getName();
-        log.info("User '{}' log-ins", username);
-        
-        response.sendRedirect("/" + username);
-        log.info("Redirect to /{}", username);
+        log.info("User '{}' logs-in", username);
+
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails user) {
+            request.getSession().setAttribute("user", user);
+            log.info("User '{}' saved in session", user.getUsername());
+        }
+
+        response.sendRedirect("/home");
+        log.info("Redirect to /home");
     }
 
 }

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/img/favicon.png" type="image/svg+xml" />
+    <link href="/css/tailwind.output.css" rel="stylesheet" />
+    <script src="/js/app/appHeaderSidebar.js"></script>
+    <title>Athletix</title>
+  </head>
+  <body class="flex flex-col bg-gray-100">
+    <!-- https://flowbite.com/blocks/application/shells/ -->
+    <div th:replace="~{fragments/app/header/appHeader}"></div>
+    <main>
+      <div th:replace="~{fragments/app/sidebar}"></div>
+      <section
+        id="main"
+        layout:fragment="content"
+        class="mt-16 h-auto overflow-y-auto bg-gray-100 p-4 md:ml-64"
+      ></section>
+    </main>
+  </body>
+</html>
