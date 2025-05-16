@@ -10,3 +10,6 @@ create table users (
 
 alter table users
 	add constraint users_PK primary key(id);
+
+insert into users (id, username, password) values
+(1, 'admin', 'admin');
