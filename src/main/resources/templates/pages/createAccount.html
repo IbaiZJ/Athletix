@@ -25,6 +25,8 @@
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Surname')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname2', 'Second Surname')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'town', 'Town')}"></div>
+            <!-- <div id="map"></div>
+            <script type="module" src="/js/createAccountMap.js"></script> -->
           </div>
           <div class="w-full">
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'height', 'Height (cm)')}"></div>
@@ -37,7 +39,7 @@
         </div>
         <button
           type="submit"
-          class="bg-primary hover:cursor-pointer mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4 md:w-auto"
+          class="bg-primary mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white hover:cursor-pointer focus:ring-4 md:w-auto"
         >
           Create account
         </button>

@@ -25,6 +25,7 @@ public class SecurityConfig {
             "/create-account",
             "/css/**",
             "/js/headerNav.js",
+            "/js/createAccountMap.js",
             "/img/**",
             "/svg/**"
     };
