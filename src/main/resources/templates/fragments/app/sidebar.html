@@ -1,4 +1,51 @@
 <aside
   id="sidebar"
-  class="fixed left-0 z-40 mt-16 h-screen w-64 -translate-x-full bg-green-500 pt-14 transition-transform md:translate-x-0"
-></aside>
+  class="fixed left-0 z-40 mt-16 h-screen w-64 -translate-x-full border-r border-gray-200 bg-white shadow-xl transition-transform md:translate-x-0"
+>
+  <div class="h-full w-full p-4">
+    <nav class="space-y-2">
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            href="/home"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-xl font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+          >
+            🏠 <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/dashboard"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-xl font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+          >
+            📊 <span>Profiles</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/messages"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-xl font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+          >
+            💬 <span>Messages</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/settings"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-xl font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+          >
+            ⚙️ <span>Settings</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/logout"
+            class="flex items-center gap-4 rounded-lg px-4 py-3 text-xl font-semibold text-red-600 transition hover:bg-red-50"
+          >
+            🚪 <span>Sign out</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>
