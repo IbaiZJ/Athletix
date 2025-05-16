@@ -32,7 +32,7 @@ public class UserService {
                 "register", "signup", "signin", "logout", "signout", "home", "dashboard", "profile", "settings",
                 "configuration", "preferences", "account", "user", "users", "adminpanel", "adminpanel",
                 "adminpanel", "homepage", "index", "main", "default", "welcome", "about", "contact", "services",
-                "create-account" };
+                "create-account", "user", "profile", "profiles" };
         for (String forbidden : FORBIDDEN_USERNAMES) {
             if (username.equalsIgnoreCase(forbidden)) {
                 log.info("El nombre de usuario no es válido");
@@ -71,6 +71,11 @@ public class UserService {
             return false;
         // At least 1 number
         return password.matches(".*[0-9].*");
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElse(null);
     }
 
 }
