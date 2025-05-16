@@ -1,6 +1,7 @@
 package com.athletix.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,8 @@ import com.athletix.service.custom.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    // https://spring.io/guides/gs/securing-web
+
     private final String[] PATH_WHITELIST = {
             "/",
             "/about",
@@ -30,7 +33,11 @@ public class SecurityConfig {
             "/svg/**"
     };
 
-    @SuppressWarnings("unused")
+    @Value("${remember-me.key}")
+    private String rememberMeKey;
+    @Value("${remember-me.duration}")
+    private Integer duration;
+
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
@@ -50,11 +57,14 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .permitAll())
                 .rememberMe(remember -> remember
-                        .key("eb7ae8b9a5e380327d641ace5cb49c8dd27af093")
+                        .key(rememberMeKey)
                         .rememberMeParameter("remember-me")
-                        .tokenValiditySeconds(7 * 24 * 60 * 60)) // 7 days
+                        .userDetailsService(userDetailsService)
+                        .tokenValiditySeconds(duration))
                 .logout((logout) -> logout
-                        // .logoutSuccessUrl("/login?logout=true")
+                        .logoutUrl("/logout")
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .logoutSuccessUrl("/login?logout=true")
                         .permitAll());
 
         return http.build();
