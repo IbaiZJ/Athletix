@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleSidebar();
   }
 
-  // 🔔 Notifications dropdown toggle
   notificationsButton.addEventListener('click', (e) => {
     e.preventDefault();
     const isVisible = !notificationsDropDown.classList.contains('hidden');

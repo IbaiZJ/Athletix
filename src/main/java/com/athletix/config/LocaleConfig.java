@@ -44,11 +44,9 @@ public class LocaleConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename(basename);
-        // messageSource.setBasename(classpath:/i18n/messages);
         // messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(seconds);
-        // messageSource.setCacheSeconds(3600);
         return messageSource;
     }
 
