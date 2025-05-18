@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleSidebar() {
     if (isSidebarOpen()) {
       toggleButton.innerHTML =
-        '<img src="/svg/app/header/sidebarX.svg" alt="Notifications" class="h-8 w-8 bg-gray-200 rounded-md" />';
+        '<img src="/svg/app/header/sidebarX.svg" alt="Notifications" class="h-8 w-8 bg-primary-hover rounded-md" />';
       mainSection.classList.add(backgroundFilter);
     } else {
-      toggleButton.innerHTML = '<img src="/svg/app/header/sidebarButton.svg" alt="Notifications" class="h-8 w-8" />';
+      toggleButton.innerHTML =
+        '<img src="/svg/app/header/sidebarButton.svg" alt="Notifications" class="h-8 w-8" />';
       mainSection.classList.remove(backgroundFilter);
     }
   }
@@ -47,35 +48,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   notificationsButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const isVisible = !notificationsDropDown.classList.contains('hidden');
+    e.stopPropagation();
+    const isOpen = !notificationsDropDown.classList.contains('hidden');
 
-    if (isVisible) {
-      notificationsDropDown.classList.add('hidden');
-      notificationsButton.blur();
-    } else {
-      notificationsDropDown.classList.remove('hidden');
-      notificationsButton.focus();
-    }
-  });
-
-  notificationsButton.addEventListener('blur', () => {
     notificationsDropDown.classList.add('hidden');
+    userDropDown.classList.add('hidden');
+
+    if (!isOpen) {
+      notificationsDropDown.classList.remove('hidden');
+    }
   });
 
   userHeaderButton.addEventListener('click', (e) => {
     e.preventDefault();
-    const isVisible = !userDropDown.classList.contains('hidden');
+    e.stopPropagation();
+    const isOpen = !userDropDown.classList.contains('hidden');
 
-    if (isVisible) {
-      userDropDown.classList.add('hidden');
-      userHeaderButton.blur();
-    } else {
+    userDropDown.classList.add('hidden');
+    notificationsDropDown.classList.add('hidden');
+
+    if (!isOpen) {
       userDropDown.classList.remove('hidden');
-      userHeaderButton.focus();
     }
   });
 
-  userHeaderButton.addEventListener('blur', () => {
-    userDropDown.classList.add('hidden');
+  document.addEventListener('click', (e) => {
+    if (
+      !notificationsDropDown.contains(e.target) &&
+      !notificationsButton.contains(e.target)
+    ) {
+      notificationsDropDown.classList.add('hidden');
+    }
+
+    if (
+      !userDropDown.contains(e.target) &&
+      !userHeaderButton.contains(e.target)
+    ) {
+      userDropDown.classList.add('hidden');
+    }
   });
 });
