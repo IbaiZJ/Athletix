@@ -5,51 +5,7 @@
         <img src="/img/favicon.png" class="h-8 w-8" alt="Athletix Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap">Athletix</span>
       </a>
-      <div class="flex relative space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-        <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
-          <button type="button" data-dropdown-toggle="language-dropdown-menu"
-            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900  rounded-lg cursor-pointer hover:bg-gray-100 ">
-            <img th:src="@{/svg/flags/english.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
-            English (US)  
-          </button>
-          <!-- Dropdown --> 
-          <div
-            class="z-50 hidden absolute top-6 left-2 my-4 text-base list-none bg-gray-50 divide-y divide-gray-100 rounded-lg shadow-sm "
-            id="language-dropdown-menu">
-            <ul class="py-2 font-medium" role="none">
-              <li>
-                <a href="#"
-                  class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  role="menuitem">
-                  <div class="inline-flex items-center">
-                    <img th:src="@{/svg/flags/english.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
-                    English (US)
-                  </div>
-                </a>
-              </li>
-              
-              <li>
-                <a href="#"
-                  class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                  role="menuitem">
-                  <div class="inline-flex items-center">
-                    <img th:src="@{/svg/flags/spanish.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
-                    Spanish (ES)
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#"
-                  class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-                  role="menuitem">
-                  <div class="inline-flex items-center">
-                    <img th:src="@{/svg/flags/basque.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="arrow right" />
-                    Basque (EUS)
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
+      <div th:replace="~{fragments/landing/dropdown}"></div>
 
         </div>
         <button data-collapse-toggle="navbar-cta" type="button"
