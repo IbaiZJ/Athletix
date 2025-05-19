@@ -15,3 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.querySelector('[data-dropdown-toggle="language-dropdown-menu"]');
+    const dropdownMenu = document.getElementById("language-dropdown-menu");
+
+    toggleButton.addEventListener("click", function () {
+      dropdownMenu.classList.toggle("hidden");
+    });
+
+    // Cierra el menú si haces clic fuera
+    document.addEventListener("click", function (event) {
+      if (!toggleButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.add("hidden");
+      }
+    });
+  });
