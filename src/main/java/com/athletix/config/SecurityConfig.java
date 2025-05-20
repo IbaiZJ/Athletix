@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .successHandler(successHandler)
                         // .defaultSuccessUrl("/", true) // redirect
-                        .failureUrl("/login?error=true")
+                        // .failureUrl("/login?error=true")
                         .permitAll())
                 .rememberMe(remember -> remember
                         .key(rememberMeKey)
