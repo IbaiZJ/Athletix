@@ -1,8 +1,7 @@
-DROP DATABASE IF EXISTS PBL;
-CREATE DATABASE PBL;
-USE PBL;
+DROP DATABASE IF EXISTS Athletix;
+CREATE DATABASE Athletix;
+USE Athletix;
 
--- Script SQL para la creación de las tablas del modelo relacional de ATHLETIX
 
 CREATE TABLE Tiposnotificaciones (
     IDtipos INT AUTO_INCREMENT,
@@ -29,7 +28,7 @@ CREATE TABLE Usuarios (
     Altura FLOAT,
     Peso FLOAT,
     Telefono VARCHAR(15),
-    Imagen VARCHAR(255),
+    Imagen VARCHAR (255),
     IDentrenador INT,
     IDtipousuario INT,
     PRIMARY KEY (ID),
@@ -70,7 +69,9 @@ CREATE TABLE Eventos (
     fecha DATE,
     kilometro FLOAT,
     direccion VARCHAR(255),
-    PRIMARY KEY (IDevento)
+    IDcreador INT,
+    PRIMARY KEY (IDevento),
+    CONSTRAINT fk_eventos_usuario FOREIGN KEY (IDcreador) REFERENCES Usuarios(ID)
 );
 
 CREATE TABLE Retos (
@@ -80,7 +81,8 @@ CREATE TABLE Retos (
     kilometro FLOAT,
     duracion TIME,
     IDentrenador INT,
-    PRIMARY KEY (IDreto)
+    PRIMARY KEY (IDreto),
+	CONSTRAINT fk_retos_usuario FOREIGN KEY (IDentrenador) REFERENCES Usuarios(ID)
 );
 
 CREATE TABLE Deportes (
@@ -136,7 +138,7 @@ CREATE TABLE RetosUsuarios (
     fecha DATE,
     km FLOAT,
     duracion TIME,
-    PRIMARY KEY (IDreto, IDusuario),
+    PRIMARY KEY (IDreto, IDusuario,fecha),
     CONSTRAINT fk_retousuario_reto FOREIGN KEY (IDreto) REFERENCES Retos(IDreto),
     CONSTRAINT fk_retousuario_usuario FOREIGN KEY (IDusuario) REFERENCES Usuarios(ID)
 );
@@ -148,7 +150,10 @@ CREATE TABLE Seguimiento (
     fecha DATE,
     titulo VARCHAR(100),
     deskripcion TEXT,
-    PRIMARY KEY (IDseguimiento)
+    IDusuario int,
+    PRIMARY KEY (IDseguimiento),
+	CONSTRAINT fk_seguimiento_usuario FOREIGN KEY (IDusuario) REFERENCES Usuarios(ID)
+    
 );
 
 CREATE TABLE DeportesUsuarios (
@@ -166,5 +171,8 @@ CREATE TABLE Imagen (
     IDseguimiento INT,
     IDevento INT,
     imagen BLOB,
-    PRIMARY KEY (IDimagen)
+    PRIMARY KEY (IDimagen),
+    CONSTRAINT fk_imagen_reto_ FOREIGN KEY (IDreto) REFERENCES Retos(IDreto),
+    CONSTRAINT fk_imagen_seguimiento FOREIGN KEY (IDseguimiento) REFERENCES Seguimiento(IDseguimiento),
+    CONSTRAINT fk_imagen_evento FOREIGN KEY (IDevento) REFERENCES Eventos(IDevento)
 );

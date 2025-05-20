@@ -25,10 +25,10 @@ public class SecurityConfig {
             "/about",
             "/contact",
             "/services",
-            "/create-account",
+            "/user/create",
             "/css/**",
             "/js/headerNav.js",
-            "/js/createAccountMap.js",
+            "/js/createAccountPage.js",
             "/img/**",
             "/svg/**"
     };
