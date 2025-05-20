@@ -12,6 +12,7 @@ public class UserSessionDTO {
     private String name;
     private String surname;
     private String surname2;
+    private String email;
     private String profileImage;
 
     public UserSessionDTO(User user) {
@@ -19,6 +20,7 @@ public class UserSessionDTO {
         name = user.getName();
         surname = user.getSurname();
         surname2 = user.getSurname2();
+        email = user.getEmail();
         profileImage = user.getProfileImage();
     }
 

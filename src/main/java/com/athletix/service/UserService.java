@@ -51,8 +51,8 @@ public class UserService {
             throw new IllegalArgumentException(isValidPassword);
         }
 
+        // Save user
         User createUser = new User();
-
         createUser.setUsername(user.getUsername());
         createUser.setPassword(passwordEncoder.encode(user.getPassword()));
         createUser.setEmail(user.getEmail());
