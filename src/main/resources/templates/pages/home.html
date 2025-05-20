@@ -10,10 +10,7 @@
   </head>
   <body>
     <section layout:fragment="content">
-      <h1 th:text="${session.user.username}"></h1>
-      <p th:text="${session.user.id}"></p>
-      <p th:text="${session.user.height}"></p>
-      <p th:text="${session.user.town}"></p>
+      <h1 th:text="'Hello ' + ${session.user.username}"></h1>
     </section>
   </body>
 </html>
