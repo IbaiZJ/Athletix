@@ -2,6 +2,7 @@ package com.athletix.model;
 
 import java.io.Serializable;
 
+import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "usuarios")
 public class User implements Serializable {
@@ -57,6 +59,9 @@ public class User implements Serializable {
 
     @Column(name = "Telefono")
     private String phone;
+
+    @Column(name = "FechaNcimiento")
+    private String birthDate;
 
     @Column(name = "Imagen")
     private String profileImage;

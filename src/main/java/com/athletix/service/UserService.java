@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.athletix.custom.CustomLoginSuccessHandler;
+import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.User;
 import com.athletix.repository.UserRepository;
 
 @Service
 public class UserService {
-    private static final Logger log = LoggerFactory.getLogger(CustomLoginSuccessHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -20,7 +20,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(User user) {
+    public void registerUser(UserRegistrationDTO user) {
         // 1. User exists?
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             log.info("El nombre de usuario ya está en uso");
@@ -46,9 +46,9 @@ public class UserService {
             throw new IllegalArgumentException("El nombre de usuario y contraseña es obligatorio");
         }
 
-        if (!isValidPassword(user.getPassword())) {
-            log.info("La contraseña no es válida");
-            throw new IllegalArgumentException("La contraseña no es válida");
+        String isValidPassword = isValidPassword(user.getPassword(), user.getRepeatPassword());
+        if (isValidPassword != null) {
+            throw new IllegalArgumentException(isValidPassword);
         }
 
         User createUser = new User();
@@ -64,28 +64,31 @@ public class UserService {
         createUser.setHeight(user.getHeight());
         createUser.setWeight(user.getWeight());
         createUser.setPhone(user.getPhone());
-        createUser.setProfileImage(user.getProfileImage());
-        createUser.setTrainer(user.getTrainer());
-        createUser.setUserType(user.getUserType());
-        createUser.setRole(user.getRole());
+        createUser.setPhone(user.getBirthDate());
+        createUser.setProfileImage(user.getProfileImageURL());
 
         log.info("User saved: {}", user.getUsername());
         userRepository.save(createUser);
     }
 
-    private boolean isValidPassword(String password) {
+    private String isValidPassword(String password, String repeatPassword) {
         if (password == null)
-            return false;
+            return "La contraseña no puede ser nula";
         if (password.length() < 8)
-            return false;
+            return "La contraseña debe tener al menos 8 caracteres";
         // At least 1 uppercase
         if (!password.matches(".*[A-Z].*"))
-            return false;
+            return "La contraseña debe tener al menos 1 mayúscula";
         // At least 1 lowercase
         if (!password.matches(".*[a-z].*"))
-            return false;
+            return "La contraseña debe tener al menos 1 minúscula";
         // At least 1 number
-        return password.matches(".*[0-9].*");
+        if(!password.matches(".*[0-9].*"))
+            return "La contraseña debe tener al menos 1 número";
+        // 2 passwords must be equal
+        if(!password.equals(repeatPassword))
+            return "Las contraseñas no coinciden";
+        return null;
     }
 
     public User findByUsername(String username) {
