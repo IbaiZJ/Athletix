@@ -20,9 +20,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(String username, String password) {
+    public void registerUser(User user) {
         // 1. User exists?
-        if (userRepository.findByUsername(username).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             log.info("El nombre de usuario ya está en uso");
             throw new IllegalArgumentException("El nombre de usuario ya está en uso");
         }
@@ -34,28 +34,43 @@ public class UserService {
                 "adminpanel", "homepage", "index", "main", "default", "welcome", "about", "contact", "services",
                 "create-account", "user", "profile", "profiles" };
         for (String forbidden : FORBIDDEN_USERNAMES) {
-            if (username.equalsIgnoreCase(forbidden)) {
+            if (user.getUsername().equalsIgnoreCase(forbidden)) {
                 log.info("El nombre de usuario no es válido");
                 throw new IllegalArgumentException("El nombre de usuario no es válido");
             }
         }
 
         // 3. Check username and password
-        if (username == null || username.trim().isEmpty()) {
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
             log.info("El nombre de usuario y contraseña es obligatorio");
             throw new IllegalArgumentException("El nombre de usuario y contraseña es obligatorio");
         }
 
-        if (!isValidPassword(password)) {
+        if (!isValidPassword(user.getPassword())) {
             log.info("La contraseña no es válida");
             throw new IllegalArgumentException("La contraseña no es válida");
         }
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        log.info("User saved: {}", username);
-        userRepository.save(user);
+        User createUser = new User();
+
+        createUser.setUsername(user.getUsername());
+        createUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        createUser.setEmail(user.getEmail());
+        createUser.setName(user.getName());
+        createUser.setSurname(user.getSurname());
+        createUser.setSurname2(user.getSurname2());
+        createUser.setGender(user.getGender());
+        createUser.setTown(user.getTown());
+        createUser.setHeight(user.getHeight());
+        createUser.setWeight(user.getWeight());
+        createUser.setPhone(user.getPhone());
+        createUser.setProfileImage(user.getProfileImage());
+        createUser.setTrainer(user.getTrainer());
+        createUser.setUserType(user.getUserType());
+        createUser.setRole(user.getRole());
+
+        log.info("User saved: {}", user.getUsername());
+        userRepository.save(createUser);
     }
 
     private boolean isValidPassword(String password) {
@@ -63,10 +78,10 @@ public class UserService {
             return false;
         if (password.length() < 8)
             return false;
-        // At lieast 1 uppercase
+        // At least 1 uppercase
         if (!password.matches(".*[A-Z].*"))
             return false;
-        // At lieast 1 lowercase
+        // At least 1 lowercase
         if (!password.matches(".*[a-z].*"))
             return false;
         // At least 1 number
