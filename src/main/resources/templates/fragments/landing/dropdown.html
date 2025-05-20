@@ -1,9 +1,19 @@
 <div class="flex relative space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
         <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
-          <button type="button" data-dropdown-toggle="language-dropdown-menu"
-            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900  rounded-lg cursor-pointer hover:bg-gray-100 ">
+          <button data-lang="en" type="button" data-dropdown-toggle="language-dropdown-menu"
+            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 w rounded-lg cursor-pointer hover:bg-gray-100 ">
             <img th:src="@{/svg/flags/english.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
             English (US)  
+          </button>
+          <button data-lang="es" type="button" data-dropdown-toggle="language-dropdown-menu"
+            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-16 rounded-lg cursor-pointer hover:bg-gray-100 ">
+            <img th:src="@{/svg/flags/spanish.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
+            Spanish (ES)  
+          </button>
+          <button data-lang="eus" type="button" data-dropdown-toggle="language-dropdown-menu"
+            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-16 rounded-lg cursor-pointer hover:bg-gray-100 ">
+            <img th:src="@{/svg/flags/basque.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
+            Basque (EUS)  
           </button>
           <!-- Dropdown --> 
           <div
@@ -11,7 +21,7 @@
             id="language-dropdown-menu">
             <ul class="py-2 font-medium" role="none">
               <li>
-                <a href="#"
+                <a href="?lang=en"
                   class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem">
                   <div class="inline-flex items-center">
@@ -22,7 +32,7 @@
               </li>
               
               <li>
-                <a href="#"
+                <a href="?lang=es"
                   class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                   role="menuitem">
                   <div class="inline-flex items-center">
@@ -32,8 +42,8 @@
                 </a>
               </li>
               <li>
-                <a href="#"
-                  class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                <a href="?lang=eus"
+                  class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem">
                   <div class="inline-flex items-center">
                     <img th:src="@{/svg/flags/basque.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="arrow right" />
@@ -43,3 +53,4 @@
               </li>
             </ul>
           </div>
+          
