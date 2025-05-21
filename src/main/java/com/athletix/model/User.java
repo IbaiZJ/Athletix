@@ -49,9 +49,9 @@ public class User implements Serializable {
     
     private String town;
 
-    private Integer height;
+    private String height;
 
-    private Integer weight;
+    private String weight;
 
     private String phone;
 
