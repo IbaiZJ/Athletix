@@ -15,15 +15,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Tipousuario")
+@Table(name = "user_types")
 public class UserType implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "descripcion")
+    @Column(nullable = false, unique = true)
     private String description;
 }

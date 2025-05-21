@@ -67,7 +67,6 @@ public class UserService {
         createUser.setProfileImage(user.getProfileImage());
         createUser.setTrainer(user.getTrainer());
         createUser.setUserType(user.getUserType());
-        createUser.setRole(user.getRole());
 
         log.info("User saved: {}", user.getUsername());
         userRepository.save(createUser);
