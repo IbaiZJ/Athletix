@@ -16,6 +16,7 @@ public class HomeController {
         // if (session.getAttribute("user") == null) {
         //     return "pages/login";
         // }
+        log.info(session.getAttribute("user").toString());
         log.info("Home page accessed");
         return "pages/home";
     }

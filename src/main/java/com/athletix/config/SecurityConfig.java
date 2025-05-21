@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.athletix.custom.CustomLoginSuccessHandler;
+import com.athletix.custom.CustomAuthenticationSuccessHandler;
 import com.athletix.service.custom.CustomUserDetailsService;
 
 @Configuration
@@ -42,7 +42,7 @@ public class SecurityConfig {
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
-    private CustomLoginSuccessHandler successHandler;
+    private CustomAuthenticationSuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .successHandler(successHandler)
                         // .defaultSuccessUrl("/", true) // redirect
-                        .failureUrl("/login?error=true")
+                        // .failureUrl("/login?error=true")
                         .permitAll())
                 .rememberMe(remember -> remember
                         .key(rememberMeKey)

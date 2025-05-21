@@ -10,7 +10,7 @@
   </head>
   <body>
     <section layout:fragment="content">
-      <h1 th:text="${session.user.username}">Usuario-> ...</h1>
+      <h1 th:text="'Hello ' + ${session.user.username}"></h1>
     </section>
   </body>
 </html>

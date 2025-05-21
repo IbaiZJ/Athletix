@@ -11,12 +11,12 @@
     <script type="module" src="/js/createAccountPage.js"></script>
   </head>
   <body class="bg-gray-100">
-    <main layout:fragment="content" class="px-6 pt-6">
+    <main layout:fragment="content" class="px-6 pt-6 pb-6 md:pb-0">
       <div class="mb-5 inline-flex w-full items-center justify-center space-x-3 rtl:space-x-reverse">
         <img src="/img/favicon.png" class="h-10 w-10" alt="Athletix Logo" />
         <h1 class="self-center text-4xl font-semibold whitespace-nowrap">Athletix</h1>
       </div>
-      <form th:action="@{/user/create}" method="post" class="mx-auto w-full max-w-4xl">
+      <form th:action="@{/user/create}" method="post" enctype="multipart/form-data" class="mx-auto w-full max-w-4xl">
         <div class="flex flex-col md:w-full md:flex-row md:gap-10">
           <div class="w-full">            
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Name')}"></div>
@@ -27,7 +27,7 @@
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'username', 'Username')}"></div>
             <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'password', 'Password')}"></div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', '', 'Repeat Password')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'repeatPassword', 'Repeat Password')}"></div>
             <div th:replace="~{fragments/login/createError}"></div>
           </div>
           <div class="w-full">
