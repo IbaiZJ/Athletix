@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.athletix.model.DTO.UserSessionDTO;
-import com.athletix.model.User;
+import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
 
 import jakarta.servlet.ServletException;
@@ -35,7 +35,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         HttpSession session = request.getSession();
         String username = authentication.getName();
 
-        User user = userRepository.findByUsername(username)
+        Users user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         UserSessionDTO userSessionDTO = new UserSessionDTO(user);
         log.info(username + " has logged in successfully");

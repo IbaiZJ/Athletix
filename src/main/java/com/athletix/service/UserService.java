@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.athletix.model.DTO.UserRegistrationDTO;
-import com.athletix.model.User;
+import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
 
 @Service
@@ -52,7 +52,7 @@ public class UserService {
         }
 
         // Save user
-        User createUser = new User();
+        Users createUser = new Users();
         createUser.setUsername(user.getUsername());
         createUser.setPassword(passwordEncoder.encode(user.getPassword()));
         createUser.setEmail(user.getEmail());
@@ -91,7 +91,7 @@ public class UserService {
         return null;
     }
 
-    public User findByUsername(String username) {
+    public Users findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElse(null);
     }
