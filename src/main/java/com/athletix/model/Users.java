@@ -1,26 +1,30 @@
 package com.athletix.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import groovy.transform.ToString;
+import com.athletix.enums.GenderEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -45,7 +49,7 @@ public class User implements Serializable {
     private String surname2;
 
     @Enumerated(EnumType.STRING)
-    private String gender;
+    private GenderEnum gender;
     
     private String town;
 
@@ -59,9 +63,17 @@ public class User implements Serializable {
 
     private String profileImage;
 
-    @ManyToOne
-    private User trainer;
+    // @ManyToOne
+    // private Users trainer;
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+    private Set<Users> trainees;
     
     @ManyToOne
-    private UserType userType;
+    private UserTypes userType;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UsersEvents> events = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UsersNotifications> notifications = new HashSet<>();
 }

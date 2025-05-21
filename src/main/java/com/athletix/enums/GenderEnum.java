@@ -1,5 +1,5 @@
 package com.athletix.enums;
 
-public enum Gender {
+public enum GenderEnum {
     MALE, FEMALE, OTHER
 }

@@ -2,7 +2,7 @@ package com.athletix.model.DTO;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.athletix.enums.Gender;
+import com.athletix.enums.GenderEnum;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class UserRegistrationDTO {
     private String name;
     private String surname;
     private String surname2;
-    private Gender gender;
+    private GenderEnum gender;
     private String town;
     private String height;
     private String weight;
