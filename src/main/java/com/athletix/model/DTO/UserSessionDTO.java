@@ -1,6 +1,6 @@
 package com.athletix.model.DTO;
 
-import com.athletix.model.User;
+import com.athletix.model.Users;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class UserSessionDTO {
     private String email;
     private String profileImage;
 
-    public UserSessionDTO(User user) {
+    public UserSessionDTO(Users user) {
         username = user.getUsername();
         name = user.getName();
         surname = user.getSurname();
