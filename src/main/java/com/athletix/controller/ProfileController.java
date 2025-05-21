@@ -25,7 +25,7 @@ public class ProfileController {
     UserService userService;
 
     @GetMapping("")
-    public String getProfiles(String param) {
+    public String getProfiles() {
         log.info("Profile page accessed");
         return "/pages/profiles";
     }

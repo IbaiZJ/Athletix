@@ -64,8 +64,9 @@ public class UserService {
         createUser.setHeight(user.getHeight());
         createUser.setWeight(user.getWeight());
         createUser.setPhone(user.getPhone());
-        createUser.setPhone(user.getBirthDate());
-        createUser.setProfileImage(user.getProfileImageURL());
+        createUser.setProfileImage(user.getProfileImage());
+        createUser.setTrainer(user.getTrainer());
+        createUser.setUserType(user.getUserType());
 
         log.info("User saved: {}", user.getUsername());
         userRepository.save(createUser);
