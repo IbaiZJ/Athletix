@@ -17,7 +17,7 @@ import com.athletix.service.UserService;
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
-    private static final Logger log = LoggerFactory.getLogger(PublicController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProfileController.class);
 
     private static final String PROFILE_USER = "profileUser";
 
@@ -26,12 +26,13 @@ public class ProfileController {
 
     @GetMapping("")
     public String getProfiles(String param) {
+        log.info("Profile page accessed");
         return "/pages/profiles";
     }
 
     @GetMapping("/{username}")
     public String getUserProfile(@PathVariable("username") String username, Model model) {
-        log.info("Profile page accessed for user: {}", username);
+        log.info("Profile page accessed for user: " + username);
 
         // Get user by username
         Optional<User> userOptional = Optional.ofNullable(userService.findByUsername(username));
