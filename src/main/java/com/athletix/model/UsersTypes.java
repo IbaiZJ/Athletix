@@ -15,8 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_types")
-public class UserTypes implements Serializable {
+@Table(name = "users_types")
+public class UsersTypes implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

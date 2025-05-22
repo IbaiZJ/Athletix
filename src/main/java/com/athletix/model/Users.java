@@ -63,13 +63,14 @@ public class Users implements Serializable {
 
     private String profileImage;
 
-    // @ManyToOne
-    // private Users trainer;
+    @ManyToOne
+    private Users trainer;
+    
     @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
     private Set<Users> trainees;
     
     @ManyToOne
-    private UserTypes userType;
+    private UsersTypes userType;
 
     @OneToMany(mappedBy = "user")
     private Set<UsersEvents> events = new HashSet<>();
