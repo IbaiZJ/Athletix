@@ -45,12 +45,12 @@ public class Users implements Serializable {
 
     @Column(nullable = false)
     private String surname;
-    
+
     private String surname2;
 
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
-    
+
     private String town;
 
     private String height;
@@ -65,10 +65,10 @@ public class Users implements Serializable {
 
     @ManyToOne
     private Users trainer;
-    
+
     @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
     private Set<Users> trainees;
-    
+
     @ManyToOne
     private UsersTypes userType;
 
@@ -77,4 +77,13 @@ public class Users implements Serializable {
 
     @OneToMany(mappedBy = "user")
     private Set<UsersNotifications> notifications = new HashSet<>();
+
+    @OneToMany(mappedBy = "user1")
+    private Set<Chats> initiatedChats = new HashSet<>();
+
+    @OneToMany(mappedBy = "user2")
+    private Set<Chats> receivedChats = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<UsersGroups> groups = new HashSet<>();
 }
