@@ -28,28 +28,28 @@ public class UserService {
         }
 
         // 2. User cant have some names
-        // final String[] FORBIDDEN_USERNAMES = { "admin", "administrator", "root", "superuser", "index", "login",
-        //         "register", "signup", "signin", "logout", "signout", "home", "dashboard", "profile", "settings",
-        //         "configuration", "preferences", "account", "user", "users", "adminpanel", "adminpanel",
-        //         "adminpanel", "homepage", "index", "main", "default", "welcome", "about", "contact", "services",
-        //         "create-account", "user", "profile", "profiles" };
-        // for (String forbidden : FORBIDDEN_USERNAMES) {
-        //     if (user.getUsername().equalsIgnoreCase(forbidden)) {
-        //         log.info("El nombre de usuario no es válido");
-        //         throw new IllegalArgumentException("El nombre de usuario no es válido");
-        //     }
-        // }
+        final String[] FORBIDDEN_USERNAMES = { "admin", "administrator", "root", "superuser", "index", "login",
+                "register", "signup", "signin", "logout", "signout", "home", "dashboard", "profile", "settings",
+                "configuration", "preferences", "account", "user", "users", "adminpanel", "adminpanel",
+                "adminpanel", "homepage", "index", "main", "default", "welcome", "about", "contact", "services",
+                "create-account", "user", "profile", "profiles" };
+        for (String forbidden : FORBIDDEN_USERNAMES) {
+            if (user.getUsername().equalsIgnoreCase(forbidden)) {
+                log.info("El nombre de usuario no es válido");
+                throw new IllegalArgumentException("El nombre de usuario no es válido");
+            }
+        }
 
-        // // 3. Check username and password
-        // if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
-        //     log.info("El nombre de usuario y contraseña es obligatorio");
-        //     throw new IllegalArgumentException("El nombre de usuario y contraseña es obligatorio");
-        // }
+        // 3. Check username and password
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+            log.info("El nombre de usuario y contraseña es obligatorio");
+            throw new IllegalArgumentException("El nombre de usuario y contraseña es obligatorio");
+        }
 
-        // String isValidPassword = isValidPassword(user.getPassword(), user.getRepeatPassword());
-        // if (isValidPassword != null) {
-        //     throw new IllegalArgumentException(isValidPassword);
-        // }
+        String isValidPassword = isValidPassword(user.getPassword(), user.getRepeatPassword());
+        if (isValidPassword != null) {
+            throw new IllegalArgumentException(isValidPassword);
+        }
 
         // Save user
         Users createUser = new Users();

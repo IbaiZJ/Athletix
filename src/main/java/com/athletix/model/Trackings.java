@@ -1,11 +1,14 @@
 package com.athletix.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -14,17 +17,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "users_groups")
-public class UsersGroups implements Serializable {
+@Table(name = "trackings")
+public class Trackings implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    private Users user;
+    private String title;
 
-    @ManyToOne
-    private Groups group;
+    private String description;
+
+    private Integer km;
+
+    private LocalDate date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users user;
 }
