@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  Kaixo
-</body>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Tracking'"
+>
+  <head>
+    <title th:text="'Tracking - ' + ${session.user.username}"></title>
+  </head>
+  <body>
+    <section layout:fragment="content">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit pariatur fuga perspiciatis sunt similique, blanditiis ipsum! Facere eveniet officia molestias, sequi dolores labore veniam nobis velit deleniti tempora nemo non culpa quod a, temporibus doloribus voluptatibus deserunt ducimus odio autem impedit accusamus. Explicabo earum unde saepe animi? Perspiciatis, non. Rem commodi cumque magni odio doloribus temporibus fugiat enim. Error suscipit harum aliquam nemo enim dignissimos. Impedit minima, commodi nihil distinctio debitis maxime numquam tempora illum atque, corporis repudiandae harum architecto exercitationem officia consectetur est odit voluptatibus quo. Nihil ex consequatur, officia quo, perspiciatis iure eaque consectetur voluptas vel cupiditate tenetur rem ducimus voluptatum ipsum. Tenetur eaque illo sit eligendi? Rerum, explicabo perspiciatis illum alias nulla quos mollitia enim ad in repellat distinctio reprehenderit saepe aliquam, animi eaque omnis voluptate. Quasi error in possimus vero explicabo maxime dolore dicta laboriosam quae cumque cum odit aspernatur dolorem numquam id nulla recusandae exercitationem soluta, esse labore! Itaque, in. Perferendis odit deserunt ipsa beatae blanditiis excepturi enim vero dolores pariatur nulla magnam, voluptatem consequatur. Itaque qui in quae quam explicabo libero expedita provident esse quibusdam rem cupiditate molestiae quos reprehenderit, maiores eum magni incidunt aspernatur doloribus officiis numquam dolor consectetur odio ipsa delectus. Maiores commodi neque, laborum facilis aut quae a ullam quidem, sed quibusdam qui eaque delectus vel tempora assumenda aliquam hic autem fuga! Accusantium similique nam labore molestiae, voluptate mollitia officia deleniti vitae unde laudantium, odit maxime quisquam ratione delectus, inventore a facere voluptas fuga repellat vero? Nostrum nam nihil excepturi quasi.
+    </section>
+  </body>
 </html>

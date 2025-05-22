@@ -10,12 +10,12 @@
   </head>
   <body class="flex flex-col">
     <div th:replace="~{fragments/app/header/appHeader}"></div>
-    <main>
+    <main class="flex">
       <div th:replace="~{fragments/app/sidebar/appSidebar :: sidebar(${activePage})}"></div>
       <section
         id="main"
         layout:fragment="content"
-        class="mt-16 h-[calc(100vh-4rem)] overflow-y-auto p-4 md:ml-64"
+        class="w-full h-[calc(100vh-4rem)] overflow-y-auto p-4"
       ></section>
     </main>
   </body>
