@@ -78,12 +78,5 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<UsersNotifications> notifications = new HashSet<>();
 
-    @OneToMany(mappedBy = "user1")
-    private Set<Chats> initiatedChats = new HashSet<>();
-
-    @OneToMany(mappedBy = "user2")
-    private Set<Chats> receivedChats = new HashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private Set<UsersGroups> groups = new HashSet<>();
+    
 }
