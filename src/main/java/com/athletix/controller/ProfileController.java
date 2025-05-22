@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.athletix.model.User;
+import com.athletix.model.Users;
 import com.athletix.service.UserService;
 
 @Controller
@@ -35,7 +35,7 @@ public class ProfileController {
         log.info("Profile page accessed for user: " + username);
 
         // Get user by username
-        Optional<User> userOptional = Optional.ofNullable(userService.findByUsername(username));
+        Optional<Users> userOptional = Optional.ofNullable(userService.findByUsername(username));
 
         // Check if user exists
         if (userOptional.isEmpty()) {
@@ -44,7 +44,7 @@ public class ProfileController {
         }
 
         // Save user to model
-        User user = userOptional.get();
+        Users user = userOptional.get();
         model.addAttribute(PROFILE_USER, user);
         log.info("Redirect to /profile/{}", username);
 
