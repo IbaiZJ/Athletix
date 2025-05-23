@@ -1,1 +1,0 @@
-// Tailwind autokonpletatzeko, bug batengatik ez doanez, artxibo hau gehitu behar da
