@@ -28,17 +28,31 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   mainSection.addEventListener('click', () => {
-    if (isSidebarOpen()) {
+    if (isSidebarOpen() && window.innerWidth < 768) {
       sidebar.classList.add('-translate-x-full');
+      toggleSidebar();
     }
-    toggleSidebar();
   });
+
+  function updateSidebarPosition() {
+    if (window.innerWidth < 768) {
+      sidebar.classList.remove('sticky');
+      sidebar.classList.add('absolute');
+    } else {
+      sidebar.classList.remove('absolute');
+      sidebar.classList.add('sticky');
+    }
+  }
 
   window.addEventListener('resize', () => {
     if (window.innerWidth < 768 && isSidebarOpen()) {
       sidebar.classList.add('-translate-x-full');
+      toggleSidebar();
+    } else if (window.innerWidth >= 768) {
+      sidebar.classList.remove('-translate-x-full');
+      mainSection.classList.remove(backgroundFilter);
     }
-    toggleSidebar();
+    updateSidebarPosition();
   });
 
   if (window.innerWidth < 768) {
@@ -87,4 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       userDropDown.classList.add('hidden');
     }
   });
+
+  // Initial position setup
+  updateSidebarPosition();
 });
