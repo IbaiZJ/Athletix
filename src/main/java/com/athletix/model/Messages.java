@@ -1,7 +1,7 @@
 package com.athletix.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,15 +26,17 @@ public class Messages implements Serializable {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "friend_chat_id", nullable = false)
+    @JoinColumn(name = "friend_chat_id")
     private FriendsChats friendChat;  
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_chat_id", nullable = false)
+    @JoinColumn(name = "group_chat_id")
     private GroupsChats groupChat; 
 
     private String message;
 
-    private LocalDate date;
+    private LocalDateTime date;
+
+    private boolean readed;
 
 }
