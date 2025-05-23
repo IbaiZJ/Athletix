@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  Kaixo
-</body>
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Tracking'"
+>
+  <head>
+    <title th:text="Tracking"></title>
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css" />
+    <script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.min.js" type="module"></script>
+    <script type="module" src="/js/app/imageGallery.js"></script>
+  </head>
+  <body>
+    <main layout:fragment="content" class="relative flex h-full w-full flex-col justify-center">
+      <div class="flex h-full flex-col gap-4 p-6">
+        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
+        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
+        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
+        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
+      </div>
+
+      <div th:replace="~{fragments/app/tracking/trackingCreateButton}"></div>
+    </main>
+  </body>
 </html>

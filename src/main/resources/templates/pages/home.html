@@ -9,8 +9,8 @@
     <title th:text="'Home - ' + ${session.user.username}">Home</title>
   </head>
   <body>
-    <section layout:fragment="content">
+    <main layout:fragment="content">
       <h1 th:text="'Hello ' + ${session.user.username}"></h1>
-    </section>
+    </main>
   </body>
 </html>
