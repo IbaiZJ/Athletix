@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +21,19 @@ import com.athletix.service.UserService;
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final FileStorageService fileStorageService;
 
-    @Autowired
-    private FileStorageService fileStorageService;
+    public UserController(
+            UserService userService,
+            FileStorageService fileStorageService) {
+        this.userService = userService;
+        this.fileStorageService = fileStorageService;
+    }
 
     @GetMapping("/create")
-    public String showCreateAccountForm() {
+    public String showCreateAccountForm(Model model) {
+        model.addAttribute("user", new UserRegistrationDTO());
         log.info("Create Account page accessed");
         return "pages/createAccount";
     }
@@ -40,9 +45,11 @@ public class UserController {
                 String fileName = fileStorageService.storeFile(user.getProfileImage());
                 user.setProfileImageURL("/uploads/" + fileName);
             }
-
             userService.registerUser(user);
-            log.info("Account registed for user: {}", user.getUsername());
+            
+            redirect.addFlashAttribute("success", "Cuenta creada correctamente.");
+            log.info("Account registered for user: {}", user.getUsername());
+
             return "redirect:/login?registered";
         } catch (IOException e) {
             log.error("Error al guardar la imagen: {}", e.getMessage());
@@ -52,6 +59,10 @@ public class UserController {
             // model.addAttribute("error", e.getMessage());
             log.error("Error creating account: {}", e.getMessage());
             redirect.addFlashAttribute("error", e.getMessage());
+            return "redirect:/user/create";
+        } catch (Exception e) {
+            log.error("Unexpected error during registration", e);
+            redirect.addFlashAttribute("error", "Ha ocurrido un error inesperado.");
             return "redirect:/user/create";
         }
     }
