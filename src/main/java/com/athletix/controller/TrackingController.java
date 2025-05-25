@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
+import com.athletix.model.DTO.TrackingRegistrationDTO;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.service.NotificationService;
@@ -55,7 +56,7 @@ public class TrackingController {
     }
 
     @PostMapping("/create")
-    public String createTracking(Trackings Tracking) {
+    public String createTracking(TrackingRegistrationDTO Tracking) {
         trackingService.createTracking(userService.getCurrentUser(), Tracking);
 
         Users user = userService.getCurrentUser();

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.athletix.model.DTO.TrackingRegistrationDTO;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.repository.TrackingRepository;
@@ -23,29 +24,20 @@ public class TrackingService {
         log.info("TrackingService initialized");
     }
 
+    @Transactional
     public List<Trackings> getTrackingsByUser(Users user) {
         log.info("Fetching trackings for user: {}", user.getUsername());
         return trackingRepository.findByUserOrderByDateDesc(user);
     }
 
     @Transactional
-    public Trackings createTracking(Users user, Trackings tracking) {
-        // 1. Validate tracking
-        if (tracking.getTitle() == null || tracking.getTitle().isEmpty()) {
-            throw new IllegalArgumentException("Nombre de seguimiento es obligatorio");
+    public void createTracking(Users user, TrackingRegistrationDTO trackingDTO) {
+        if (trackingDTO.getTitle() == null || trackingDTO.getTitle().isEmpty()) {
+            throw new IllegalArgumentException("Tracking title cannot be null or empty");
         }
 
-        // 2. Create the tracking
-        Trackings newTracking = new Trackings();
-        newTracking.setTitle(tracking.getTitle());
-        newTracking.setDescription(tracking.getDescription());
-        newTracking.setUser(user);
-        // newTracking.setDate(LocalDate.now());
-        newTracking.setKm(tracking.getKm());
-        Trackings savedTracking = trackingRepository.save(newTracking);
-
-        log.info("Created new tracking with Title: {} for user: {}", savedTracking.getTitle(), user.getUsername());
-
-        return savedTracking;
+        Trackings tracking = trackingDTO.toEntity(user);
+        trackingRepository.save(tracking);
+        log.info("Created new tracking with Title: {} for user: {}", tracking.getTitle(), user.getUsername());
     }
 }

@@ -40,7 +40,7 @@ public class UserService {
 
         Users user = userDTO.toEntity(passwordEncoder);
         userRepository.save(user);
-        
+
         log.info("User saved: {}", userDTO.getUsername());
     }
 

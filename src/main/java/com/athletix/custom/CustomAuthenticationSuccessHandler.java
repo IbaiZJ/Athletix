@@ -37,9 +37,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             Users user = userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-            // Crea una copia defensiva si es necesario
             UserSessionDTO userSessionDTO = new UserSessionDTO(user);
             session.setAttribute("user", userSessionDTO);
+
+            // TODO: load notifications
 
             log.info("User {} logged in. Session ID: {}", user.getUsername(), session.getId());
         }
