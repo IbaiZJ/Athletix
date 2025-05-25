@@ -32,18 +32,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
 
-        HttpSession session = request.getSession();
-        String username = authentication.getName();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            Users user = userRepository.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        Users user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        UserSessionDTO userSessionDTO = new UserSessionDTO(user);
-        log.info(username + " has logged in successfully");
+            // Crea una copia defensiva si es necesario
+            UserSessionDTO userSessionDTO = new UserSessionDTO(user);
+            session.setAttribute("user", userSessionDTO);
 
-        session.setAttribute("user", userSessionDTO);
-        // User notifications
-
-        log.info("Redirecting to /home page");
+            log.info("User {} logged in. Session ID: {}", user.getUsername(), session.getId());
+        }
         response.sendRedirect("/home");
     }
 
