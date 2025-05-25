@@ -8,5 +8,5 @@ import com.athletix.model.UsersNotifications;
 @Repository
 public interface UsersNotificationRepository extends JpaRepository<UsersNotifications, Integer> {
     // List<UsersNotifications> findByUserOrderByDateDesc(Users user);
-    
+
 }
