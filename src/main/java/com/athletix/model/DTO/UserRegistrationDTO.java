@@ -1,15 +1,21 @@
 package com.athletix.model.DTO;
 
+import java.io.Serializable;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.athletix.enums.GenderEnum;
+import com.athletix.model.Users;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserRegistrationDTO {
+public class UserRegistrationDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
     private String username;
     private String password;
@@ -26,4 +32,22 @@ public class UserRegistrationDTO {
     private String phone;
     private String profileImageURL;
     private MultipartFile profileImage;
+
+    public Users toEntity(PasswordEncoder encoder) {
+        Users user = new Users();
+        user.setUsername(this.username);
+        user.setPassword(encoder.encode(this.password));
+        user.setEmail(this.email);
+        user.setName(this.name);
+        user.setSurname(this.surname);
+        user.setSurname2(this.surname2);
+        user.setGender(this.gender);
+        user.setTown(this.town);
+        user.setHeight(this.height);
+        user.setWeight(this.weight);
+        user.setPhone(this.phone);
+        user.setBirthDate(this.birthDate);
+        user.setProfileImage(this.profileImageURL);
+        return user;
+    }
 }
