@@ -12,6 +12,8 @@ import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
 import com.athletix.util.UserValidationUtil;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -27,6 +29,7 @@ public class UserService {
         log.info("UserService initialized");
     }
 
+    @Transactional
     public void registerUser(UserRegistrationDTO userDTO) {
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
             throw new IllegalArgumentException("El nombre de usuario ya está en uso");
@@ -37,11 +40,11 @@ public class UserService {
 
         Users user = userDTO.toEntity(passwordEncoder);
         userRepository.save(user);
-
+        
         log.info("User saved: {}", userDTO.getUsername());
-        userRepository.save(user);
     }
 
+    @Transactional
     public Users findByUsername(String username) {
         if (username == null || username.isEmpty()) {
             log.warn("Username is null or empty");
@@ -52,6 +55,7 @@ public class UserService {
                 .orElse(null);
     }
 
+    @Transactional
     public Users getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
