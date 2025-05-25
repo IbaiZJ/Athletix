@@ -26,6 +26,10 @@ public class Images implements Serializable {
 
     private String imageURL;
 
+    private Integer width;
+    
+    private Integer height;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tracking_id")
     private Trackings tracking;

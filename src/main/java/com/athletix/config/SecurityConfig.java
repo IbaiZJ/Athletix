@@ -61,9 +61,14 @@ public class SecurityConfig {
                         .rememberMeParameter("remember-me")
                         .userDetailsService(userDetailsService)
                         .tokenValiditySeconds(duration))
+                .sessionManagement(session -> session
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/login?expired"))
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .deleteCookies("JSESSIONID", "remember-me")
+                        .invalidateHttpSession(true)
                         .logoutSuccessUrl("/login?logout=true")
                         .permitAll());
 

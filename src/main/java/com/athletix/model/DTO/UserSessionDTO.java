@@ -1,5 +1,7 @@
 package com.athletix.model.DTO;
 
+import java.io.Serializable;
+
 import com.athletix.model.Users;
 
 import lombok.Getter;
@@ -7,7 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSessionDTO {
+public class UserSessionDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private String name;
     private String surname;

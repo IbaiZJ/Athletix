@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-    private static final Logger log = LoggerFactory.getLogger(PublicController.class);
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @GetMapping("/home")
     public String home(HttpSession session) {
