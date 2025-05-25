@@ -13,7 +13,14 @@
   </head>
   <body>
     <main layout:fragment="content" class="relative flex h-full w-full flex-col justify-center">
-      <div class="flex h-full flex-col gap-4 p-6">
+      <div class="flex h-full w-full flex-col items-center gap-4 p-6">
+        
+        <div th:each="tracking : ${trackings}">
+          <p th:text="${tracking.title}"></p>
+          <p th:text="${tracking.description}"></p>
+          <p>----------------------------</p>
+        </div>
+
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
