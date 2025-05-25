@@ -20,6 +20,7 @@ public class TrackingService {
 
     public TrackingService(TrackingRepository trackingRepository) {
         this.trackingRepository = trackingRepository;
+        log.info("TrackingService initialized");
     }
 
     public List<Trackings> getTrackingsByUser(Users user) {

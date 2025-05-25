@@ -2,7 +2,6 @@ package com.athletix.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.athletix.enums.NotificationEnum;
@@ -21,26 +20,26 @@ public class NotificationService {
 
     private final NotificationRepository notificationRepository;
     private final UsersNotificationRepository userNotificationRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public NotificationService(NotificationRepository notificationRepository,
-            UsersNotificationRepository userNotificationRepository) {
+            UsersNotificationRepository userNotificationRepository, UserRepository userRepository) {
         this.notificationRepository = notificationRepository;
         this.userNotificationRepository = userNotificationRepository;
+        this.userRepository = userRepository;
+        log.info("NotificationService initialized");
     }
 
     // public List<UsersNotifications> getNotificationsByUser(Users user) {
-    //     log.info("Fetching notifications for user: {}", user.getUsername());
-    //     return userNotificationRepository.findByUserOrderByDateDesc(user);
+    // log.info("Fetching notifications for user: {}", user.getUsername());
+    // return userNotificationRepository.findByUserOrderByDateDesc(user);
     // }
 
     @Transactional
-    public UsersNotifications createNotificationForUser(Integer userId, String title, String message,
+    public UsersNotifications createNotificationForUser(Users logedUser, String title, String message,
             NotificationEnum notificationType) {
         // 1. Validate user and message
-        if (!userRepository.existsById(userId)) {
+        if (!userRepository.existsById(logedUser.getId())) {
             throw new RuntimeException("Usuario no encontrado");
         }
         if (title == null || title.isEmpty() || message == null || message.isEmpty()) {
@@ -57,16 +56,17 @@ public class NotificationService {
         notification.setType(notificationType);
 
         Notifications savedNotification = notificationRepository.save(notification);
+        log.info("Notification saved with title: {}", savedNotification.getTitle());
 
         // 3. Assign the notification to the user
-        Users user = new Users();
-        user.setId(userId);
+        Users user = userRepository.findById(logedUser.getId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         UsersNotifications userNotification = new UsersNotifications();
         userNotification.setUser(user);
         userNotification.setNotification(savedNotification);
 
-        log.info("Notification created for user: " + userId);
+        log.info("Notification created for user: {} with title: {}", logedUser.getUsername(), title);
 
         return userNotificationRepository.save(userNotification);
     }
