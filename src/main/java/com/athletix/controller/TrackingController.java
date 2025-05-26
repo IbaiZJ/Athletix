@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
+import com.athletix.model.DTO.NotificationRequestDTO;
+import com.athletix.model.DTO.TrackingRegistrationDTO;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.service.NotificationService;
@@ -55,15 +57,16 @@ public class TrackingController {
     }
 
     @PostMapping("/create")
-    public String createTracking(Trackings Tracking) {
-        trackingService.createTracking(userService.getCurrentUser(), Tracking);
+    public String createTracking(TrackingRegistrationDTO tracking) {
+        log.info("Creating new tracking with title: {}", tracking.getTitle());
 
+        trackingService.createTracking(userService.getCurrentUser(), tracking);
         Users user = userService.getCurrentUser();
-        notificationService.createNotificationForUser(
-                user,
-                "New tracking created",
-                "Your tracking has been created successfully",
+        NotificationRequestDTO notification = new NotificationRequestDTO("title", "message",
                 NotificationEnum.CREATE_TRACKING);
+        notificationService.createNotificationForUser(user, notification);
+
+        // TODO: reload tracking list and notify user
 
         return "redirect:/tracking";
     }

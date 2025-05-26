@@ -1,6 +1,5 @@
 package com.athletix.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,11 +37,15 @@ public class SecurityConfig {
     @Value("${remember-me.duration}")
     private Integer duration;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
+    private final CustomAuthenticationSuccessHandler successHandler;
 
-    @Autowired
-    private CustomAuthenticationSuccessHandler successHandler;
+    public SecurityConfig(
+            CustomUserDetailsService userDetailsService,
+            CustomAuthenticationSuccessHandler successHandler) {
+        this.userDetailsService = userDetailsService;
+        this.successHandler = successHandler;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
