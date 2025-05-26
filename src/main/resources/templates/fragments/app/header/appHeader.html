@@ -18,10 +18,14 @@
       >
         <img src="/svg/app/header/bell.svg" alt="Notifications" class="h-8 w-8" />
         <p
+          th:if="${session.notifications.size() > 0}"
+          th:text="${session.notifications.size()}"
           class="text-primary absolute -right-0.5 -bottom-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-xs"
-        >
-          4
-        </p>
+        ></p>
+        <p
+          th:if="${session.notifications.size() == 0}"
+          class="hidden"
+        ></p>
       </button>
       <div th:replace="~{fragments/app/header/notificationsDropDown}"></div>
       <button
