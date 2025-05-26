@@ -75,8 +75,7 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<UsersEvents> events = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<UsersNotifications> notifications = new HashSet<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Notifications> notifications = new HashSet<>();
 
-    
 }
