@@ -1,5 +1,7 @@
 package com.athletix.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,10 @@ public class NotificationService {
         log.info("NotificationService initialized");
     }
 
-    // public List<UsersNotifications> getNotificationsByUser(Users user) {
-    // log.info("Fetching notifications for user: {}", user.getUsername());
-    // return userNotificationRepository.findByUserOrderByDateDesc(user);
-    // }
+    public List<Notifications> getNotificationsByUser(Users user) {
+        log.info("Fetching notifications for user: {}", user.getUsername());
+        return notificationRepository.findByUserOrderByDateDesc(user);
+    }
 
     @Transactional
     public void createNotificationForUser(Users user, NotificationRequestDTO notificationDTO) {

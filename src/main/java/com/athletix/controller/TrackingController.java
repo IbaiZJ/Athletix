@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.athletix.enums.NotificationEnum;
 import com.athletix.model.DTO.NotificationRequestDTO;
 import com.athletix.model.DTO.TrackingRegistrationDTO;
+import com.athletix.model.Notifications;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.service.NotificationService;
 import com.athletix.service.TrackingService;
 import com.athletix.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tracking")
@@ -55,18 +59,23 @@ public class TrackingController {
         log.info("Create tracking page accessed");
         return "pages/tracking/trackingForm";
     }
-
+    
     @PostMapping("/create")
-    public String createTracking(TrackingRegistrationDTO tracking) {
+    public String createTracking(TrackingRegistrationDTO tracking, HttpServletRequest request) {
         log.info("Creating new tracking with title: {}", tracking.getTitle());
 
         trackingService.createTracking(userService.getCurrentUser(), tracking);
         Users user = userService.getCurrentUser();
-        NotificationRequestDTO notification = new NotificationRequestDTO("title", "message",
+        NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
+                "You have created a new activity: " + tracking.getTitle(),
                 NotificationEnum.CREATE_TRACKING);
         notificationService.createNotificationForUser(user, notification);
 
-        // TODO: reload tracking list and notify user
+        List<Notifications> notifications = notificationService.getNotificationsByUser(user);
+        HttpSession session = request.getSession(false);
+        if (session != null && notifications != null) {
+            session.setAttribute("notifications", notifications);
+        }
 
         return "redirect:/tracking";
     }
