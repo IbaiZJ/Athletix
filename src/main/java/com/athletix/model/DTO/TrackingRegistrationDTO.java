@@ -14,7 +14,7 @@ public class TrackingRegistrationDTO {
     private Integer id;
     private String title;
     private String description;
-    private Integer km;
+    private Float km;
 
     public Trackings toEntity(Users user) {
         Trackings tracking = new Trackings();

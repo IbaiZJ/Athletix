@@ -1,6 +1,7 @@
 package com.athletix.model;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -29,7 +30,11 @@ public class Trackings implements Serializable {
 
     private String description;
 
-    private Integer km;
+    private Float km;
+
+    private Duration duration;
+
+    private Duration pace;
 
     private LocalDate date;
 
