@@ -19,6 +19,10 @@
         <div th:each="tracking : ${trackings}">
           <p th:text="${tracking.title}"></p>
           <p th:text="${tracking.description}"></p>
+          <p th:text="${tracking.km}"></p>
+          <p th:text="${tracking.duration}"></p>
+          <p th:text="${tracking.pace}"></p>
+          <p th:text="${tracking.date}"></p>
           <p>----------------------------</p>
         </div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
