@@ -10,7 +10,7 @@
   </head>
   <body>
     <main layout:fragment="content">
-      <form th:action="@{/tracking/create}" method="post">
+      <form th:action="@{'/tracking/' + ${session.user.username} + '/create'}" method="post">
         <p>title</p>
         <input type="text" name="title" />
         <p>description</p>
