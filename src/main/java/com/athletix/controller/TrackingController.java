@@ -46,7 +46,7 @@ public class TrackingController {
     }
 
     @GetMapping("")
-    public String showMyTrackings(Model model) {
+    public String showMyTrackings() {
         Users user = userService.getCurrentUser();
         log.info("Showing trackings for user: {}", user.getUsername());
 
