@@ -1,18 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
   </head>
   <body>
-    <form th:action="@{/tracking/create}" method="post">
-      <p>title</p>
-      <input type="text" name="title" />
-      <p>description</p>
-      <input type="text" name="description" />
+    <main layout:fragment="content">
+      <form th:action="@{/tracking/create}" method="post">
+        <p>title</p>
+        <input type="text" name="title" />
+        <p>description</p>
+        <input type="text" name="description" />
+        <p>Km</p>
+        <div th:replace="~{fragments/app/appInput :: appInput('text', 'km', 'Distance')}"></div>
+        <p>Duration</p>
+        <input type="number" name="durationH" />
+        <input type="number" name="durationM" />
+        <input type="number" name="durationS" />
+        <p>Start place</p>
+        
+        <p>Images</p>
 
-      <button type="submit">submit</button>
-    </form>
+        <button type="submit">submit</button>
+      </form>
+    </main>
   </body>
 </html>

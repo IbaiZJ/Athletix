@@ -10,24 +10,60 @@
     <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css" />
     <script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.min.js" type="module"></script>
     <script type="module" src="/js/app/imageGallery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <main layout:fragment="content" class="relative flex h-full w-full flex-col justify-center">
-      <div class="flex h-full w-full flex-col items-center gap-4 p-6">
-        
+    <main layout:fragment="content" class="flex h-full w-full justify-center">
+      <div class="flex h-full w-full flex-col items-center gap-4 py-6 md:px-6">
         <div th:each="tracking : ${trackings}">
           <p th:text="${tracking.title}"></p>
           <p th:text="${tracking.description}"></p>
           <p>----------------------------</p>
         </div>
-
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
         <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
       </div>
+      <aside class="hidden w-full flex-col gap-4 bg-white px-4 py-6 lg:flex lg:w-[450px]">
+        <h2 class="text-xl font-bold text-gray-800">Estadísticas del corredor</h2>
+        <div class="mt-6">
+          <h3 class="text-md mb-2 font-semibold text-gray-700">Progreso mensual</h3>
+          <canvas id="myChart" class="h-48 w-full"></canvas>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col items-center justify-center rounded-xl bg-blue-100 p-4 shadow">
+            <p class="text-sm text-gray-600">Total km</p>
+            <p class="text-2xl font-semibold text-blue-700">128.4</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-green-100 p-4 shadow">
+            <p class="text-sm text-gray-600">Favorite sport</p>
+            <p class="text-2xl font-semibold text-green-700">Runnig</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-purple-100 p-4 shadow">
+            <p class="text-sm text-gray-600">Tiempo Total</p>
+            <p class="text-2xl font-semibold text-purple-700">9h 12m</p>
+          </div>
+          <div class="flex flex-col items-center justify-center rounded-xl bg-yellow-100 p-4 shadow">
+            <p class="text-sm text-gray-600">Actividades</p>
+            <p class="text-2xl font-semibold text-yellow-700">23</p>
+          </div>
+        </div>
+      </aside>
 
       <div th:replace="~{fragments/app/tracking/trackingCreateButton}"></div>
     </main>
   </body>
 </html>
+
+<script type="module">
+  import { ChartBuilder } from '/js/charts/ChartBuilder.js';
+  import { getLineChartConf } from '/js/charts/chartTypes/lineChart.js';
+
+  const etiquetas = ['Ene', 'Feb', 'Mar', 'Abr'];
+  const datos = [100, 200, 150, 300];
+  const config = getLineChartConf(etiquetas, datos, 'Ventas');
+
+  ChartBuilder.createLine('myChart', config);
+</script>

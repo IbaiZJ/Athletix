@@ -19,7 +19,8 @@ public class TrackingService {
 
     private final TrackingRepository trackingRepository;
 
-    public TrackingService(TrackingRepository trackingRepository) {
+    public TrackingService(
+            TrackingRepository trackingRepository) {
         this.trackingRepository = trackingRepository;
         log.info("TrackingService initialized");
     }

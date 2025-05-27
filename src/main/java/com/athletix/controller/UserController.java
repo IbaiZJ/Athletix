@@ -29,6 +29,7 @@ public class UserController {
             FileStorageService fileStorageService) {
         this.userService = userService;
         this.fileStorageService = fileStorageService;
+        log.info("UserController initialized");
     }
 
     @GetMapping("/create")
