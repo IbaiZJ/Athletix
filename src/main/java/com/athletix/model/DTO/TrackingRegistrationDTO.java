@@ -14,6 +14,7 @@ public class TrackingRegistrationDTO {
     private Integer id;
     private String title;
     private String description;
+    // @Positive(message = "Distance must be positive")
     private Float km;
     private Integer durationH;
     private Integer durationM;

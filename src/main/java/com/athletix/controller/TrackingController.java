@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.athletix.service.TrackingService;
 import com.athletix.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/tracking")
@@ -63,6 +65,19 @@ public class TrackingController {
         // Get trackings for the user
         List<Trackings> trackings = trackingService.getTrackingsByUser(user);
         model.addAttribute(TRACKING_LIST, trackings);
+        // TODO: Tracking -> trackingDTO
+
+        // Tracking statistics
+        int totalTrackings = trackings.size();
+        Float totalDistance = 0f;
+        Float totalTime = 0f;
+        for (Trackings tracking : trackings) {
+            if (tracking.getKm() != null)
+                totalDistance += tracking.getKm();
+            // if (tracking.getTime() != null) totalTime += tracking.getTime();
+        }
+        log.info("Total trackings for user {}: {}", username, totalTrackings);
+        log.info("Total distance for user {}: {} km", username, totalDistance);
 
         log.info("Trackings for user {}: {}", username, trackings);
 
@@ -78,12 +93,20 @@ public class TrackingController {
 
     @PostMapping("/{username}/create")
     @PreAuthorize("#username == authentication.name")
-    public String createTracking(@PathVariable("username") String username, TrackingRegistrationDTO tracking,
+    public String createTracking(@PathVariable("username") String username, @Valid TrackingRegistrationDTO tracking,
+            BindingResult result,
             HttpServletRequest request) {
+
+        if (result.hasErrors()) {
+            return "pages/tracking/trackingForm";
+        }
+
         Users user = userService.getCurrentUser();
+        log.info("Creating new tracking for user: {}", user.getUsername());
 
         // Create tracking
         trackingService.createTracking(user, tracking);
+        log.info("Tracking created for user: {}", user.getUsername());
 
         // Create notification
         NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
@@ -93,7 +116,7 @@ public class TrackingController {
 
         log.info("Creating new tracking with title: {}", tracking.getTitle());
 
-        return "redirect:/tracking";
+        return "redirect:/tracking/" + username;
     }
 
 }
