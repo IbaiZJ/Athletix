@@ -1,5 +1,5 @@
 <div class="fixed right-6 bottom-6">
-  <a href="/tracking/create" class="bg-primary rounded-full p-4 transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg flex items-center justify-center w-14 h-14">
+  <a id="floating-button" href="/create" class="bg-primary rounded-full p-4 transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg flex items-center justify-center w-14 h-14">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6 text-white"
@@ -12,3 +12,11 @@
     </svg>
   </a>
 </div>
+
+<script>
+  document.getElementById('floating-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    const currentPath = window.location.pathname;
+    window.location.href = currentPath.replace(/\/$/, '') + '/create';
+  });
+</script>
