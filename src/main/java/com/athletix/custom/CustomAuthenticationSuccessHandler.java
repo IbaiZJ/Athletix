@@ -1,7 +1,6 @@
 package com.athletix.custom;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.athletix.model.DTO.UserSessionDTO;
-import com.athletix.model.Notifications;
 import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
 import com.athletix.service.NotificationService;
@@ -54,11 +52,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             log.info("User {} logged in. Session ID: {}", user.getUsername(), session.getId());
         }
 
-        // Fetch notifications for the user and set them in the session
-        List<Notifications> notifications = notificationService.getNotificationsByUser(user);
-        if (session != null && notifications != null) {
-            session.setAttribute("notifications", notifications);
-        }
+        notificationService.reloadNotifications(request, user);
 
         response.sendRedirect("/home");
     }

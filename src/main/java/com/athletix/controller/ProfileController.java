@@ -23,6 +23,7 @@ public class ProfileController {
 
     public ProfileController(UserService userService) {
         this.userService = userService;
+        log.info("ProfileController initialized");
     }
 
     @GetMapping("")

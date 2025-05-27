@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
 import com.athletix.model.DTO.NotificationRequestDTO;
 import com.athletix.model.DTO.TrackingRegistrationDTO;
-import com.athletix.model.Notifications;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.service.NotificationService;
@@ -21,7 +22,6 @@ import com.athletix.service.TrackingService;
 import com.athletix.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tracking")
@@ -40,44 +40,59 @@ public class TrackingController {
         this.notificationService = notificationService;
         this.trackingService = trackingService;
         this.userService = userService;
+        log.info("TrackingController initialized");
     }
 
     @GetMapping("")
     public String showMyTrackings(Model model) {
         Users user = userService.getCurrentUser();
-        List<Trackings> trackings = trackingService.getTrackingsByUser(user);
-        // TODO: DTO tracking
-        model.addAttribute(TRACKING_LIST, trackings);
-        log.info("Trackings for user {}: {}", user.getUsername(), trackings);
+        return "redirect:/tracking/" + user.getUsername();
+    }
 
-        log.info("Tracking page accessed");
+    @GetMapping("/{username}")
+    public String showUserTrackings(@PathVariable("username") String username, Model model) {
+        // Check if user exists
+        Users user = userService.findByUsername(username);
+        if (user == null) {
+            log.error("User not found: {}", username);
+            return "error/404";
+        }
+
+        List<Trackings> trackings = trackingService.getTrackingsByUser(user);
+        model.addAttribute(TRACKING_LIST, trackings);
+
+        log.info("Trackings for user {}: {}", username, trackings);
+
         return "pages/tracking";
     }
 
-    @GetMapping("/create")
-    public String createTrackingForm() {
+    @GetMapping("/{username}/create")
+    @PreAuthorize("#username == authentication.name")
+    public String createTrackingForm(@PathVariable("username") String username) {
         log.info("Create tracking page accessed");
         return "pages/tracking/trackingForm";
     }
-    
-    @PostMapping("/create")
-    public String createTracking(TrackingRegistrationDTO tracking, HttpServletRequest request) {
-        log.info("Creating new tracking with title: {}", tracking.getTitle());
 
-        trackingService.createTracking(userService.getCurrentUser(), tracking);
+    @PostMapping("/{username}/create")
+    @PreAuthorize("#username == authentication.name")
+    public String createTracking(@PathVariable("username") String username, TrackingRegistrationDTO tracking,
+            HttpServletRequest request) {
         Users user = userService.getCurrentUser();
-        NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
-                "You have created a new activity: " + tracking.getTitle(),
-                NotificationEnum.CREATE_TRACKING);
-        notificationService.createNotificationForUser(user, notification);
 
-        List<Notifications> notifications = notificationService.getNotificationsByUser(user);
-        HttpSession session = request.getSession(false);
-        if (session != null && notifications != null) {
-            session.setAttribute("notifications", notifications);
-        }
+        // Create tracking
+        trackingService.createTracking(user, tracking);
+
+        // Create notification
+        NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
+                "You have created a new activity: " + tracking.getTitle(), NotificationEnum.CREATE_TRACKING);
+        notificationService.createNotificationForUser(user, notification);
+        notificationService.reloadNotifications(request, user);
+
+        log.info("Creating new tracking with title: {}", tracking.getTitle());
 
         return "redirect:/tracking";
     }
+
+    
 
 }
