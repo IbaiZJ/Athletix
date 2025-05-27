@@ -1,17 +1,20 @@
 <div class="flex relative space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
         <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
           <button data-lang="en" type="button" data-dropdown-toggle="language-dropdown-menu"
-            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100 ">
+            th:classappend="${#locale.language == 'en'} ? 'flex' : 'hidden'"
+            class="items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100">
             <img th:src="@{/svg/flags/english.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
             English (US)  
           </button>
           <button data-lang="es" type="button" data-dropdown-toggle="language-dropdown-menu"
-            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100 ">
+            th:classappend="${#locale.language == 'es'} ? 'flex' : 'hidden'"
+            class="items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100 ">
             <img th:src="@{/svg/flags/spanish.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
             Spanish (ES)  
           </button>
           <button data-lang="eu" type="button" data-dropdown-toggle="language-dropdown-menu"
-            class="hidden items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100 ">
+            th:classappend="${#locale.language == 'eu'} ? 'flex' : 'hidden'"
+            class="items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 min-w-38 rounded-lg cursor-pointer hover:bg-gray-100 ">
             <img th:src="@{/svg/flags/basque.svg}" class="h-3.5 w-3.5 mr-2.5 rounded-full" alt="">
             Basque (EUS)  
           </button>
@@ -53,4 +56,3 @@
               </li>
             </ul>
           </div>
-          
