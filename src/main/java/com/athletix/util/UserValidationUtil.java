@@ -8,7 +8,7 @@ public class UserValidationUtil {
             "register", "signup", "signin", "logout", "signout", "home", "dashboard",
             "profile", "settings", "configuration", "preferences", "account", "user",
             "users", "adminpanel", "homepage", "main", "default", "welcome", "about",
-            "contact", "services", "create-account", "profiles");
+            "contact", "services", "create-account", "profiles", "create", "edit", "delete");
 
     public static void validateUsername(String username) {
         if (username == null || username.trim().isEmpty()) {

@@ -46,6 +46,8 @@ public class TrackingController {
     @GetMapping("")
     public String showMyTrackings(Model model) {
         Users user = userService.getCurrentUser();
+        log.info("Showing trackings for user: {}", user.getUsername());
+
         return "redirect:/tracking/" + user.getUsername();
     }
 
@@ -58,6 +60,7 @@ public class TrackingController {
             return "error/404";
         }
 
+        // Get trackings for the user
         List<Trackings> trackings = trackingService.getTrackingsByUser(user);
         model.addAttribute(TRACKING_LIST, trackings);
 
@@ -92,7 +95,5 @@ public class TrackingController {
 
         return "redirect:/tracking";
     }
-
-    
 
 }
