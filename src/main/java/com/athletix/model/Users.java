@@ -10,7 +10,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -66,7 +65,7 @@ public class Users implements Serializable {
     @ManyToOne
     private Users trainer;
 
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trainer")
     private Set<Users> trainees;
 
     @ManyToOne
@@ -75,7 +74,7 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<UsersEvents> events = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private Set<Notifications> notifications = new HashSet<>();
 
 }

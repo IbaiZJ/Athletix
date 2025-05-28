@@ -2,10 +2,9 @@ package com.athletix.model;
 
 import java.io.Serializable;
 import java.time.Duration;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,9 +35,9 @@ public class Trackings implements Serializable {
 
     private Duration pace;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 }

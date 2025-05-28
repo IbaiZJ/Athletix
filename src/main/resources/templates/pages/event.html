@@ -24,13 +24,13 @@
           <div th:replace="~{fragments/app/event/eventCard}"></div>
 
         </div>
-        <section th:replace="~{fragments/app/event/noEventFallbackMessage}"></section>
+        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
       </section>
       <section>
         <h2 class="mb-4 text-2xl font-semibold">Available Events</h2>
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
-        <section th:replace="~{fragments/app/event/noEventFallbackMessage}"></section>
+        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
       </section>
     </main>
   </body>
