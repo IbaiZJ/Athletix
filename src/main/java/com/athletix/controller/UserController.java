@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.athletix.model.DTO.UserRegistrationDTO;
+import com.athletix.model.Users;
 import com.athletix.service.FileStorageService;
 import com.athletix.service.UserService;
 
@@ -29,6 +31,26 @@ public class UserController {
             FileStorageService fileStorageService) {
         this.userService = userService;
         this.fileStorageService = fileStorageService;
+        log.info("UserController initialized");
+    }
+
+    @GetMapping("")
+    public String getUserProfiles() {
+        Users user = userService.getCurrentUser();
+        log.info("Showing user profile for: {}", user.getUsername());
+
+        return "redirect:/user/" + user.getUsername();
+    }
+
+    @GetMapping("/{username}")
+    public String getUserProfileByUsername(@PathVariable("username") String username, Model model) {
+        Users user = userService.findByUsername(username);
+        if (user == null) {
+            log.error("User not found: {}", username);
+            return "error/404";
+        }
+
+        return "pages/profile/userProfile";
     }
 
     @GetMapping("/create")
@@ -46,7 +68,7 @@ public class UserController {
                 user.setProfileImageURL("/uploads/" + fileName);
             }
             userService.registerUser(user);
-            
+
             redirect.addFlashAttribute("success", "Cuenta creada correctamente.");
             log.info("Account registered for user: {}", user.getUsername());
 
@@ -66,4 +88,5 @@ public class UserController {
             return "redirect:/user/create";
         }
     }
+
 }

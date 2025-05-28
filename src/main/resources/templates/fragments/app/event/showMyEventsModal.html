@@ -1,0 +1,83 @@
+<div x-data="{ showModal: false }">
+  <button
+    @click="showModal = true"
+    type="button"
+    class="bg-primary hover:bg-primary-hover w-full rounded-lg px-4 py-2 text-center text-white transition hover:cursor-pointer sm:w-auto"
+  >
+    Show My Events
+  </button>
+
+  <div
+    x-show="showModal"
+    x-transition
+    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 p-4 backdrop-blur-sm"
+    @click.self="showModal = false"
+  >
+    <div class="max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-xl bg-white p-6 text-left shadow-2xl">
+      <h2 class="mb-4 text-2xl font-semibold text-gray-800">My Events</h2>
+
+      <div class="max-h-[60vh] space-y-4 overflow-y-auto pr-2">
+        <div class="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
+            alt="Fútbol"
+            class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
+          />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-800">Fútbol - Real Madrid vs Barcelona</h3>
+            <p class="text-sm text-gray-600">Fecha: 12/06/2025 - Hora: 20:00</p>
+            <p class="text-sm text-gray-600">Estadio Santiago Bernabéu</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
+            alt="Baloncesto"
+            class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
+          />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-800">Baloncesto - Lakers vs Celtics</h3>
+            <p class="text-sm text-gray-600">Fecha: 15/06/2025 - Hora: 19:30</p>
+            <p class="text-sm text-gray-600">Staples Center</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
+            alt="Tenis"
+            class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
+          />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-800">Tenis - Nadal vs Alcaraz</h3>
+            <p class="text-sm text-gray-600">Fecha: 18/06/2025 - Hora: 16:00</p>
+            <p class="text-sm text-gray-600">Roland Garros</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
+            alt="F1"
+            class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
+          />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-800">Fórmula 1 - Gran Premio de Mónaco</h3>
+            <p class="text-sm text-gray-600">Fecha: 21/06/2025 - Hora: 14:00</p>
+            <p class="text-sm text-gray-600">Circuito de Mónaco</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex justify-end">
+        <button
+          @click="showModal = false"
+          class="rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
