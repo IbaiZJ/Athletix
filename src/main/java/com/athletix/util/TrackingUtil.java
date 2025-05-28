@@ -21,8 +21,7 @@ public class TrackingUtil {
                 tracking.getDescription(),
                 tracking.getKm(),
                 formatDuration(tracking.getDuration()),
-                // formatPace(tracking.getPace()),
-                "5:23",
+                formatPace(tracking.getPace()),
                 tracking.getDate(),
                 // images.stream().map(Images::getImageURL).toList()
                 null);
@@ -47,6 +46,6 @@ public class TrackingUtil {
             return "";
         long minutes = pace.toMinutes();
         long seconds = pace.minusMinutes(minutes).getSeconds();
-        return String.format("%d:%02d /km", minutes, seconds);
+        return String.format("%d:%02d min/km", minutes, seconds);
     }
 }

@@ -74,16 +74,16 @@ public class TrackingController {
         model.addAttribute(TRACKING_LIST, trackingDTOs);
 
         // Tracking statistics
-        // int totalTrackings = trackings.size();
-        // Float totalDistance = 0f;
-        // Float totalTime = 0f;
-        // for (Trackings tracking : trackings) {
-        //     if (tracking.getKm() != null)
-        //         totalDistance += tracking.getKm();
-        //     // if (tracking.getTime() != null) totalTime += tracking.getTime();
-        // }
-        // log.info("Total trackings for user {}: {}", username, totalTrackings);
-        // log.info("Total distance for user {}: {} km", username, totalDistance);
+        int totalTrackings = trackings.size();
+        Float totalDistance = 0f;
+        Float totalTime = 0f;
+        for (Trackings tracking : trackings) {
+            if (tracking.getKm() != null)
+                totalDistance += tracking.getKm();
+            // if (tracking.getTime() != null) totalTime += tracking.getTime();
+        }
+        log.info("Total trackings for user {}: {}", username, totalTrackings);
+        log.info("Total distance for user {}: {} km", username, totalDistance);
 
         log.info("Trackings for user {}: {}", username, trackings);
 
