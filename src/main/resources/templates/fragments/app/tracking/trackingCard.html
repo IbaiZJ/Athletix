@@ -1,25 +1,24 @@
 <div
+  th:fragment="trackingCardFragment(thTracking)"
   class="flex max-w-[500px] flex-col gap-4 rounded-lg p-4 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl"
 >
   <div class="flex items-center gap-4">
-    <img
-      class="h-10 w-10 rounded-full"
-      src="https://bolanews.co/wp-content/uploads/2024/10/ezgif.com-resize-38-860x816.jpg"
-      alt=""
-    />
+    <a th:href="'/user/' + ${tracking.username}"
+      ><img class="h-10 w-10 rounded-full object-cover" th:src="${tracking.profileImage}" alt="Foto de perfil"
+    /></a>
     <div>
       <a
-        href="/profile/"
+        th:href="'/user/' + ${tracking.username}"
+        th:text="${tracking.fullName}"
         class="hover:text-primary font-medium transition-colors duration-200 ease-in-out hover:cursor-pointer hover:underline"
-        >Ibai Zorrilla</a
-      >
-      <p class="text-sm text-gray-600">2025 apirila 23 08:23</p>
+      ></a>
+      <p th:text="${#temporals.format(tracking.date, 'yyyy/MM/dd HH:mm')}" class="text-sm text-gray-600"></p>
     </div>
   </div>
   <div class="flex items-center justify-between">
     <div>
-      <h3 class="text-lg font-bold">Actividad por la mañana</h3>
-      <p class="text-gray-700">Descripcion de la actividad</p>
+      <h3 th:text="${#strings.capitalize(tracking.title)}" class="text-lg font-bold"></h3>
+      <p th:text="${#strings.capitalize(tracking.description)}" class="text-gray-700"></p>
     </div>
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,17 +40,17 @@
   <div class="flex rounded-lg bg-gray-100 p-3">
     <div class="flex-1 text-center">
       <p class="text-sm text-gray-600">Distancia</p>
-      <p class="text-lg font-bold">9,04 km</p>
+      <p th:text="${tracking.km} + ' km'" class="text-lg font-bold"></p>
     </div>
     <div class="h-12 self-center border-l border-gray-400"></div>
     <div class="flex-1 text-center">
       <p class="text-sm text-gray-600">Ritmo</p>
-      <p class="text-lg font-bold">4:08 /km</p>
+      <p th:text="${tracking.pace} + ' /km'" class="text-lg font-bold"></p>
     </div>
     <div class="h-12 self-center border-l border-gray-400"></div>
-    <div class="flex-1 pr-2 text-center">
+    <div class="flex-1 text-center">
       <p class="text-sm text-gray-600">Tiempo</p>
-      <p class="text-lg font-bold">37min 22s</p>
+      <p th:text="${tracking.duration}" class="text-lg font-bold"></p>
     </div>
   </div>
 
