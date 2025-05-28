@@ -7,8 +7,9 @@
 
   <div class="absolute inset-0 bg-black/50 transition-opacity group-hover:bg-black/60"></div>
 
+  <!-- Desktop hover overlay -->
   <div
-    class="absolute inset-0 flex scale-90 flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"
+    class="absolute inset-0 hidden sm:flex scale-90 flex-col items-center justify-center gap-2 px-4 text-center opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,11 +26,31 @@
         d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"
       />
     </svg>
-    <span class="text-sm font-medium text-white">12 Jun 2025</span>
+    <p class="text-sm text-gray-200">Short event description</p>
   </div>
 
-  <div class="absolute bottom-0 z-10 p-4 transition-opacity duration-300 group-hover:opacity-30">
+  <!-- Mobile always-visible SVG -->
+  <div class="absolute bottom-4 right-4 sm:hidden">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-8 w-8 text-white opacity-80"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"
+      />
+    </svg>
+  </div>
+
+  <div class="absolute bottom-0 z-10 p-4 transition-opacity group-hover:opacity-30">
     <h3 class="text-xl font-semibold text-white">Event Title</h3>
-    <p class="text-sm text-gray-200">Short event description</p>
+    <p class="text-sm sm:hidden text-gray-200">Short event description</p>
+    <span class="text-sm font-medium text-white">12 Jun 2025</span>
   </div>
 </a>
