@@ -1,18 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Tracking'"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title th:text="'Tracking'">Tracking</title>
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css" />
+    <script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.min.js" type="module"></script>
+    <script type="module" src="/js/app/imageGallery.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <form th:action="@{/tracking/create}" method="post">
-      <p>title</p>
-      <input type="text" name="title" />
-      <p>description</p>
-      <input type="text" name="description" />
 
-      <button type="submit">submit</button>
-    </form>
+  <body>
+    <main layout:fragment="content" class="flex justify-center items-start pt-12 px-8 lg:px-16 xl:px-24">
+      <div class="bg-white rounded-2xl shadow-xl p-10 w-full max-w-4xl border border-blue-300">
+        <h1 class="text-4xl font-extrabold text-primary mb-8 tracking-tight leading-tight">Tracking</h1>
+
+        <form th:action="@{/tracking/create}" method="post" class="space-y-8">
+          <div class="bg-gradient-to-tr from-sky-500 to-cyan-600 rounded-xl p-8 space-y-8 shadow-lg">
+
+            <div class="flex flex-col space-y-4">
+              <label class="block font-semibold text-primary text-xl">Titulo:</label>
+              <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'title', 'Title')}"></div>
+              </div>
+
+              <label class="block font-semibold text-primary text-xl">Distancia:</label>
+              <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'Km', 'Distancia')}"></div>   
+              </div>
+
+              <label class="block font-semibold text-primary text-xl">Duracion:</label>
+              <div class="grid grid-cols-3 gap-6">
+                <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                  <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'h', 'Horas')}"></div>
+                </div>
+                <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                  <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'm', 'Minutos')}"></div>
+                </div>
+                <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                  <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 's', 'Segundos')}"></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-primary text-xl mb-3">Descripción:</label>
+              <div class="rounded-lg bg-blue-100 bg-opacity-30 border border-blue-400 focus-within:ring-2 focus-within:ring-cyan-400 focus-within:border-transparent transition">
+                <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'description', 'Descripción')}"></div>
+              </div>
+            </div>
+
+            
+            <div th:replace="~{fragments/app/tracking/filesInput :: inputLabel('images')}"></div>
+          </div>
+
+          <button type="submit"
+            class="mt-8 w-full bg-gradient-to-r from-sky-700 to-cyan-700 text-black py-4 rounded-3xl font-semibold shadow-lg hover:from-sky-800 hover:to-cyan-800 transition">
+            Submit
+          </button>
+        </form>
+      </div>
+    </main>
   </body>
 </html>
