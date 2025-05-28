@@ -11,4 +11,7 @@ import com.athletix.model.Users;
 @Repository
 public interface TrackingRepository extends JpaRepository<Trackings, Integer> {
     List<Trackings> findByUserOrderByDateDesc(Users user);
+
+    // @Query("SELECT t FROM Trackings t JOIN FETCH t.user WHERE t.user = :user")
+    // List<Trackings> findByUserWithUser(@Param("user") Users user);
 }
