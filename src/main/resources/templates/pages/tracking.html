@@ -27,12 +27,12 @@
           <p th:text="${tracking.pace}"></p>
           <p th:text="${tracking.date}"></p>
           <p>----------------------------</p>
+        
+          <div th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${tracking})}"></div>
+        
         </div>
-        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
-        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
-        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
-        <div th:replace="~{fragments/app/tracking/trackingCard}"></div>
       </div>
+
       <aside class="hidden w-full flex-col gap-4 bg-white px-4 py-6 lg:flex lg:w-[450px]">
         <h2 class="text-xl font-bold text-gray-800">Estadísticas del corredor</h2>
         <div class="mt-6">
