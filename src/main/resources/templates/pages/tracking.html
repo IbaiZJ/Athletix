@@ -32,7 +32,10 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="flex flex-col items-center justify-center rounded-xl bg-blue-100 p-4 shadow">
             <p class="text-sm text-gray-600">Total km</p>
-            <p class="text-2xl font-semibold text-blue-700">128.4</p>
+            <p
+              th:text="${#numbers.formatDecimal(trackingStatistics.totalDistance, 1, 1)} + ' km'"
+              class="text-2xl font-semibold text-blue-700"
+            ></p>
           </div>
           <div class="flex flex-col items-center justify-center rounded-xl bg-green-100 p-4 shadow">
             <p class="text-sm text-gray-600">Favorite sport</p>
@@ -44,7 +47,7 @@
           </div>
           <div class="flex flex-col items-center justify-center rounded-xl bg-yellow-100 p-4 shadow">
             <p class="text-sm text-gray-600">Actividades</p>
-            <p class="text-2xl font-semibold text-yellow-700">23</p>
+            <p th:text="${trackingStatistics.totalTrackings}" class="text-2xl font-semibold text-yellow-700"></p>
           </div>
         </div>
       </aside>
