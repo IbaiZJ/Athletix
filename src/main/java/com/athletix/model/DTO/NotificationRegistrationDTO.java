@@ -11,12 +11,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NotificationRequestDTO {
+public class NotificationRegistrationDTO {
     private String title;
     private String message;
     private String type;
 
-    public NotificationRequestDTO(String title, String message, NotificationEnum notificationEnum) {
+    public NotificationRegistrationDTO(String title, String message, NotificationEnum notificationEnum) {
         this.title = title;
         this.message = message;
         this.type = notificationEnum != null ? notificationEnum.name() : null;

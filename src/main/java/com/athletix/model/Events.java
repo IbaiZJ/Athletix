@@ -27,7 +27,7 @@ public class Events implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     private String description;
 
