@@ -9,93 +9,91 @@
 
 <body>
   <section layout:fragment="content">
-    <div
-      class="min-h-screen flex items-center justify-center px-4 py-10 relative overflow-hidden bg-white"
-    >
+    <div class="min-h-screen w-full px-4 py-10 bg-transparent">
 
-      <div
-        class="relative max-w-3xl w-full bg-white rounded-3xl
-               shadow-2xl border border-gray-200 p-8 sm:p-14 space-y-10 transition-shadow duration-700 hover:shadow-primary/70"
-      >
-       
+      <div class="w-full p-8 sm:p-14 space-y-10">
+
         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 border-b border-gray-300 pb-8 sm:pb-12">
           <div class="relative group cursor-pointer flex-shrink-0">
-            <img
-              src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2023/05/22/16847456869289.jpg"
+            <img src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2023/05/22/16847456869289.jpg"
               alt="Foto de perfil"
               class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-primary
-                     shadow-lg transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:shadow-primary/90"
-            />
-            <span
-              class="absolute inset-0 rounded-full bg-primary/40 opacity-0 group-hover:opacity-70
-                     transition-opacity duration-500 pointer-events-none"
-            ></span>
+                     shadow-lg transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:shadow-primary/90" />
+            <span class="absolute inset-0 rounded-full bg-primary/40 opacity-0 group-hover:opacity-70
+                     transition-opacity duration-500 pointer-events-none"></span>
           </div>
           <div class="flex flex-col justify-center text-center sm:text-left">
             <h1
-              class="text-4xl sm:text-7xl font-extrabold tracking-tight cursor-pointer
-                     bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 bg-clip-text text-transparent
-                     select-none transition-all duration-500 hover:tracking-widest"
-              title="Nombre del Usuario"
-            >
+              class="text-4xl sm:text-7xl font-extrabold text-primary hover:text-blue-600 transition-colors duration-300"
+              title="Nombre del Usuario">
               Nombre del Usuario
             </h1>
-            <button
-              class="mt-4 px-6 py-2 self-center sm:self-start text-primary border-2 border-primary
+
+            <button class="mt-4 px-6 py-2 self-center sm:self-start text-primary border-2 border-primary
                      rounded-full font-semibold shadow-md hover:shadow-primary/70
                      hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 hover:text-white
-                     transition-all duration-300"
-              aria-label="Editar perfil"
-            >
+                     transition-all duration-300" aria-label="Editar perfil">
               Editar perfil
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-gray-800 text-base sm:text-lg font-semibold">
-          
-          <div title="Ciudad: Zoo" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/location.svg" alt="Ciudad" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+
+          <div title="Ciudad: Zoo"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/location.svg" alt="Ciudad"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Ciudad</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">Zoo</p>
             </div>
           </div>
 
-          <div title="Peso: 75 kg" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/weight.svg" alt="Peso" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+          <div title="Peso: 75 kg"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/weight.svg" alt="Peso"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Peso</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">75 kg</p>
             </div>
           </div>
 
-          <div title="Altura: 1.80 m" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/height.svg" alt="Altura" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+          <div title="Altura: 1.80 m"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/height.svg" alt="Altura"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Altura</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">1.80 m</p>
             </div>
           </div>
 
-          <div title="Género: Hombre" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/gender.svg" alt="Género" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+          <div title="Género: Hombre"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/gender.svg" alt="Género"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Género</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">Hombre</p>
             </div>
           </div>
 
-          <div title="Deporte favorito: Fútbol" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/football.svg" alt="Deporte favorito" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+          <div title="Deporte favorito: Fútbol"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football.svg" alt="Deporte favorito"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Deporte favorito</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">Fútbol</p>
             </div>
           </div>
 
-          <div title="Tipo de deportista: Futbolista" class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
-            <img src="/svg/football_player.svg" alt="Tipo de deportista" class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+          <div title="Tipo de deportista: Futbolista"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football_player.svg" alt="Tipo de deportista"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
             <div>
               <p class="uppercase text-xs tracking-widest text-gray-400">Tipo de deportista</p>
               <p class="group-hover:text-primary transition-colors duration-300 font-bold">Futbolista</p>
