@@ -1,36 +1,53 @@
 <aside class="hidden w-full flex-col gap-4 bg-white px-4 py-6 lg:flex lg:w-[450px]">
   <h2 class="text-xl font-bold text-gray-800">Estadísticas del corredor</h2>
+
   <div class="mt-6">
     <h3 class="text-md mb-2 font-semibold text-gray-700">Progreso mensual</h3>
     <canvas id="myChart" class="h-48 w-full"></canvas>
   </div>
+
   <div class="grid grid-cols-2 gap-4">
     <div class="flex flex-col items-center justify-center rounded-xl bg-blue-100 p-4 shadow">
       <p class="text-sm text-gray-600">Total km</p>
-      <p class="text-2xl font-semibold text-primary">128.4</p>
+      <p
+        th:text="${#numbers.formatDecimal(trackingStatistics.totalDistance, 1, 1)} + ' km'"
+        class="text-2xl font-semibold text-blue-700"
+      ></p>
     </div>
-    <div class="flex flex-col items-center justify-center rounded-xl bg-gray-100 p-4 shadow">
+
+    <div class="flex flex-col items-center justify-center rounded-xl bg-green-100 p-4 shadow">
       <p class="text-sm text-gray-600">Favorite sport</p>
-      <p class="text-2xl font-semibold text-black-100">Runnig</p>
+      <p
+        th:text="${trackingStatistics.favoriteSport != null ? trackingStatistics.favoriteSport : 'N/A'}"
+        class="text-2xl font-semibold text-green-700"
+      ></p>
     </div>
-    <div class="flex flex-col items-center justify-center rounded-xl bg-gray-100 p-4 shadow">
+
+    <div class="flex flex-col items-center justify-center rounded-xl bg-purple-100 p-4 shadow">
       <p class="text-sm text-gray-600">Tiempo Total</p>
-      <p class="text-2xl font-semibold text-black-700">9h 12m</p>
+      <p th:text="${trackingStatistics.totalDuration}" class="text-2xl font-semibold text-purple-700"></p>
     </div>
-    <div class="flex flex-col items-center justify-center rounded-xl bg-blue-100 p-4 shadow">
+
+    <div class="flex flex-col items-center justify-center rounded-xl bg-yellow-100 p-4 shadow">
       <p class="text-sm text-gray-600">Actividades</p>
-      <p class="text-2xl font-semibold text-primary">23</p>
+      <p th:text="${trackingStatistics.totalTrackings}" class="text-2xl font-semibold text-yellow-700"></p>
     </div>
   </div>
 </aside>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let monthlyKm = /*[[${trackingStatistics.monthlyKm}]]*/ {};
+  /*]]>*/
+</script>
 
 <script type="module">
   import { ChartBuilder } from '/js/charts/ChartBuilder.js';
   import { getLineChartConf } from '/js/charts/chartTypes/lineChart.js';
 
-  const etiquetas = ['Ene', 'Feb', 'Mar', 'Abr'];
-  const datos = [100, 200, 150, 300];
-  const config = getLineChartConf(etiquetas, datos, 'Ventas');
+  const etiquetas = Object.keys(monthlyKm);
+  const datos = Object.values(monthlyKm);
 
+  const config = getLineChartConf(etiquetas, datos, 'KM peer month');
   ChartBuilder.createLine('myChart', config);
 </script>
