@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.athletix.model.DTO.EventRegistrationDTO;
 import com.athletix.service.EventService;
 
 
@@ -36,9 +37,11 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public String createEvent() {
-        //TODO: process POST request
+    public String createEvent(EventRegistrationDTO eventDTO) {
         
+        // Create event
+        
+
         return "redirect:/event";
     }
     

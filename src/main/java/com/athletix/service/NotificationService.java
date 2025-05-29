@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.athletix.model.DTO.NotificationRequestDTO;
 import com.athletix.model.Notifications;
 import com.athletix.model.Users;
+import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.repository.NotificationRepository;
 import com.athletix.repository.UserRepository;
 
@@ -46,7 +46,7 @@ public class NotificationService {
     }
 
     @Transactional
-    public void createNotificationForUser(Users user, NotificationRequestDTO notificationDTO) {
+    public void createNotificationForUser(Users user, NotificationRegistrationDTO notificationDTO) {
         if (!userRepository.existsById(user.getId())) {
             throw new RuntimeException("Usuario no encontrado");
         }

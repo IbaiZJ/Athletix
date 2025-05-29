@@ -4,7 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.athletix.model.Events;
+import com.athletix.model.DTO.EventRegistrationDTO;
 import com.athletix.repository.EventRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EventService {
@@ -17,5 +21,8 @@ public class EventService {
         log.info("TrackingService initialized");
     }
 
-    
+    @Transactional
+    public void createEvent(EventRegistrationDTO eventDTO) {
+        Events event = eventDTO.toEntity();
+    }
 }
