@@ -1,1 +1,15 @@
-eventCreationForm.html
+<form th:action="@{/event/create}" method="post">
+
+  <p>title</p>
+  <input type="text" name="title">
+  <p>description</p>
+  <input type="text" name="description">
+  <p>date</p>
+  <input type="date" name="date">
+  <p>Location</p>
+  <input type="text" name="location">
+  <p>km</p>
+  <input type="number" name="km">
+
+  <button type="submit">submit</button>
+</form>

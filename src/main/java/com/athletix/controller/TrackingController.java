@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
-import com.athletix.model.DTO.NotificationRequestDTO;
+import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.DTO.TrackingCardDTO;
 import com.athletix.model.DTO.TrackingRegistrationDTO;
 import com.athletix.model.DTO.TrackingStatisticsDTO;
@@ -93,7 +93,7 @@ public class TrackingController {
     @PreAuthorize("#username == authentication.name")
     public String createTracking(@PathVariable("username") String username, TrackingRegistrationDTO tracking,
             HttpServletRequest request) {
-
+        // Get current user
         Users user = userService.getCurrentUser();
         log.info("Creating new tracking for user: {}", user.getUsername());
 
@@ -102,7 +102,7 @@ public class TrackingController {
         log.info("Tracking created for user: {}", user.getUsername());
 
         // Create notification
-        NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
+        NotificationRegistrationDTO notification = new NotificationRegistrationDTO("New activity created",
                 "You have created a new activity: " + tracking.getTitle(), NotificationEnum.CREATE_TRACKING);
         notificationService.createNotificationForUser(user, notification);
         notificationService.reloadNotifications(request, user);

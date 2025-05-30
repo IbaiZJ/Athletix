@@ -1,0 +1,2 @@
+- Tracking-eko perfileko irudia konpondu
+- Login egiterakoan behar duen lekura berbidali
