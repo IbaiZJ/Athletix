@@ -15,8 +15,11 @@
       <section th:replace="~{fragments/app/event/eventHeader}"></section>
       <section>
         <h3 class="mb-4 text-2xl font-semibold">Registered Events</h3>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> <!-- th:each="registeredEvent : ${registeredEvents}"-->
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
+        <div
+          th:each="registeredEvent : ${registeredEvents}"
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
+          <a th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></a>
         </div>
         <section
           th:replace="~{fragments/app/event/showEventFallbackMessage :: showEventFallbackMessage(events=${registeredEvents})}"

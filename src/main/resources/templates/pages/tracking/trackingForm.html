@@ -6,7 +6,7 @@
   th:with="activePage='Home'"
 >
   <head>
-    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+    <title>Home</title>
   </head>
   <body>
     <main layout:fragment="content">
@@ -16,7 +16,7 @@
         <p>description</p>
         <input type="text" name="description" />
         <p>Km</p>
-        <div th:replace="~{fragments/app/appInput :: appInput('text', 'km', 'Distance')}"></div>
+        <input type="number" name="km" />
         <p>Duration</p>
         <input type="number" name="durationH" />
         <input type="number" name="durationM" />

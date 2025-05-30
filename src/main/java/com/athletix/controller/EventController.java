@@ -44,6 +44,7 @@ public class EventController {
         // Registered events
         List<EventCardDTO> registeredEvents = eventService.getRegisteredEvents(userService.getCurrentUser());
         model.addAttribute("registeredEvents", registeredEvents);
+        System.out.println(registeredEvents);
         log.info("Save registered events in model");
         /*
         // Available events
