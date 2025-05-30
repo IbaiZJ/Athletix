@@ -15,22 +15,19 @@
       <section th:replace="~{fragments/app/event/eventHeader}"></section>
       <section>
         <h3 class="mb-4 text-2xl font-semibold">Registered Events</h3>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> <!-- th:each="registeredEvent : ${registeredEvents}"-->
           <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-
         </div>
-        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
+        <section
+          th:replace="~{fragments/app/event/showEventFallbackMessage :: showEventFallbackMessage(events=${registeredEvents})}"
+        ></section>
       </section>
       <section>
         <h3 class="mb-4 text-2xl font-semibold">Available Events</h3>
-
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
-        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
+        <section
+          th:replace="~{fragments/app/event/showEventFallbackMessage :: showEventFallbackMessage(events=${availableEvents})}"
+        ></section>
       </section>
     </main>
   </body>

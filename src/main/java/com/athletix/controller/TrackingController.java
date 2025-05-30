@@ -93,7 +93,7 @@ public class TrackingController {
     @PreAuthorize("#username == authentication.name")
     public String createTracking(@PathVariable("username") String username, TrackingRegistrationDTO tracking,
             HttpServletRequest request) {
-
+        // Get current user
         Users user = userService.getCurrentUser();
         log.info("Creating new tracking for user: {}", user.getUsername());
 
