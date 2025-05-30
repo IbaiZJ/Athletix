@@ -1,15 +1,29 @@
-<form th:action="@{/event/create}" method="post">
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title>Event create form</title>
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <form th:action="@{/event/create}" method="post">
+        <p>title</p>
+        <input type="text" name="title" />
+        <p>description</p>
+        <input type="text" name="description" />
+        <p>date</p>
+        <input type="date" name="date" />
+        <p>Location</p>
+        <input type="text" name="location" />
+        <p>km</p>
+        <input type="number" name="km" />
 
-  <p>title</p>
-  <input type="text" name="title">
-  <p>description</p>
-  <input type="text" name="description">
-  <p>date</p>
-  <input type="date" name="date">
-  <p>Location</p>
-  <input type="text" name="location">
-  <p>km</p>
-  <input type="number" name="km">
-
-  <button type="submit">submit</button>
-</form>
+        <button type="submit">submit</button>
+      </form>
+    </main>
+  </body>
+</html>
