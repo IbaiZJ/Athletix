@@ -6,14 +6,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
 import com.athletix.model.DTO.EventCardDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
 import com.athletix.model.DTO.NotificationRegistrationDTO;
+import com.athletix.model.Events;
 import com.athletix.model.Users;
 import com.athletix.service.EventService;
 import com.athletix.service.NotificationService;
@@ -41,32 +45,57 @@ public class EventController {
 
     @GetMapping("")
     public String getEvents(Model model) {
+        // Get current user
+        Users user = userService.getCurrentUser();
+
         // Registered events
-        List<EventCardDTO> registeredEvents = eventService.getRegisteredEvents(userService.getCurrentUser());
+        List<EventCardDTO> registeredEvents = eventService.getRegisteredEvents(user);
         model.addAttribute("registeredEvents", registeredEvents);
         System.out.println(registeredEvents);
         log.info("Save registered events in model");
-        /*
+
         // Available events
-        List<EventCardDTO> availableEvents = eventService.getAvailableEvents();
+        List<EventCardDTO> availableEvents = eventService.getAvailableEvents(user);
         model.addAttribute("availableEvents", availableEvents);
         log.info("Save available events in model");
-         
+
         // My events
-        List<EventCardDTO> myEvents = eventService.getMyEvents();
+        List<EventCardDTO> myEvents = eventService.getMyEvents(user);
         model.addAttribute("myEvents", myEvents);
         log.info("Save my events in model");
-
-        // Friends events
-        List<EventCardDTO> friendsEvents = eventService.getFriendsEvents();
-        model.addAttribute("friendsEvents", friendsEvents);
-        log.info("Save friends events in model");
-        */
+        /*
+         * // Friends events
+         * List<EventCardDTO> friendsEvents = eventService.getFriendsEvents();
+         * model.addAttribute("friendsEvents", friendsEvents);
+         * log.info("Save friends events in model");
+         */
 
         log.info("Accessing the event page");
 
         return "pages/event";
     }
+
+    @GetMapping("/{id}")
+    public String getEventPage(@PathVariable("id") Integer id, Model model) {
+        // Check if event exists
+        Events event = eventService.getEventById(id);
+        if (event == null) {
+            log.error("Event not found: {}", id);
+            return "error/404";
+        }
+
+        // Get event
+        
+
+        return "pages/event/eventPage";
+    }
+
+    @GetMapping("/{id}/participants")
+    public String getEventParticipants(@PathVariable("id") Integer id) {
+        // TODO: Implement
+        return "pages/event/eventParticipants";
+    }
+
 
     @GetMapping("/create")
     public String createEventForm() {
@@ -96,4 +125,18 @@ public class EventController {
         return "redirect:/event";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editEventForm(@PathVariable("id") Integer id) {
+        return null;
+    }
+
+    @PutMapping("/{id}/edit")
+    public String editEvent(@PathVariable("id") Integer id) {
+        return null;
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public String deleteEvent(@PathVariable("id") Integer id) {
+        return null;
+    }
 }
