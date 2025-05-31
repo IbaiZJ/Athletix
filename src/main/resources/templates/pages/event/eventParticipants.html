@@ -1,0 +1,16 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+  </head>
+  <body>
+    <main layout:fragment="content">
+      eventParticipants.html
+    </main>
+  </body>
+</html>

@@ -17,23 +17,28 @@
       <h2 class="mb-4 text-2xl font-semibold text-gray-800">My Events</h2>
 
       <div class="max-h-[60vh] space-y-4 overflow-y-auto pr-2">
-        <div
-          class="relative flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row"
-        >
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
-            alt="Fútbol"
-            class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
-          />
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold text-gray-800">Fútbol - Real Madrid vs Barcelona</h3>
-            <p class="text-sm text-gray-600">Fecha: 12/06/2025 - Hora: 20:00</p>
-            <p class="text-sm text-gray-600">Estadio Santiago Bernabéu</p>
-          </div>
-          <div class="absolute right-4 bottom-4">
-            <button class="bg-primary hover:bg-primary-hover cursor-pointer rounded-lg px-4 py-2 text-white transition">
-              Enter
-            </button>
+        <div th:each="event : ${myEvents}" class="group">
+          <div
+            class="relative flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm sm:flex-row"
+          >
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMse8vt7yDT15kSiuH5VnTNG1uqNB3zad3QA&s"
+              alt="Fútbol"
+              class="h-32 w-full rounded object-cover sm:h-24 sm:w-32"
+            />
+            <div class="flex-1">
+              <h3 th:text="${event.title}" class="text-lg font-semibold text-gray-800">Fútbol - Real Madrid vs Barcelona</h3>
+              <p th:text="${event.shortDescription}" class="text-sm text-gray-600">Fecha: 12/06/2025 - Hora: 20:00</p>
+              <p th:text="${event.location}" class="text-sm text-gray-600">Lugar: Campo de Fútbol</p>
+            </div>
+            <div class="absolute right-4 bottom-4">
+              <a
+                th:href="'/event/' + ${event.id}"
+                class="bg-primary hover:bg-primary-hover cursor-pointer rounded-lg px-4 py-2 text-white transition"
+              >
+                Enter
+              </a>
+            </div>
           </div>
         </div>
       </div>

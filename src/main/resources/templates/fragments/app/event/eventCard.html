@@ -30,7 +30,7 @@
         d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"
       />
     </svg>
-    <p class="text-sm text-gray-200">Short event description</p>
+    <p th:text="${event.shortDescription}" class="text-sm text-gray-200"></p>
   </div>
 
   <!-- Mobile always-visible SVG -->
@@ -53,8 +53,8 @@
   </div>
 
   <div class="absolute bottom-0 z-10 p-4 transition-opacity group-hover:opacity-30">
-    <h3 class="text-xl font-semibold text-white">Event Title</h3>
-    <p class="text-sm text-gray-200 sm:hidden">Short event description</p>
-    <span class="text-sm font-medium text-white">12 Jun 2025</span>
+    <h3 th:text="${event.title}" class="text-xl font-semibold text-white"></h3>
+    <p th:text="${event.shortDescription}" class="text-sm text-gray-200 sm:hidden"></p>
+    <span th:text="${event.date}" class="text-sm font-medium text-white"></span>
   </div>
 </a>
