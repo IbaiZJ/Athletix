@@ -17,4 +17,19 @@ public interface UserEventRepository extends JpaRepository<UsersEvents, Integer>
             "JOIN ue.event e " +
             "WHERE ue.user = :user")
     List<EventCardDTO> findRegisteredEventsByUser(@Param("user") Users user);
+
+    @Query("SELECT NEW com.athletix.model.DTO.EventCardDTO(" +
+            "e.id, e.title, e.shortDescription, e.date, e.location) " +
+            "FROM com.athletix.model.Events e " +
+            "WHERE e NOT IN (" +
+            "    SELECT ue.event FROM UsersEvents ue WHERE ue.user = :user" +
+            ") AND e.date >= CURRENT_DATE")
+    List<EventCardDTO> findAvailableEventsForUser(@Param("user") Users user);
+
+    @Query("SELECT NEW com.athletix.model.DTO.EventCardDTO(" +
+            "e.id, e.title, e.shortDescription, e.date, e.location) " +
+            "FROM UsersEvents ue " +
+            "JOIN ue.event e " +
+            "WHERE ue.user = :user AND ue.role = com.athletix.enums.EventRoleEnum.CREATOR")
+    List<EventCardDTO> findEventsCreatedByUser(@Param("user") Users user);
 }

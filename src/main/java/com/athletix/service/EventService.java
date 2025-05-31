@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.athletix.enums.EventRoleEnum;
 import com.athletix.model.DTO.EventCardDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
 import com.athletix.model.Events;
@@ -32,16 +33,19 @@ public class EventService {
         log.info("TrackingService initialized");
     }
 
+    public Events getEventById(Integer id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public void createEvent(Users user, EventRegistrationDTO eventDTO) {
-
         // Create event
         Events event = eventDTO.toEntity();
         eventRepository.save(event);
 
-        // Create N-N 
+        // Create N-N
         UsersEvents userEvent = new UsersEvents();
-        userEvent.setRole(null);
+        userEvent.setRole(EventRoleEnum.CREATOR);
         userEvent.setRegistrationDate(LocalDateTime.now());
         userEvent.setUser(user);
         userEvent.setEvent(event);
@@ -50,21 +54,25 @@ public class EventService {
         log.info("Created new event with title: {} for user: {}", event.getTitle(), user.getUsername());
     }
 
+    @Transactional
     public List<EventCardDTO> getRegisteredEvents(Users user) {
         log.info("Fetching registered events for user: {}", user.getUsername());
         return userEventRepository.findRegisteredEventsByUser(user);
     }
 
-    public List<EventCardDTO> getAvailableEvents() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAvailableEvents'");
+    @Transactional
+    public List<EventCardDTO> getAvailableEvents(Users user) {
+        log.info("Fetching available events for user: {}", user.getUsername());
+        return userEventRepository.findAvailableEventsForUser(user);
     }
 
-    public List<EventCardDTO> getMyEvents() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMyEvents'");
+    @Transactional
+    public List<EventCardDTO> getMyEvents(Users user) {
+        log.info("Fetching events created by user: {}", user.getUsername());
+        return userEventRepository.findEventsCreatedByUser(user);
     }
 
+    @Transactional
     public List<EventCardDTO> getFriendsEvents() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getFriendsEvents'");
