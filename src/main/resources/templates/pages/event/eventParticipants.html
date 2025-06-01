@@ -10,7 +10,13 @@
   </head>
   <body>
     <main layout:fragment="content">
-      eventParticipants.html
+      <div th:each="participant : ${participants}">
+        <p th:text="${participant.username}"></p>
+        <p th:text="${participant.fullName}"></p>
+        <p th:text="${participant.profileImage} ?: 'No image'"></p>
+        <p th:text="${participant.role}"></p>
+        <p>--------------------------</p>
+      </div>
     </main>
   </body>
 </html>

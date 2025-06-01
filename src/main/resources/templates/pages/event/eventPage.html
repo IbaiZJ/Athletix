@@ -12,8 +12,8 @@
     <main layout:fragment="content">
       <div th:replace="~{fragments/app/event/eventPage/eventPageHero}"></div>
 
-      <section class="mt-4 flex flex-col gap-6 md:flex-row">
-        <div class="w-6/10 rounded-xl bg-white p-6">
+      <section class="mt-4 flex flex-col gap-6 xl:flex-row">
+        <div class="w-full rounded-xl bg-white p-6 xl:w-6/10">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Descripción</h2>
           <p class="leading-relaxed">
             El monte Cervino (en español e italiano), Matterhorn (en alemán), Mont Cervin o Le Cervin (en francés) o
@@ -23,7 +23,7 @@
             Valais, al noreste, y Breuil-Cervinia, en el Valle de Aosta, al sur.
           </p>
         </div>
-        <div class="w-4/10 rounded-xl bg-white p-6">
+        <div class="w-full rounded-xl bg-white p-6 xl:w-4/10">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Ubicación</h2>
           <div id="map" class="h-96 w-full rounded-lg"></div>
         </div>
