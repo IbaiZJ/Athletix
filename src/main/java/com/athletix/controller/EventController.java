@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
-import com.athletix.model.DTO.EventCardDTO;
+import com.athletix.model.DTO.EventDTO;
+import com.athletix.model.DTO.EventParticipantsDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
 import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.Events;
@@ -49,23 +50,23 @@ public class EventController {
         Users user = userService.getCurrentUser();
 
         // Registered events
-        List<EventCardDTO> registeredEvents = eventService.getRegisteredEvents(user);
+        List<EventDTO> registeredEvents = eventService.getRegisteredEvents(user);
         model.addAttribute("registeredEvents", registeredEvents);
         System.out.println(registeredEvents);
         log.info("Save registered events in model");
 
         // Available events
-        List<EventCardDTO> availableEvents = eventService.getAvailableEvents(user);
+        List<EventDTO> availableEvents = eventService.getAvailableEvents(user);
         model.addAttribute("availableEvents", availableEvents);
         log.info("Save available events in model");
 
         // My events
-        List<EventCardDTO> myEvents = eventService.getMyEvents(user);
+        List<EventDTO> myEvents = eventService.getMyEvents(user);
         model.addAttribute("myEvents", myEvents);
         log.info("Save my events in model");
         /*
          * // Friends events
-         * List<EventCardDTO> friendsEvents = eventService.getFriendsEvents();
+         * List<EventDTO> friendsEvents = eventService.getFriendsEvents();
          * model.addAttribute("friendsEvents", friendsEvents);
          * log.info("Save friends events in model");
          */
@@ -91,8 +92,11 @@ public class EventController {
     }
 
     @GetMapping("/{id}/participants")
-    public String getEventParticipants(@PathVariable("id") Integer id) {
-        // TODO: Implement
+    public String getEventParticipants(@PathVariable("id") Integer id, Model model) {
+        List<EventParticipantsDTO> participants = eventService.getEventParticipants(id);
+        model.addAttribute("participants", participants);
+        log.info("Participants for event {}: {}", id, participants);
+        
         return "pages/event/eventParticipants";
     }
 
