@@ -2,7 +2,9 @@
   th:fragment="eventCard(event)"
   class="relative overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
 >
-  <div th:replace="~{fragments/app/event/eventPage/difficultyLabel :: difficulty(${event.difficulty})}"></div>
+  <div class="absolute top-3 right-3">
+    <div th:replace="~{fragments/app/event/eventPage/difficultyLabel :: difficulty(${event.difficulty})}"></div>
+  </div>
   <div class="flex h-48 items-center justify-center bg-blue-100">
     <img
       src="https://terralpina.com/wp-content/uploads/2019/06/Cervino_4-3.jpg"
@@ -27,7 +29,7 @@
       </div>
       <div class="flex items-center text-gray-700">
         <svg th:replace="~{fragments/app/event/svg/distanceSVG}"></svg>
-        <span>12.5 km</span>
+        <span th:text="${event.km} + ' km'"></span>
       </div>
     </div>
 

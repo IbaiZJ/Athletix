@@ -7,25 +7,23 @@
 >
   <head>
     <title th:text="'Home - ' + ${session.user.username}">Home</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/app/eventMap.js"></script>
   </head>
   <body>
     <main layout:fragment="content">
       <div th:replace="~{fragments/app/event/eventPage/eventPageHero}"></div>
 
-      <section class="mt-4 flex flex-col gap-6 xl:flex-row">
-        <div class="w-full rounded-xl bg-white p-6 xl:w-6/10">
+      <section class="mt-4 flex flex-col xl:flex-row">
+        <div class="w-full rounded-xl bg-white px-6 xl:w-6/10 xl:py-6">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Descripción</h2>
-          <p class="leading-relaxed">
-            El monte Cervino (en español e italiano), Matterhorn (en alemán), Mont Cervin o Le Cervin (en francés) o
-            Hore u Horu (walser) es posiblemente la montaña más famosa de los Alpes por su espectacular forma de
-            pirámide, muchas veces reproducida. Su cumbre, de 4478 metros, es la quinta cima más alta de los Alpes. Está
-            localizada en la frontera entre Suiza e Italia. Queda encima de la ciudad de Zermatt, en el cantón del
-            Valais, al noreste, y Breuil-Cervinia, en el Valle de Aosta, al sur.
-          </p>
+          <p th:text="${eventPage.description}" class="leading-relaxed"></p>
         </div>
         <div class="w-full rounded-xl bg-white p-6 xl:w-4/10">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Ubicación</h2>
-          <div id="map" class="h-96 w-full rounded-lg"></div>
+          <div th:replace="~{fragments/app/event/eventPage/eventPageMap}"></div>
         </div>
       </section>
     </main>

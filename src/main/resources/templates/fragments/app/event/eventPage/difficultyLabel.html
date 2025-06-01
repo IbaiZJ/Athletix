@@ -1,4 +1,4 @@
-<div th:fragment="difficulty(difficulty)" class="absolute top-3 right-3"> <!--  class="absolute top-3 right-3" -->
+<div th:fragment="difficulty(difficulty)"> <!--  class="absolute top-3 right-3" -->
   <th:block th:switch="${#strings.toUpperCase(difficulty?.toString())}">
     <span th:case="'EASY'" class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">Principiante</span>
     <span th:case="'MEDIUM'" class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700">Intermedio</span>

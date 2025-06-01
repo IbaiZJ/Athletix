@@ -6,27 +6,27 @@
   />
   <div class="flex flex-col justify-between px-4 pt-2 pb-6 xl:w-1/2 xl:pt-4">
     <div>
-      <h1 class="text-3xl font-bold text-gray-900">Escapada al Cervino</h1>
-      <p class="mt-2 text-base text-gray-600">El Cervino, también conocido como Matterhorn,</p>
+      <h1 th:text="${eventPage.title}" class="text-3xl font-bold text-gray-900"></h1>
+      <p th:text="${eventPage.shortDescription}" class="mt-2 text-base text-gray-600"></p>
 
       <div class="mt-4 flex flex-wrap items-center gap-2">
-        <!-- <div th:replace="~{fragments/app/event/eventPage/difficultyLabel :: difficulty-badge(${event.difficulty}, 'text-lg')}"></div> -->
+        <div th:replace="~{fragments/app/event/eventPage/difficultyLabel :: difficulty(${eventPage.difficulty})}"></div>
         <span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">Senderismo</span>
-        <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">25 participantes</span>
+        <span th:text="${eventPage.participantsCount} + ' participantes'" class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700"></span>
       </div>
 
       <div class="mt-4 space-y-2 text-gray-700">
         <div class="flex items-center">
           <svg th:replace="~{fragments/app/event/svg/locationSVG}"></svg>
-          <span>Valle de Tena, Huesca</span>
+          <span th:text="${eventPage.location}"></span>
         </div>
         <div class="flex items-center">
           <svg th:replace="~{fragments/app/event/svg/calendarSVG}"></svg>
-          <span>15 Junio 2023 · 09:00</span>
+          <span th:text="${eventPage.date}"></span>
         </div>
         <div class="flex items-center">
           <svg th:replace="~{fragments/app/event/svg/distanceSVG}"></svg>
-          <span>12.5 km</span>
+          <span th:text="${eventPage.km} + ' km'"></span>
         </div>
       </div>
     </div>
