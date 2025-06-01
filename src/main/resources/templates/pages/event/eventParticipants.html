@@ -1,0 +1,22 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div th:each="participant : ${participants}">
+        <p th:text="${participant.username}"></p>
+        <p th:text="${participant.fullName}"></p>
+        <p th:text="${participant.profileImage} ?: 'No image'"></p>
+        <p th:text="${participant.role}"></p>
+        <p>--------------------------</p>
+      </div>
+    </main>
+  </body>
+</html>

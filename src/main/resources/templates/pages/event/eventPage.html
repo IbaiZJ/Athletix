@@ -1,0 +1,31 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Event'"
+>
+  <head>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/app/eventMap.js"></script>
+  </head>
+  <body>
+    <main layout:fragment="content">
+      <div th:replace="~{fragments/app/event/eventPage/eventPageHero}"></div>
+
+      <section class="mt-4 flex flex-col xl:flex-row">
+        <div class="w-full rounded-xl bg-white px-6 xl:w-6/10 xl:py-6">
+          <h2 class="mb-4 text-2xl font-semibold text-gray-900">Descripción</h2>
+          <p th:text="${eventPage.description}" class="leading-relaxed"></p>
+        </div>
+        <div class="w-full rounded-xl bg-white p-6 xl:w-4/10">
+          <h2 class="mb-4 text-2xl font-semibold text-gray-900">Ubicación</h2>
+          <div th:replace="~{fragments/app/event/eventPage/eventPageMap}"></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

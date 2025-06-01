@@ -1,31 +1,27 @@
 package com.athletix.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.athletix.model.Notifications;
+import com.athletix.service.NotificationService;
 
-import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/notification")
 public class NotificationsController {
 
-    @PostMapping("/delete")
-    public ResponseEntity<Void> deleteNotification(@RequestParam("id") Integer id, HttpSession session) {
-        List<Notifications> notifications = (List<Notifications>) session.getAttribute("notifications");
-        
-        if (notifications != null) {
-            notifications.removeIf(n -> id.equals(n.getId()));
-            session.setAttribute("notifications", notifications);
-        }
+    private final NotificationService notificationService;
 
-        return ResponseEntity.ok().build();
+    public NotificationsController(NotificationService notificationService) {
+        this.notificationService = notificationService;
     }
+
+    // @MessageMapping("/notification/delete")
+    // @SendTo("/topic/notification")
+    // public NotificationDeleteResponse deleteNotification(NotificationDeleteRequest request, Principal principal) {
+    //     // Remove notifications from backend
+    //     notificationService.deleteNotification(request.getNotificationId(), principal.getName());
+
+    //     // Return response to frontend
+    //     return new NotificationDeleteResponse(request.getNotificationId(), true);
+    // }
 
 }
