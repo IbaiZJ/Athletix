@@ -86,7 +86,18 @@ public class EventController {
         }
 
         // Get event
-        
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(event.getId());
+        eventDTO.setTitle(event.getTitle());
+        eventDTO.setShortDescription(event.getShortDescription());
+        eventDTO.setDescription(event.getDescription());
+        eventDTO.setDate(event.getDate());
+        eventDTO.setKm(event.getKm());
+        eventDTO.setLocation(event.getLocation());
+        eventDTO.setDifficulty(event.getDifficulty());
+        eventDTO.setParticipantsCount(eventService.getParticipantsCount(id));
+
+        model.addAttribute("eventPage", eventDTO);
 
         return "pages/event/eventPage";
     }

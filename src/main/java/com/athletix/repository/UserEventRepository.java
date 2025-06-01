@@ -13,7 +13,7 @@ import com.athletix.model.UsersEvents;
 
 public interface UserEventRepository extends JpaRepository<UsersEvents, Integer> {
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.location, e.difficulty, " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
             "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM UsersEvents ue " +
             "JOIN ue.event e " +
@@ -21,7 +21,7 @@ public interface UserEventRepository extends JpaRepository<UsersEvents, Integer>
     List<EventDTO> findRegisteredEventsByUser(@Param("user") Users user);
 
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.location, e.difficulty, " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
             "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM com.athletix.model.Events e " +
             "WHERE e NOT IN (" +
@@ -30,7 +30,7 @@ public interface UserEventRepository extends JpaRepository<UsersEvents, Integer>
     List<EventDTO> findAvailableEventsForUser(@Param("user") Users user);
 
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.location, e.difficulty, " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
             "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM UsersEvents ue " +
             "JOIN ue.event e " +

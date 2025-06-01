@@ -21,17 +21,19 @@ public class EventDTO {
     private String shortDescription;
     private String description;
     private LocalDateTime date;
+    private Float km;
     private String location;
     private DifficultyEnum difficulty;
     private Integer participantsCount;
 
     public EventDTO(Integer id, String title, String shortDescription, String description,
-            LocalDateTime date, String location, DifficultyEnum difficulty, Long participantsCount) {
+            LocalDateTime date, Float km, String location, DifficultyEnum difficulty, Long participantsCount) {
         this.id = id;
         this.title = title;
         this.shortDescription = shortDescription;
         this.description = description;
         this.date = date;
+        this.km = km;
         this.location = location;
         this.difficulty = difficulty;
         this.participantsCount = participantsCount != null ? participantsCount.intValue() : 0;
