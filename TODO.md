@@ -1,5 +1,6 @@
 - Tracking-eko perfileko irudia konpondu
 - Login egiterakoan behar duen lekura berbidali
+- Tracking estadistikak responsive
 
 
 <!DOCTYPE html>
