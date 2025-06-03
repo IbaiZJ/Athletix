@@ -38,14 +38,14 @@
         Follow
       </a>
       <a
-        href="/event/1/participants"
+        th:href="@{/event/{id}/participants(id=${eventPage.id})}"
         class="flex items-center gap-2 rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-200"
       >
         <svg th:replace="~{fragments/app/event/svg/socialSVG}"></svg>
         Participantes
       </a>
       <a
-        href="/event/1/settings"
+        th:href="@{/event/{id}/settings(id=${eventPage.id})}"
         class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-200"
       >
         <svg th:replace="~{fragments/app/event/svg/settingsSVG}"></svg>

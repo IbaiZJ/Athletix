@@ -15,13 +15,12 @@
   <body>
     <main layout:fragment="content">
       <div th:replace="~{fragments/app/event/eventPage/eventPageHero}"></div>
-
       <section class="mt-4 flex flex-col xl:flex-row">
-        <div class="w-full rounded-xl bg-white px-6 xl:w-6/10 xl:py-6">
+        <div class="w-full bg-white px-6 xl:w-6/10 xl:py-6">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Descripción</h2>
           <p th:text="${eventPage.description}" class="leading-relaxed"></p>
         </div>
-        <div class="w-full rounded-xl bg-white p-6 xl:w-4/10">
+        <div class="w-full p-6 xl:w-4/10 bg-white">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Ubicación</h2>
           <div th:replace="~{fragments/app/event/eventPage/eventPageMap}"></div>
         </div>
