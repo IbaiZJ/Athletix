@@ -9,7 +9,11 @@
     <title th:text="'Home - ' + ${session.user.username}">Home</title>
   </head>
   <body>
-    <main layout:fragment="content">
+    <main layout:fragment="content" class="p-4">
+      <h2 class="text-center text-2xl font-bold text-gray-800 sm:text-3xl xl:text-left">Participants</h2>
+
+      
+
       <div th:each="participant : ${participants}">
         <p th:text="${participant.username}"></p>
         <p th:text="${participant.fullName}"></p>

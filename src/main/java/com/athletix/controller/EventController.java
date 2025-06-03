@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
+import com.athletix.enums.SportEnum;
 import com.athletix.model.DTO.EventDTO;
 import com.athletix.model.DTO.EventParticipantsDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
@@ -107,14 +108,15 @@ public class EventController {
         List<EventParticipantsDTO> participants = eventService.getEventParticipants(id);
         model.addAttribute("participants", participants);
         log.info("Participants for event {}: {}", id, participants);
-        
+
         return "pages/event/eventParticipants";
     }
 
-
     @GetMapping("/create")
-    public String createEventForm() {
+    public String createEventForm(Model model) {
         log.info("Accessing the event creation form");
+
+        model.addAttribute("eventSports", SportEnum.values());
 
         return "pages/event/eventCreationForm";
     }
