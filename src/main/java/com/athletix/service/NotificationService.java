@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.Notifications;
 import com.athletix.model.Users;
-import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.repository.NotificationRepository;
 import com.athletix.repository.UserRepository;
 
@@ -63,4 +63,19 @@ public class NotificationService {
 
         log.info("Notification created for user: {} with title: {}", user.getUsername(), notification.getTitle());
     }
+
+    @Transactional
+    public void deleteNotification(Integer notificationId) {
+        if (notificationId == null) {
+            throw new IllegalArgumentException("ID de notificación es obligatorio");
+        }
+
+        Notifications notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new RuntimeException("Notificacion not found: " + notificationId));
+
+        notificationRepository.delete(notification);
+
+        log.info("Notification deleted with ID: {}", notificationId);
+    }
+
 }

@@ -35,6 +35,7 @@ public class Events implements Serializable {
 
     private String shortDescription;
 
+    @Column(length = 2000)
     private String description;
 
     @Column(nullable = false)

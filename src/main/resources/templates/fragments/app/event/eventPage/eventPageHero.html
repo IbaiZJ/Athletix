@@ -1,0 +1,55 @@
+<div class="flex w-full flex-col gap-6 bg-white xl:flex-row xl:items-start">
+  <img
+    src="https://terralpina.com/wp-content/uploads/2019/06/Cervino_4-3.jpg"
+    alt="Cervino"
+    class="h-64 w-full object-cover shadow-sm xl:h-auto xl:max-h-[400px] xl:w-1/2 xl:rounded-br-2xl"
+  />
+  <div class="flex flex-col justify-between px-4 pt-2 pb-6 xl:w-1/2 xl:pt-4">
+    <div>
+      <h1 th:text="${eventPage.title}" class="text-3xl font-bold text-gray-900"></h1>
+      <p th:text="${eventPage.shortDescription}" class="mt-2 text-base text-gray-600"></p>
+
+      <div class="mt-4 flex flex-wrap items-center gap-2">
+        <div th:replace="~{fragments/app/event/eventPage/difficultyLabel :: difficulty(${eventPage.difficulty})}"></div>
+        <span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">Senderismo</span>
+        <span th:text="${eventPage.participantsCount} + ' participantes'" class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700"></span>
+      </div>
+
+      <div class="mt-4 space-y-2 text-gray-700">
+        <div class="flex items-center">
+          <svg th:replace="~{fragments/app/event/svg/locationSVG}"></svg>
+          <span th:text="${eventPage.location}"></span>
+        </div>
+        <div class="flex items-center">
+          <svg th:replace="~{fragments/app/event/svg/calendarSVG}"></svg>
+          <span th:text="${eventPage.date}"></span>
+        </div>
+        <div class="flex items-center">
+          <svg th:replace="~{fragments/app/event/svg/distanceSVG}"></svg>
+          <span th:text="${eventPage.km} + ' km'"></span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex gap-4">
+      <a
+        href="#"
+        class="bg-primary hover:bg-primary-hover rounded-lg px-6 py-2 text-center font-medium text-white transition duration-200"
+      >
+        Follow
+      </a>
+      <a
+        th:href="@{/event/{id}/participants(id=${eventPage.id})}"
+        class="flex items-center gap-2 rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-200"
+      >
+        <svg th:replace="~{fragments/app/event/svg/socialSVG}"></svg>
+        Participantes
+      </a>
+      <a
+        th:href="@{/event/{id}/settings(id=${eventPage.id})}"
+        class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-200"
+      >
+        <svg th:replace="~{fragments/app/event/svg/settingsSVG}"></svg>
+      </a>
+    </div>
+  </div>
+</div>

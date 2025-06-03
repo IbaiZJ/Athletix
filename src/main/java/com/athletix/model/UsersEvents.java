@@ -3,7 +3,7 @@ package com.athletix.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.athletix.enums.RoleEnum;
+import com.athletix.enums.EventRoleEnum;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,6 +39,6 @@ public class UsersEvents implements Serializable {
     private LocalDateTime registrationDate;
     
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private EventRoleEnum role;
 
 }
