@@ -25,6 +25,7 @@ public class EventDTO {
     private String location;
     private DifficultyEnum difficulty;
     private Integer participantsCount;
+    // sport list
 
     public EventDTO(Integer id, String title, String shortDescription, String description,
             LocalDateTime date, Float km, String location, DifficultyEnum difficulty, Long participantsCount) {
