@@ -8,8 +8,8 @@
   </div>
   <div class="flex h-48 items-center justify-center bg-blue-100">
     <img
-      src="https://terralpina.com/wp-content/uploads/2019/06/Cervino_4-3.jpg"
-      alt="Cervino"
+      th:src="${event.profileImage}"
+      th:alt="${event.title} + ' image'"
       class="h-full w-full object-cover"
     />
   </div>
