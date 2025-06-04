@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.SportEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,8 +47,19 @@ public class Events implements Serializable {
     @Column(nullable = false)
     private String location;
 
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
+
     @Enumerated(EnumType.STRING)
     private DifficultyEnum difficulty;
+
+    @Enumerated(EnumType.STRING)
+    private SportEnum activity;
+
+    private String profileImage;
 
     @OneToMany(mappedBy = "event")
     private Set<UsersEvents> users = new HashSet<>();

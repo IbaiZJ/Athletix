@@ -12,17 +12,20 @@ import com.athletix.model.Users;
 import com.athletix.model.UsersEvents;
 
 public interface UserEventRepository extends JpaRepository<UsersEvents, Integer> {
+
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
-            "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, " +
+            "e.latitude, e.longitude, e.activity, e.difficulty, e.profileImage, " +
+            "(SELECT COUNT(ue2) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM UsersEvents ue " +
             "JOIN ue.event e " +
             "WHERE ue.user = :user")
     List<EventDTO> findRegisteredEventsByUser(@Param("user") Users user);
 
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
-            "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, " +
+            "e.latitude, e.longitude, e.activity, e.difficulty, e.profileImage, " +
+            "(SELECT COUNT(ue2) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM com.athletix.model.Events e " +
             "WHERE e NOT IN (" +
             "    SELECT ue.event FROM UsersEvents ue WHERE ue.user = :user" +
@@ -30,8 +33,9 @@ public interface UserEventRepository extends JpaRepository<UsersEvents, Integer>
     List<EventDTO> findAvailableEventsForUser(@Param("user") Users user);
 
     @Query("SELECT NEW com.athletix.model.DTO.EventDTO(" +
-            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, e.difficulty, " +
-            "(SELECT COUNT(ue2.user) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
+            "e.id, e.title, e.shortDescription, e.description, e.date, e.km, e.location, " +
+            "e.latitude, e.longitude, e.activity, e.difficulty, e.profileImage, " +
+            "(SELECT COUNT(ue2) FROM UsersEvents ue2 WHERE ue2.event = e)) " +
             "FROM UsersEvents ue " +
             "JOIN ue.event e " +
             "WHERE ue.user = :user AND ue.role = com.athletix.enums.EventRoleEnum.CREATOR")

@@ -3,6 +3,7 @@ package com.athletix.model.DTO;
 import java.time.LocalDateTime;
 
 import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.SportEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,12 +24,16 @@ public class EventDTO {
     private LocalDateTime date;
     private Float km;
     private String location;
+    private Double latitude;
+    private Double longitude;
+    private SportEnum activity;
     private DifficultyEnum difficulty;
+    private String profileImage;
     private Integer participantsCount;
-    // sport list
 
     public EventDTO(Integer id, String title, String shortDescription, String description,
-            LocalDateTime date, Float km, String location, DifficultyEnum difficulty, Long participantsCount) {
+            LocalDateTime date, Float km, String location, Double latitude, Double longitude,
+            SportEnum activity, DifficultyEnum difficulty, String profileImage, Long participantsCount) {
         this.id = id;
         this.title = title;
         this.shortDescription = shortDescription;
@@ -36,7 +41,11 @@ public class EventDTO {
         this.date = date;
         this.km = km;
         this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.activity = activity;
         this.difficulty = difficulty;
+        this.profileImage = profileImage;
         this.participantsCount = participantsCount != null ? participantsCount.intValue() : 0;
     }
 }

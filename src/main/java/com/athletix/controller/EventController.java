@@ -1,5 +1,6 @@
 package com.athletix.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.athletix.enums.NotificationEnum;
-import com.athletix.enums.SportEnum;
 import com.athletix.model.DTO.EventDTO;
 import com.athletix.model.DTO.EventParticipantsDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
@@ -22,6 +23,7 @@ import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.Events;
 import com.athletix.model.Users;
 import com.athletix.service.EventService;
+import com.athletix.service.FileStorageService;
 import com.athletix.service.NotificationService;
 import com.athletix.service.UserService;
 
@@ -35,14 +37,17 @@ public class EventController {
     private final EventService eventService;
     private final UserService userService;
     private final NotificationService notificationService;
+    private final FileStorageService fileStorageService;
 
     public EventController(
             EventService eventService,
             UserService userService,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            FileStorageService fileStorageService) {
         this.eventService = eventService;
         this.userService = userService;
         this.notificationService = notificationService;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping("")
@@ -95,7 +100,11 @@ public class EventController {
         eventDTO.setDate(event.getDate());
         eventDTO.setKm(event.getKm());
         eventDTO.setLocation(event.getLocation());
+        eventDTO.setLatitude(event.getLatitude());
+        eventDTO.setLongitude(event.getLongitude());
+        eventDTO.setActivity(event.getActivity());
         eventDTO.setDifficulty(event.getDifficulty());
+        eventDTO.setProfileImage(event.getProfileImage());
         eventDTO.setParticipantsCount(eventService.getParticipantsCount(id));
 
         model.addAttribute("eventPage", eventDTO);
@@ -116,28 +125,43 @@ public class EventController {
     public String createEventForm(Model model) {
         log.info("Accessing the event creation form");
 
-        model.addAttribute("eventSports", SportEnum.values());
-
         return "pages/event/eventCreationForm";
     }
 
     @PostMapping("/create")
-    public String createEvent(EventRegistrationDTO eventDTO, HttpServletRequest request) {
+    public String createEvent(EventRegistrationDTO eventDTO, HttpServletRequest request, RedirectAttributes redirect) {
         // Get current user
         Users user = userService.getCurrentUser();
         log.info("Creating new event for user: {}", user.getUsername());
 
-        // Create event
-        eventService.createEvent(user, eventDTO);
-        log.info("Event created for user: {}", user.getUsername());
+        try {
+            if (eventDTO.getProfileImage() != null && !eventDTO.getProfileImage().isEmpty()) {
+                String fileName = fileStorageService.storeFile(eventDTO.getProfileImage());
+                eventDTO.setProfileImageURL("/uploads/" + fileName);
+            }
 
-        // Create notification
-        NotificationRegistrationDTO notification = new NotificationRegistrationDTO("New event created",
-                "You have created a new event: " + eventDTO.getTitle(), NotificationEnum.CREATE_EVENT);
-        notificationService.createNotificationForUser(user, notification);
-        notificationService.reloadNotifications(request, user);
+            // Create event
+            eventService.createEvent(user, eventDTO);
+            log.info("Event created for user: {}", user.getUsername());
 
-        log.info("Creating new tracking with title: {}", eventDTO.getTitle());
+            // Create notification
+            NotificationRegistrationDTO notification = new NotificationRegistrationDTO("New event created",
+                    "You have created a new event: " + eventDTO.getTitle(), NotificationEnum.CREATE_EVENT);
+            notificationService.createNotificationForUser(user, notification);
+            notificationService.reloadNotifications(request, user);
+
+            log.info("Creating new tracking with title: {}", eventDTO.getTitle());
+
+        } catch (IllegalArgumentException e) {
+            // model.addAttribute("error", e.getMessage());
+            log.error("Error creating account: {}", e.getMessage());
+            // redirect.addFlashAttribute("error", e.getMessage());
+            return "redirect:/event/create";
+        } catch (IOException e) {
+            log.error("Unexpected error during registration", e);
+            // redirect.addFlashAttribute("error", "Ha ocurrido un error inesperado.");
+            return "redirect:/event/create";
+        }
 
         return "redirect:/event";
     }
