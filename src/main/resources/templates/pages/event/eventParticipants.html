@@ -7,6 +7,7 @@
 >
   <head>
     <title th:text="'Home - ' + ${session.user.username}">Home</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body>
     <main layout:fragment="content" class="p-4">
@@ -14,13 +15,10 @@
 
       
 
-      <div th:each="participant : ${participants}">
-        <p th:text="${participant.username}"></p>
-        <p th:text="${participant.fullName}"></p>
-        <p th:text="${participant.profileImage} ?: 'No image'"></p>
-        <p th:text="${participant.role}"></p>
-        <p>--------------------------</p>
-      </div>
+      <div th:replace="~{fragments/app/event/eventPage/participantList}"></div>
+
+
+
     </main>
   </body>
 </html>

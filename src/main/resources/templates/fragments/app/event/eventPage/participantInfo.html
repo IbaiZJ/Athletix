@@ -1,0 +1,30 @@
+<div x-data="{ showModal: false }">
+  <button
+    @click="showModal = true"
+    type="button"
+    class="bg-primary hover:bg-primary-hover w-fit rounded-lg px-4 py-2 text-center text-white transition hover:cursor-pointer sm:w-auto"
+  >
+    a
+  </button>
+
+  <div
+    x-show="showModal"
+    x-transition
+    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 p-4 backdrop-blur-sm"
+    @click.self="showModal = false"
+  >
+    <div th:fragment="participantInfo(participant)" class="max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-xl bg-white p-6 text-left shadow-2xl">
+      <h2 th:text="${participant.fullName}" class="mb-4 text-2xl font-semibold text-gray-800"></h2>
+
+        
+      <div class="mt-4 flex justify-end">
+        <button
+          @click="showModal = false"
+          class="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
