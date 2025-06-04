@@ -105,4 +105,9 @@ public class EventService {
     public Integer getParticipantsCount(Integer eventId) {
         return userEventRepository.countByEventId(eventId);
     }
+
+    public Events findById(Integer id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
 }
