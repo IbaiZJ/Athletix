@@ -1,0 +1,11 @@
+<span th:switch="${activity}" class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700"
+      th:fragment="label(activity)">
+  <span th:case="'RUNNING'">Carrera</span>
+  <span th:case="'CYCLING'">Ciclismo</span>
+  <span th:case="'MOUNTAIN_BIKING'">Bicicleta de Montaña</span>
+  <span th:case="'SWIMMING'">Natación</span>
+  <span th:case="'HIKING'">Senderismo</span>
+  <span th:case="'WALKING'">Caminata</span>
+  <span th:case="'TRAIL_RUNNING'">Trail Running</span>
+  <span th:case="*">Desconocido</span>
+</span>
