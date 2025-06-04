@@ -10,6 +10,12 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      let eventLatitude = /*[[${eventPage.latitude}]]*/ 19.4326;
+      let eventLongitude = /*[[${eventPage.longitude}]]*/ -99.1332;
+      /*]]>*/
+    </script>
     <script src="/js/app/eventMap.js"></script>
   </head>
   <body>
@@ -20,7 +26,7 @@
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Descripción</h2>
           <p th:text="${eventPage.description}" class="leading-relaxed"></p>
         </div>
-        <div class="w-full p-6 xl:w-4/10 bg-white">
+        <div class="w-full bg-white p-6 xl:w-4/10">
           <h2 class="mb-4 text-2xl font-semibold text-gray-900">Ubicación</h2>
           <div th:replace="~{fragments/app/event/eventPage/eventPageMap}"></div>
         </div>

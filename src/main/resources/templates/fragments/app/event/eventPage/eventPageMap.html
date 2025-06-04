@@ -1,6 +1,6 @@
 <div id="map" class="relative h-96 w-full rounded-lg">
   <a
-    href="https://www.google.com"
+    th:href="'https://www.google.com/maps/dir/?api=1&destination=' + ${eventPage.latitude} + ',' + ${eventPage.longitude}"
     class="text-primary absolute top-3 right-3 z-[1000] rounded-full bg-blue-100 px-3 py-1 text-sm font-medium shadow transition-colors duration-300 ease-in-out hover:bg-blue-200"
   >
     Nola joan?
