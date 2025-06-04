@@ -1,10 +1,12 @@
 package com.athletix.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.athletix.enums.NotificationEnum;
@@ -167,8 +170,39 @@ public class EventController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editEventForm(@PathVariable("id") Integer id) {
-        return null;
+    public String editEventForm(@PathVariable("id") Integer id, Model model) {
+        Events event = eventService.findById(id);
+        if (event == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento no encontrado");
+        }
+
+        EventRegistrationDTO dto = fromEntity(event);
+        model.addAttribute("eventEditForm", dto);
+
+        return "pages/event/eventCreationForm";
+    }
+
+    public EventRegistrationDTO fromEntity(Events event) {
+        EventRegistrationDTO dto = new EventRegistrationDTO();
+
+        dto.setTitle(event.getTitle());
+        dto.setShortDescription(event.getShortDescription());
+        dto.setDescription(event.getDescription());
+
+        LocalDateTime dateTime = event.getDate();
+        dto.setDate(dateTime.toLocalDate().toString());
+        dto.setDateH(dateTime.getHour());
+        dto.setDateM(dateTime.getMinute());
+
+        dto.setKm(event.getKm());
+        dto.setLocation(event.getLocation());
+        dto.setLatitude(event.getLatitude());
+        dto.setLongitude(event.getLongitude());
+        dto.setActivity(event.getActivity());
+        dto.setDifficulty(event.getDifficulty());
+        dto.setProfileImageURL(event.getProfileImage());
+
+        return dto;
     }
 
     @PutMapping("/{id}/edit")
