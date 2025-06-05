@@ -5,3 +5,4 @@
 - Forms km -> float, (bakarrik ahal da zenbaki osoa sartu)
 - Event page kirol mota label
 - Title-ak aldatu
+- Formulario guztiak konpondu
