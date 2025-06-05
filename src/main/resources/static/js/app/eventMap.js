@@ -23,5 +23,5 @@ document.addEventListener('DOMContentLoaded', function () {
     attribution: '',
   }).addTo(map);
 
-  L.marker([lat, lng]).addTo(map).bindPopup('Ubicación del evento').openPopup();
+  L.marker([lat, lng]).addTo(map);
 });
