@@ -1,8 +1,0 @@
-- Tracking-eko perfileko irudia konpondu
-- Login egiterakoan behar duen lekura berbidali
-- Tracking estadistikak responsive
-- Event form js-java backend
-- Forms km -> float, (bakarrik ahal da zenbaki osoa sartu)
-- Event page kirol mota label
-- Title-ak aldatu
-- Formulario guztiak konpondu
