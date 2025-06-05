@@ -1,0 +1,11 @@
+<li th:fragment="sidebarButton(url, name, activePage, icon)">
+  <a th:href="@{${url}}">
+    <span
+      class="hover:text-primary relative inline-flex items-center gap-3 transform cursor-pointer transition-all duration-300 hover:scale-110 hover:font-bold"
+      th:classappend="${activePage == name} ? ' text-primary' : ''"
+    >
+      <img th:src="@{'/svg/' + ${icon} + '.svg'}" alt="" class="w-6 h-6" />
+      <span th:text="${name}"></span>
+    </span>
+  </a>
+</li>

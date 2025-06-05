@@ -1,0 +1,117 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title>Event create form</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/js/app/eventCreationMap.js"></script>
+  </head>
+
+  <body>
+    <main layout:fragment="content">
+      <form
+        th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
+        method="post"
+        enctype="multipart/form-data"
+        class="mx-auto w-full p-6"
+        th:object="${eventEditForm}"
+        th:with="
+          withTitle=${eventEditForm?.title},
+          withShortDescription=${eventEditForm?.shortDescription},
+          withDescription=${eventEditForm?.description},
+          withDate=${eventEditForm?.date},
+          withDateHour=${eventEditForm?.dateH},
+          withDateMinute=${eventEditForm?.dateM},
+          withDistanceKm=${eventEditForm?.km},
+          withLocation=${eventEditForm?.location},
+          withLatitude=${eventEditForm?.latitude},
+          withLongitude=${eventEditForm?.longitude},
+          withActivity=${eventEditForm?.activity},
+          withDifficulty=${eventEditForm?.difficulty},
+          withProfileImageUrl=${eventEditForm?.profileImageURL}
+        "
+      >
+        <div class="flex flex-col gap-4">
+          <div
+            th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title',true,'Title', ${withTitle})}"
+          ></div>
+          <div
+            th:replace="~{fragments/app/appInput :: appInput('text', 'shortDescription', 'Short Description',true,'Short Description', ${withShortDescription})}"
+          ></div>
+          <div class="min-h-2xs flex">
+            <div
+              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Description', ${withDescription})}"
+            ></div>
+          </div>
+
+          <div class="flex w-full flex-col gap-4 md:flex-row">
+            <div
+              th:replace="~{fragments/app/appInput :: appInput('date', 'date', 'Date',true, 'Date',${withDate})}"
+            ></div>
+            <div class="flex flex-row gap-3">
+              <div
+                th:replace="~{fragments/app/appInput :: appInput('number', 'dateH', 'Hour',true, 'Hour',${withDateHour})}"
+              ></div>
+              <div
+                th:replace="~{fragments/app/appInput :: appInput('number', 'dateM', 'Minute',true,'Minute',${withDateMinute})}"
+              ></div>
+            </div>
+          </div>
+          <div
+            th:replace="~{fragments/app/appInput :: appInput('text', 'location', 'Ubication', true, 'Ubication',${withLocation})}"
+          ></div>
+          <div
+            id="map"
+            class="relative z-0 h-96 w-full rounded-lg"
+            th:attr="data-lat=${withLatitude}, data-lng=${withLongitude}"
+          ></div>
+
+          <input type="hidden" name="latitude" id="lat" th:value="${withLatitude}" />
+          <input type="hidden" name="longitude" id="lng" th:value="${withLongitude}" />
+          <div class="flex w-full flex-col gap-4 md:flex-row">
+            <div class="flex w-full flex-col gap-4">
+              <div
+                th:replace="~{fragments/app/appInput :: appInput('number', 'km', 'Distance (km)',true, 'Distance', ${withDistanceKm})}"
+              ></div>
+              <div class="flex w-full flex-col gap-2">
+                <label for="activity" class="mb-0 block text-sm font-medium text-gray-900"> Actividad * </label>
+                <select
+                  th:field="*{activity}"
+                  id="activity"
+                  class="focus:border-primary focus:ring-primary block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
+                  required
+                >
+                  <option value="" disabled>Selecciona actividad</option>
+                  <option
+                    th:each="act : ${T(com.athletix.enums.SportEnum).values()}"
+                    th:value="${act}"
+                    th:text="${#strings.capitalizeWords(act.name().toLowerCase().replace('_', ' '))}"
+                  ></option>
+                </select>
+              </div>
+              <div th:replace="~{fragments/app/event/eventDificulty}"></div>
+            </div>
+            <div class="flex w-full flex-col gap-4 md:flex-row">
+              <div th:replace="~{fragments/login/fileInput}"></div>
+              <input type="hidden" name="profileImageURL" th:value="${withProfileImageUrl}" />
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}" th:with="activePage='Home'">
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/app/eventCreationMap.js"></script>
+</head>
+
+<body>
+  <main layout:fragment="content">
+    <form th:action="@{'/tracking/' + ${session.user.username} + '/create'}" method="post" class="p-6 mx-auto w-full">
+      <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title',true,'Title')}"></div>
+
+      <div
+        th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'Description', false, 'Description')}">
+      </div>
+
+
+      <div class="flex w-full flex-col gap-4 md:flex-row">
+        <div th:replace="~{fragments/app/appInput :: appInput('date', 'date', 'Date',true, 'Date')}"></div>
+        <div class="flex flex-row gap-3">
+          <div th:replace="~{fragments/app/appInput :: appInput('number', 'dateH', 'Hour',true, 'Hour')}"></div>
+          <div th:replace="~{fragments/app/appInput :: appInput('number', 'dateM', 'Minute',true,'Minute')}"></div>
+        </div>
+      </div>
+      <div th:replace="~{fragments/app/appInput :: appInput('text', 'UbicationText', 'Ubication', true, 'Ubication')}">
+      </div>
+      <div id="map" class="relative h-96 w-full rounded-lg z-0 my-4"></div>
+
+      <!-- Inputs ocultos para enviar latitud y longitud -->
+      <input type="hidden" name="latitude" id="lat" value="43.1157" />
+      <input type="hidden" name="longitude" id="lng" value="-2.4129" />
+      <div class="flex flex-col gap-4 md:flex-row w-full">
+
+        <div class="flex flex-col w-full gap-2">
+          <div th:replace="~{fragments/app/appInput :: appInput('number', 'Distance', 'Distance',true, 'Distance')}">
+          </div>
+          <label for="activity" class="mb-0 block text-sm font-medium text-gray-900">
+            Actividad *</label>
+
+          <select name="activity" id="activity"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary"
+            required>
+            <option value="" disabled selected>Selecciona actividad</option>
+            <option value="RUNNING">RUNNING</option>
+            <option value="CYCLING">CYCLING</option>
+            <option value="MOUNTAIN_BIKING">MOUNTAIN_BIKING</option>
+            <option value="SWIMMING">SWIMMING</option>
+            <option value="HIKING">HIKING</option>
+            <option value="WALKING">WALKING</option>
+            <option value="TRAIL_RUNNING">TRAIL_RUNNING</option>
+          </select>
+          <div th:replace="~{fragments/app/event/eventDificulty}"></div>
+        </div>
+        <div class="flex flex-col gap-4 md:flex-row w-full">
+
+
+          <div th:replace="~{fragments/login/fileListInput}"></div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button type="submit"
+          class="bg-primary hover:bg-primary-hover rounded-md px-4 py-2 text-sm font-medium text-white md:w-[200px] mt-6">
+          Submit
+        </button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>

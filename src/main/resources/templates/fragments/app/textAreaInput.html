@@ -1,0 +1,18 @@
+<div class="w-full" th:fragment="appTextarea(name, text, required, labelText, value)">
+  <label
+    th:for="${name}"
+    class="mb-2 block text-sm font-medium text-gray-900"
+    th:text="${labelText} + (${required} ? ' *' : '')"
+  >
+    Label
+  </label>
+  <textarea
+    th:name="${name}"
+    th:id="${name}"
+    th:text="${value}"
+    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary focus:ring-primary resize-none"
+    th:placeholder="${text}"
+    th:attr="required=${required} ? 'required' : null"
+    rows="4"
+  ></textarea>
+</div>

@@ -1,0 +1,42 @@
+<header id="page-header" class="sticky top-0 transition-shadow duration-300">
+  <nav class="border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+      <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="/img/favicon.png" class="h-8 w-8" alt="Athletix Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap">Athletix</span>
+      </a>
+      <div th:replace="~{fragments/landing/dropdown}"></div>
+
+        </div>
+        <button data-collapse-toggle="navbar-cta" type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 focus:outline-none md:hidden"
+          aria-controls="navbar-cta" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <img th:src="@{/svg/headerButton.svg}" class="h-5 w-5" aria-hidden="true" alt="menu" />
+        </button>
+      </div>
+      <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-cta">
+        <ul
+          class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse">
+          <li>
+            <a href="/"
+              class="block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
+              aria-current="page">Home</a>
+          </li>
+          <li>
+            <a href="/about"
+              class="block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700">About</a>
+          </li>
+          <li>
+            <a href="/services"
+              class="block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700">Services</a>
+          </li>
+          <li>
+            <a href="/contact"
+              class="block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
