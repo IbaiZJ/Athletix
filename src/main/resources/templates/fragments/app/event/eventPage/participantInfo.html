@@ -1,10 +1,10 @@
-<div x-data="{ showModal: false }">
+<div class="flex justify-center" x-data="{ showModal: false }">
   <button
     @click="showModal = true"
     type="button"
-    class="bg-primary hover:bg-primary-hover w-fit rounded-lg px-4 py-2 text-center text-white transition hover:cursor-pointer sm:w-auto"
+    class="bg-white hover:bg-gray-100 w-fit rounded-full  text-center text-white transition hover:cursor-pointer sm:w-auto"
   >
-    a
+    <div th:replace="~{fragments/app/event/svg/infoSVG}"></div>
   </button>
 
   <div
