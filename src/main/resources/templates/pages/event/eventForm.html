@@ -14,11 +14,16 @@
 
   <body>
     <main layout:fragment="content">
+      <h1
+        th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"
+        class="text-2xl pt-6 pl-6 font-bold text-gray-900"
+      ></h1>
       <form
-        th:action="@{/event/create}"
+        th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
         method="post"
         enctype="multipart/form-data"
         class="mx-auto w-full p-6"
+        th:object="${eventEditForm}"
         th:with="
           withTitle=${eventEditForm?.title},
           withShortDescription=${eventEditForm?.shortDescription},
@@ -36,68 +41,75 @@
         "
       >
         <div class="flex flex-col gap-4">
-          <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title',true,'Title', ${withTitle})}"></div>
+          <div
+            th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title',true,'Title', ${withTitle})}"
+          ></div>
           <div
             th:replace="~{fragments/app/appInput :: appInput('text', 'shortDescription', 'Short Description',true,'Short Description', ${withShortDescription})}"
           ></div>
           <div class="min-h-2xs flex">
             <div
-              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Description')}"
+              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Description', ${withDescription})}"
             ></div>
           </div>
 
           <div class="flex w-full flex-col gap-4 md:flex-row">
-            <div th:replace="~{fragments/app/appInput :: appInput('date', 'date', 'Date',true, 'Date','')}"></div>
+            <div
+              th:replace="~{fragments/app/appInput :: appInput('date', 'date', 'Date',true, 'Date',${withDate})}"
+            ></div>
             <div class="flex flex-row gap-3">
-              <div th:replace="~{fragments/app/appInput :: appInput('number', 'dateH', 'Hour',true, 'Hour','')}"></div>
               <div
-                th:replace="~{fragments/app/appInput :: appInput('number', 'dateM', 'Minute',true,'Minute','')}"
+                th:replace="~{fragments/app/appInput :: appInput('number', 'dateH', 'Hour',true, 'Hour',${withDateHour})}"
+              ></div>
+              <div
+                th:replace="~{fragments/app/appInput :: appInput('number', 'dateM', 'Minute',true,'Minute',${withDateMinute})}"
               ></div>
             </div>
           </div>
           <div
-            th:replace="~{fragments/app/appInput :: appInput('text', 'location', 'Ubication', true, 'Ubication','')}"
+            th:replace="~{fragments/app/appInput :: appInput('text', 'location', 'Ubication', true, 'Ubication',${withLocation})}"
           ></div>
-          <div id="map" class="relative z-0 h-96 w-full rounded-lg"></div>
+          <div
+            id="map"
+            class="relative z-0 h-96 w-full rounded-lg"
+            th:attr="data-lat=${withLatitude}, data-lng=${withLongitude}"
+          ></div>
 
-          <!-- Inputs ocultos para enviar latitud y longitud -->
-          <input type="hidden" name="latitude" id="lat" value="43.1157" />
-          <input type="hidden" name="longitude" id="lng" value="-2.4129" />
+          <input type="hidden" name="latitude" id="lat" th:value="${withLatitude}" />
+          <input type="hidden" name="longitude" id="lng" th:value="${withLongitude}" />
           <div class="flex w-full flex-col gap-4 md:flex-row">
             <div class="flex w-full flex-col gap-4">
               <div
-                th:replace="~{fragments/app/appInput :: appInput('number', 'km', 'Distance (km)',true, 'Distance','')}"
+                th:replace="~{fragments/app/appInput :: appInput('number', 'km', 'Distance (km)',true, 'Distance', ${withDistanceKm})}"
               ></div>
               <div class="flex w-full flex-col gap-2">
-                <label for="activity" class="mb-0 block text-sm font-medium text-gray-900"> Actividad *</label>
-
+                <label for="activity" class="mb-0 block text-sm font-medium text-gray-900"> Actividad * </label>
                 <select
-                  name="activity"
+                  th:field="*{activity}"
                   id="activity"
                   class="focus:border-primary focus:ring-primary block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900"
                   required
                 >
-                  <option value="" disabled selected>Selecciona actividad</option>
-                  <option value="RUNNING">Running</option>
-                  <option value="CYCLING">Cycling</option>
-                  <option value="MOUNTAIN_BIKING">Mountain biking</option>
-                  <option value="SWIMMING">Swimming</option>
-                  <option value="HIKING">Hiking</option>
-                  <option value="WALKING">Walking</option>
-                  <option value="TRAIL_RUNNING">Trail running</option>
+                  <option value="" disabled>Selecciona actividad</option>
+                  <option
+                    th:each="act : ${T(com.athletix.enums.SportEnum).values()}"
+                    th:value="${act}"
+                    th:text="${#strings.capitalizeWords(act.name().toLowerCase().replace('_', ' '))}"
+                  ></option>
                 </select>
               </div>
               <div th:replace="~{fragments/app/event/eventDificulty}"></div>
             </div>
             <div class="flex w-full flex-col gap-4 md:flex-row">
               <div th:replace="~{fragments/login/fileInput}"></div>
+              <input type="hidden" name="profileImageURL" th:value="${withProfileImageUrl}" />
             </div>
           </div>
 
           <div class="flex justify-center">
             <button
               type="submit"
-              class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
+              class="bg-primary hover:cursor-pointer hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
             >
               Submit
             </button>

@@ -12,6 +12,7 @@ import lombok.Setter;
 public class UserSessionDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Integer id;
     private String username;
     private String name;
     private String surname;
@@ -20,6 +21,7 @@ public class UserSessionDTO implements Serializable {
     private String profileImage;
 
     public UserSessionDTO(Users user) {
+        id = user.getId();
         username = user.getUsername();
         name = user.getName();
         surname = user.getSurname();

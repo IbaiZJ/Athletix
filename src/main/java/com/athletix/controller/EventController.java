@@ -1,24 +1,28 @@
 package com.athletix.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.EventRoleEnum;
 import com.athletix.enums.NotificationEnum;
+import com.athletix.enums.SportEnum;
 import com.athletix.model.DTO.EventDTO;
 import com.athletix.model.DTO.EventParticipantsDTO;
 import com.athletix.model.DTO.EventRegistrationDTO;
@@ -41,16 +45,19 @@ public class EventController {
     private final UserService userService;
     private final NotificationService notificationService;
     private final FileStorageService fileStorageService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     public EventController(
             EventService eventService,
             UserService userService,
             NotificationService notificationService,
-            FileStorageService fileStorageService) {
+            FileStorageService fileStorageService,
+            SimpMessagingTemplate messagingTemplate) {
         this.eventService = eventService;
         this.userService = userService;
         this.notificationService = notificationService;
         this.fileStorageService = fileStorageService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("")
@@ -94,6 +101,9 @@ public class EventController {
             return "error/404";
         }
 
+        // Get current user
+        Users user = userService.getCurrentUser();
+
         // Get event
         EventDTO eventDTO = new EventDTO();
         eventDTO.setId(event.getId());
@@ -109,6 +119,8 @@ public class EventController {
         eventDTO.setDifficulty(event.getDifficulty());
         eventDTO.setProfileImage(event.getProfileImage());
         eventDTO.setParticipantsCount(eventService.getParticipantsCount(id));
+        eventDTO.setUserRole(eventService.findUserRoleByEventId(id, user.getId()));
+        eventDTO.setFollowing(eventService.existsByUserIdAndEventId(user.getId(), id));
 
         model.addAttribute("eventPage", eventDTO);
 
@@ -126,9 +138,14 @@ public class EventController {
 
     @GetMapping("/create")
     public String createEventForm(Model model) {
+        EventRegistrationDTO dto = new EventRegistrationDTO();
+        dto.setActivity(SportEnum.RUNNING);
+        dto.setDifficulty(DifficultyEnum.EASY);
+
+        model.addAttribute("eventEditForm", dto);
         log.info("Accessing the event creation form");
 
-        return "pages/event/eventCreationForm";
+        return "pages/event/eventForm";
     }
 
     @PostMapping("/create")
@@ -178,13 +195,17 @@ public class EventController {
 
         EventRegistrationDTO dto = fromEntity(event);
         model.addAttribute("eventEditForm", dto);
+        System.out.println(dto);
 
-        return "pages/event/eventCreationForm";
+        log.info("Accessing the event edit form");
+
+        return "pages/event/eventForm";
     }
 
     public EventRegistrationDTO fromEntity(Events event) {
         EventRegistrationDTO dto = new EventRegistrationDTO();
 
+        dto.setId(event.getId());
         dto.setTitle(event.getTitle());
         dto.setShortDescription(event.getShortDescription());
         dto.setDescription(event.getDescription());
@@ -205,13 +226,79 @@ public class EventController {
         return dto;
     }
 
-    @PutMapping("/{id}/edit")
-    public String editEvent(@PathVariable("id") Integer id) {
-        return null;
+    @PostMapping("/{id}/edit")
+    public String editEvent(@PathVariable("id") Integer id, EventRegistrationDTO eventDTO, HttpServletRequest request) {
+        System.out.println(eventDTO);
+
+        // // Get current user
+        Users user = userService.getCurrentUser();
+        log.info("Editing event for user: {}", user.getUsername());
+
+        try {
+            if (eventDTO.getProfileImage() != null && !eventDTO.getProfileImage().isEmpty()
+                    && eventDTO.getProfileImageURL() == null) {
+                String fileName = fileStorageService.storeFile(eventDTO.getProfileImage());
+                eventDTO.setProfileImageURL("/uploads/" + fileName);
+            }
+
+            // Edit event
+            eventService.updateEvent(user, eventDTO);
+            log.info("Event created for user: {}", user.getUsername());
+
+            // Create notification TODO
+            // NotificationRegistrationDTO notification = new
+            // NotificationRegistrationDTO("Event edited",
+            // "You have edited a event: " + eventDTO.getTitle(),
+            // NotificationEnum.EDIT_EVENT);
+            // notificationService.createNotificationForUser(user, notification);
+            // notificationService.reloadNotifications(request, user);
+
+            log.info("Edited event with title: {}", eventDTO.getTitle());
+
+        } catch (IllegalArgumentException e) {
+            // model.addAttribute("error", e.getMessage());
+            log.error("Error creating account: {}", e.getMessage());
+            // redirect.addFlashAttribute("error", e.getMessage());
+            return "redirect:/event/{id}/edit";
+        } catch (IOException e) {
+            log.error("Unexpected error during registration", e);
+            // redirect.addFlashAttribute("error", "Ha ocurrido un error inesperado.");
+            return "redirect:/event/{id}/edit";
+        }
+
+        return "redirect:/event/{id}";
     }
 
-    @DeleteMapping("/{id}/delete")
+    @PostMapping("/{id}/delete")
     public String deleteEvent(@PathVariable("id") Integer id) {
-        return null;
+        eventService.deleteEvent(id);
+        log.info("Deleted event with ID: {}", id);
+
+        return "redirect:/event";
+    }
+
+    // WEB SOCKETS
+    @MessageMapping("/follow")
+    public void followEvent(Integer eventId, Principal principal) {
+        String username = principal.getName();
+        Users user = userService.findByUsername(username);
+
+        if (user == null) {
+            throw new IllegalArgumentException("Usuario no encontrado");
+        }
+
+        eventService.addUserToEvent(user, eventId, EventRoleEnum.PARTICIPANT);
+        messagingTemplate.convertAndSendToUser(username, "/queue/event/follow", eventId);
+    }
+
+    @MessageMapping("/unfollow")
+    public void unfollowEvent(Integer eventId, Principal principal) {
+        String username = principal.getName();
+        Users user = userService.findByUsername(username);
+
+        if (user != null) {
+            eventService.removeUserFromEvent(user, eventId);
+            messagingTemplate.convertAndSendToUser(username, "/queue/event/unfollow", eventId.toString());
+        }
     }
 }

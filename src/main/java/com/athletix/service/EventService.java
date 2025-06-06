@@ -1,6 +1,8 @@
 package com.athletix.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,6 +110,74 @@ public class EventService {
 
     public Events findById(Integer id) {
         return eventRepository.findById(id).orElse(null);
+    }
+
+    public Integer findCreatorIdByEventId(Integer eventId) {
+        return userEventRepository.findCreatorIdByEventId(eventId);
+    }
+
+    @Transactional
+    public void updateEvent(Users user, EventRegistrationDTO eventDTO) {
+        // Find existing event
+        Events existingEvent = eventRepository.findById(eventDTO.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+        // TODO: Verify user has permission to edit (creator or admin)
+
+        // Update event fields
+
+        LocalDateTime dateTime = LocalDateTime.of(
+                LocalDate.parse(eventDTO.getDate()),
+                LocalTime.of(eventDTO.getDateH(), eventDTO.getDateM()));
+
+        existingEvent.setTitle(eventDTO.getTitle());
+        existingEvent.setShortDescription(eventDTO.getShortDescription());
+        existingEvent.setDescription(eventDTO.getDescription());
+        existingEvent.setDate(dateTime);
+        existingEvent.setKm(eventDTO.getKm());
+        existingEvent.setLocation(eventDTO.getLocation());
+        existingEvent.setLatitude(eventDTO.getLatitude());
+        existingEvent.setLongitude(eventDTO.getLongitude());
+        existingEvent.setActivity(eventDTO.getActivity());
+        existingEvent.setDifficulty(eventDTO.getDifficulty());
+        existingEvent.setProfileImage(eventDTO.getProfileImageURL());
+
+        eventRepository.save(existingEvent);
+        log.info("Updated event with ID: {} by user: {}", eventDTO.getId(), user.getUsername());
+    }
+
+    public EventRoleEnum findUserRoleByEventId(Integer eventId, Integer userId) {
+        EventRoleEnum role = userEventRepository.findUserRoleByEventIdAndUserId(eventId, userId);
+        if (role == null) {
+            return EventRoleEnum.PARTICIPANT;
+        }
+        return role;
+    }
+
+    @Transactional
+    public void addUserToEvent(Users user, Integer eventId, EventRoleEnum role) {
+        UsersEvents userEvent = new UsersEvents();
+        userEvent.setRegistrationDate(LocalDateTime.now());
+        userEvent.setUser(user);
+        userEvent.setEvent(findById(eventId));
+        userEvent.setRole(role);
+        userEventRepository.save(userEvent);
+    }
+
+    @Transactional
+    public void removeUserFromEvent(Users user, Integer eventId) {
+        userEventRepository.deleteByUserAndEventId(user, eventId);
+    }
+
+    @Transactional
+    public boolean existsByUserIdAndEventId(Integer userId, Integer eventId) {
+        return userEventRepository.existsByUserIdAndEventId(userId, eventId);
+    }
+
+    @Transactional
+    public void deleteEvent(Integer eventId) {
+        eventRepository.deleteById(eventId);
+        userEventRepository.deleteByEventId(eventId);
     }
 
 }

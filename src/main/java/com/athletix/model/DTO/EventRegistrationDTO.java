@@ -13,10 +13,13 @@ import com.athletix.model.Events;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class EventRegistrationDTO {
+    private Integer id;
     private String title;
     private String shortDescription;
     private String description;

@@ -112,4 +112,16 @@ public class TrackingController {
         return "redirect:/tracking/" + username;
     }
 
+    @GetMapping("/{username}/edit")
+    public String editTrackingGetForm(@PathVariable("username") String username) {
+        log.info("Create tracking page accessed");
+        return "pages/tracking/trackingForm";
+    }
+
+    @PostMapping("/{username}/edit")
+    public String editTrackingForm(@PathVariable("username") String username) {
+        log.info("Create tracking page accessed");
+        return "pages/tracking/trackingForm";
+    }
+
 }
