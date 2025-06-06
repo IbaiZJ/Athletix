@@ -14,23 +14,26 @@
     <main layout:fragment="content" class="space-y-6 p-6">
       <section th:replace="~{fragments/app/event/eventHeader}"></section>
       <section>
-        <h2 class="mb-4 text-2xl font-semibold">Registered Events</h2>
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-          <div th:replace="~{fragments/app/event/eventCard}"></div>
-
+        <h3 class="mb-4 text-2xl font-semibold">Registered Events</h3>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+          <div class="grid" th:each="registeredEvent : ${registeredEvents}">
+            <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
+          </div>
         </div>
-        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
+        <section
+          th:replace="~{fragments/app/event/showEventFallbackMessage :: showEventFallbackMessage(events=${registeredEvents})}"
+        ></section>
       </section>
       <section>
-        <h2 class="mb-4 text-2xl font-semibold">Available Events</h2>
-
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
-        <section th:replace="~{fragments/app/event/showEventFallbackMessage}"></section>
+        <h3 class="mb-4 text-2xl font-semibold">Available Events</h3>
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4">
+          <div class="grid" th:each="availableEvent : ${availableEvents}">
+            <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${availableEvent})}"></div>
+          </div>
+        </div>
+        <section
+          th:replace="~{fragments/app/event/showEventFallbackMessage :: showEventFallbackMessage(events=${availableEvents})}"
+        ></section>
       </section>
     </main>
   </body>

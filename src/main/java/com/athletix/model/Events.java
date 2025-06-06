@@ -5,8 +5,13 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.SportEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,17 +32,34 @@ public class Events implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
+    private String shortDescription;
+
+    @Column(length = 2000)
     private String description;
 
     @Column(nullable = false)
     private LocalDateTime date;
 
-    private Integer km;
+    private Float km;
 
     @Column(nullable = false)
     private String location;
+
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
+
+    @Enumerated(EnumType.STRING)
+    private DifficultyEnum difficulty;
+
+    @Enumerated(EnumType.STRING)
+    private SportEnum activity;
+
+    private String profileImage;
 
     @OneToMany(mappedBy = "event")
     private Set<UsersEvents> users = new HashSet<>();

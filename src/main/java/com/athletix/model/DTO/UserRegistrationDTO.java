@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.athletix.enums.GenderEnum;
 import com.athletix.model.Users;
 
-// import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -17,8 +17,8 @@
   </div>
   <div class="flex items-center justify-between">
     <div>
-      <h3 th:text="${#strings.capitalize(tracking.title)}" class="text-lg font-bold"></h3>
-      <p th:text="${#strings.capitalize(tracking.description)}" class="text-gray-700"></p>
+      <h3 th:text="${tracking.title}" class="text-lg font-bold capitalize"></h3>
+      <p th:text="${tracking.description}" class="text-gray-700 capitalize"></p>
     </div>
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,7 +45,7 @@
     <div class="h-12 self-center border-l border-gray-400"></div>
     <div class="flex-1 text-center">
       <p class="text-sm text-gray-600">Ritmo</p>
-      <p th:text="${tracking.pace} + ' /km'" class="text-lg font-bold"></p>
+      <p th:text="${tracking.pace}" class="text-lg font-bold"></p>
     </div>
     <div class="h-12 self-center border-l border-gray-400"></div>
     <div class="flex-1 text-center">

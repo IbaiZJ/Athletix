@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
-import com.athletix.model.DTO.NotificationRequestDTO;
+import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.DTO.TrackingCardDTO;
 import com.athletix.model.DTO.TrackingRegistrationDTO;
+import com.athletix.model.DTO.TrackingStatisticsDTO;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 import com.athletix.service.NotificationService;
@@ -30,7 +31,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/tracking")
 public class TrackingController {
     private static final Logger log = LoggerFactory.getLogger(TrackingController.class);
-    private static final String TRACKING_LIST = "trackings";
 
     private final NotificationService notificationService;
     private final TrackingService trackingService;
@@ -71,19 +71,11 @@ public class TrackingController {
             // de tener este método
             trackingDTOs.add(TrackingUtil.toTrackingCardDTO(tracking, null));
         }
-        model.addAttribute(TRACKING_LIST, trackingDTOs);
+        model.addAttribute("trackings", trackingDTOs);
 
         // Tracking statistics
-        // int totalTrackings = trackings.size();
-        // Float totalDistance = 0f;
-        // Float totalTime = 0f;
-        // for (Trackings tracking : trackings) {
-        //     if (tracking.getKm() != null)
-        //         totalDistance += tracking.getKm();
-        //     // if (tracking.getTime() != null) totalTime += tracking.getTime();
-        // }
-        // log.info("Total trackings for user {}: {}", username, totalTrackings);
-        // log.info("Total distance for user {}: {} km", username, totalDistance);
+        TrackingStatisticsDTO statistics = TrackingUtil.getStatistics(trackings);
+        model.addAttribute("trackingStatistics", statistics);
 
         log.info("Trackings for user {}: {}", username, trackings);
 
@@ -101,7 +93,7 @@ public class TrackingController {
     @PreAuthorize("#username == authentication.name")
     public String createTracking(@PathVariable("username") String username, TrackingRegistrationDTO tracking,
             HttpServletRequest request) {
-
+        // Get current user
         Users user = userService.getCurrentUser();
         log.info("Creating new tracking for user: {}", user.getUsername());
 
@@ -110,7 +102,7 @@ public class TrackingController {
         log.info("Tracking created for user: {}", user.getUsername());
 
         // Create notification
-        NotificationRequestDTO notification = new NotificationRequestDTO("New activity created",
+        NotificationRegistrationDTO notification = new NotificationRegistrationDTO("New activity created",
                 "You have created a new activity: " + tracking.getTitle(), NotificationEnum.CREATE_TRACKING);
         notificationService.createNotificationForUser(user, notification);
         notificationService.reloadNotifications(request, user);
@@ -118,6 +110,18 @@ public class TrackingController {
         log.info("Creating new tracking with title: {}", tracking.getTitle());
 
         return "redirect:/tracking/" + username;
+    }
+
+    @GetMapping("/{username}/edit")
+    public String editTrackingGetForm(@PathVariable("username") String username) {
+        log.info("Create tracking page accessed");
+        return "pages/tracking/trackingForm";
+    }
+
+    @PostMapping("/{username}/edit")
+    public String editTrackingForm(@PathVariable("username") String username) {
+        log.info("Create tracking page accessed");
+        return "pages/tracking/trackingForm";
     }
 
 }

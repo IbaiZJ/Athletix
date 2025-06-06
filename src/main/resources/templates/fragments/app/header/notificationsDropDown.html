@@ -17,7 +17,7 @@
     >
       <p class="text-sm text-gray-800" th:text="${notification.title}"></p>
       <p class="text-xs text-gray-400" th:text="${notification.message}"></p>
-      <span class="delete-notification absolute top-1/2 right-4 -translate-y-1/2 rounded-md p-1 hover:bg-gray-200">
+      <button class="delete-notification absolute top-1/2 right-4 -translate-y-1/2 rounded-md p-1 hover:bg-gray-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-4 w-4 text-gray-400"
@@ -27,7 +27,131 @@
         >
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
-      </span>
+      </button>
     </li>
   </ul>
 </div>
+
+<script>
+  let stompClient = null;
+
+  function connectWebSocket() {
+    const socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+
+      // Escucha notificaciones eliminadas
+      stompClient.subscribe('/user/queue/notification/deleted', function (message) {
+        const deletedId = parseInt(message.body);
+        const notificationElement = document.querySelector(`li[data-id='${deletedId}']`);
+        if (notificationElement) {
+          notificationElement.remove();
+        }
+      });
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.delete-notification')) {
+      const li = e.target.closest('li[data-id]');
+      const notificationId = parseInt(li.dataset.id);
+
+      if (stompClient && stompClient.connected) {
+        stompClient.send('/app/notification/delete', {}, notificationId.toString());
+      }
+    }
+  });
+
+  connectWebSocket();
+</script>
+
+<!--
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Conexión WebSocket (versión compatible)
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+
+    // 2. Configuración de headers (opcional)
+    const headers = {
+      'Accept-Version': '1.2',
+      'Heart-Beat': '10000,10000',
+    };
+
+    stompClient.connect(
+      headers,
+      function (frame) {
+        console.log('Conexión establecida:', frame);
+
+        // 3. Suscripción corregida
+        stompClient.subscribe('/topic/notifications/deleted', function (message) {
+          try {
+            const deletedId = JSON.parse(message.body);
+            const notificationElement = document.querySelector(`li[data-id="${deletedId}"]`);
+
+            if (notificationElement) {
+              notificationElement.style.transition = 'opacity 0.3s ease';
+              notificationElement.style.opacity = '0';
+
+              setTimeout(() => {
+                notificationElement.remove();
+                showToast('Notificación eliminada');
+                checkEmptyNotifications();
+              }, 300);
+            }
+          } catch (e) {
+            console.error('Error procesando mensaje:', e);
+          }
+        });
+      },
+      function (error) {
+        console.error('Error de conexión:', error);
+        showToast('Error de conexión', 'error');
+        setTimeout(() => window.location.reload(), 5000);
+      },
+    );
+
+    // 4. Función para verificar notificaciones vacías
+    function checkEmptyNotifications() {
+      const container = document.getElementById('notificationsDropDown');
+      if (container && container.querySelectorAll('li').length === 0) {
+        container.querySelector('ul').innerHTML =
+          '<li class="p-4 text-center text-gray-500">No hay notificaciones</li>';
+      }
+    }
+
+    // 5. Delegación de eventos mejorada
+    document.getElementById('notificationsDropDown')?.addEventListener('click', function (e) {
+      const deleteBtn = e.target.closest('.delete-notification');
+      if (!deleteBtn) return;
+
+      const notificationItem = deleteBtn.closest('li');
+      const notificationId = notificationItem.getAttribute('data-id');
+
+      // Feedback visual
+      notificationItem.style.opacity = '0.5';
+      notificationItem.style.pointerEvents = 'none';
+
+      // Enviar solicitud
+      stompClient.send('/app/notifications/delete', {}, JSON.stringify(notificationId));
+    });
+
+    // 6. Función toast mejorada
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-md shadow-lg text-white ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      } animate-fade-in`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    }
+  });
+</script>
+-->

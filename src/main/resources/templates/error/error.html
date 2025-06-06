@@ -1,1 +1,43 @@
-error
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/cleanLayout}"
+>
+  <head>
+    <title>Athletix - 404</title>
+  </head>
+
+  <body class="flex min-h-screen items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
+    <main
+      layout:fragment="content"
+      class="animate-fade-in mx-auto max-w-2xl rounded-2xl bg-white px-6 py-12 text-center shadow-lg"
+    >
+      <div class="flex flex-col items-center space-y-6">
+        <div class="text-red-500">
+          <img th:src="@{/svg/error.svg}" alt="Error icon" class="h-16 w-16 animate-bounce" />
+        </div>
+
+        <h1 class="text-5xl font-bold text-gray-800">Error <span class="text-red-500 italic">Prueba</span></h1>
+
+        <p class="text-lg text-gray-600">Sorry, the page you are looking for does not exist.</p>
+
+        <a
+          href="/home"
+          class="group bg-primary hover:bg-primary-dark focus:ring-primary/50 relative inline-flex h-14 w-48 items-center justify-center overflow-hidden rounded-lg px-6 py-3 text-base font-semibold text-white transition-all duration-300 focus:ring-4"
+        >
+          <img
+            th:src="@{/svg/home.svg}"
+            alt="Icon"
+            class="h-5 w-5 transition-all duration-300 group-hover:h-8 group-hover:w-8"
+          />
+
+          <span
+            class="ml-2 flex items-center text-white transition-all duration-300 group-hover:ml-4 group-hover:scale-90 group-hover:opacity-0"
+          >
+            Return to Home
+          </span>
+        </a>
+      </div>
+    </main>
+  </body>
+</html>

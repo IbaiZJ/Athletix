@@ -1,31 +1,33 @@
 package com.athletix.controller;
 
-import java.util.List;
+import java.security.Principal;
 
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.athletix.model.Notifications;
-
-import jakarta.servlet.http.HttpSession;
+import com.athletix.service.NotificationService;
 
 @Controller
-@RequestMapping("/notification")
 public class NotificationsController {
+    private static final Logger log = LoggerFactory.getLogger(NotificationsController.class);
 
-    @PostMapping("/delete")
-    public ResponseEntity<Void> deleteNotification(@RequestParam("id") Integer id, HttpSession session) {
-        List<Notifications> notifications = (List<Notifications>) session.getAttribute("notifications");
-        
-        if (notifications != null) {
-            notifications.removeIf(n -> id.equals(n.getId()));
-            session.setAttribute("notifications", notifications);
-        }
+    private final NotificationService notificationService;
+    private final SimpMessagingTemplate messagingTemplate;
 
-        return ResponseEntity.ok().build();
+    public NotificationsController(
+            NotificationService notificationService,
+            SimpMessagingTemplate messagingTemplate) {
+        this.notificationService = notificationService;
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @MessageMapping("/notification/delete")
+    public void deleteNotification(Integer notificationId, Principal principal) {
+        notificationService.deleteNotification(notificationId);
+        messagingTemplate.convertAndSendToUser(principal.getName() ,"/queue/notification/deleted", notificationId);       
     }
 
 }
