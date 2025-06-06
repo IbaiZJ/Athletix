@@ -2,6 +2,7 @@ package com.athletix.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,17 +11,20 @@ import org.springframework.stereotype.Service;
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
+import com.athletix.repository.UsersTypesRepository;
 import com.athletix.util.UserValidationUtil;
 
 import jakarta.transaction.Transactional;
 
+  
 @Service
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private UsersTypesRepository usersTypesRepository;
     public UserService(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder) {
@@ -39,6 +43,9 @@ public class UserService {
         UserValidationUtil.validatePassword(userDTO.getPassword(), userDTO.getRepeatPassword());
 
         Users user = userDTO.toEntity(passwordEncoder);
+        user.setUserType(usersTypesRepository.findByDescription("USER")
+        .orElseThrow(() -> new IllegalStateException("Tipo de usuario 'Trainer' no existe en la base de datos")));
+
         userRepository.save(user);
 
         log.info("User saved: {}", userDTO.getUsername());

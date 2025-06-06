@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.athletix.enums.GenderEnum;
 import com.athletix.model.Users;
 
-import jakarta.validation.constraints.Email;
+// import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +21,7 @@ public class UserRegistrationDTO implements Serializable {
     private String username;
     private String password;
     private String repeatPassword;
-    @Email
+    // @Email
     private String email;
     private String name;
     private String surname;
