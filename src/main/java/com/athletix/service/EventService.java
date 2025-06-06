@@ -112,6 +112,10 @@ public class EventService {
         return eventRepository.findById(id).orElse(null);
     }
 
+    public Integer findCreatorIdByEventId(Integer eventId) {
+        return userEventRepository.findCreatorIdByEventId(eventId);
+    }
+
     @Transactional
     public void updateEvent(Users user, EventRegistrationDTO eventDTO) {
         // Find existing event
@@ -140,6 +144,40 @@ public class EventService {
 
         eventRepository.save(existingEvent);
         log.info("Updated event with ID: {} by user: {}", eventDTO.getId(), user.getUsername());
+    }
+
+    public EventRoleEnum findUserRoleByEventId(Integer eventId, Integer userId) {
+        EventRoleEnum role = userEventRepository.findUserRoleByEventIdAndUserId(eventId, userId);
+        if (role == null) {
+            return EventRoleEnum.PARTICIPANT;
+        }
+        return role;
+    }
+
+    @Transactional
+    public void addUserToEvent(Users user, Integer eventId, EventRoleEnum role) {
+        UsersEvents userEvent = new UsersEvents();
+        userEvent.setRegistrationDate(LocalDateTime.now());
+        userEvent.setUser(user);
+        userEvent.setEvent(findById(eventId));
+        userEvent.setRole(role);
+        userEventRepository.save(userEvent);
+    }
+
+    @Transactional
+    public void removeUserFromEvent(Users user, Integer eventId) {
+        userEventRepository.deleteByUserAndEventId(user, eventId);
+    }
+
+    @Transactional
+    public boolean existsByUserIdAndEventId(Integer userId, Integer eventId) {
+        return userEventRepository.existsByUserIdAndEventId(userId, eventId);
+    }
+
+    @Transactional
+    public void deleteEvent(Integer eventId) {
+        eventRepository.deleteById(eventId);
+        userEventRepository.deleteByEventId(eventId);
     }
 
 }

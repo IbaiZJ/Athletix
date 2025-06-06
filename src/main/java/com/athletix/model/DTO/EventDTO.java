@@ -3,6 +3,7 @@ package com.athletix.model.DTO;
 import java.time.LocalDateTime;
 
 import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.EventRoleEnum;
 import com.athletix.enums.SportEnum;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class EventDTO {
     private DifficultyEnum difficulty;
     private String profileImage;
     private Integer participantsCount;
+    private EventRoleEnum userRole;
+    private boolean following;
 
     public EventDTO(Integer id, String title, String shortDescription, String description,
             LocalDateTime date, Float km, String location, Double latitude, Double longitude,

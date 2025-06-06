@@ -14,6 +14,10 @@
 
   <body>
     <main layout:fragment="content">
+      <h1
+        th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"
+        class="text-2xl pt-6 pl-6 font-bold text-gray-900"
+      ></h1>
       <form
         th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
         method="post"
@@ -105,7 +109,7 @@
           <div class="flex justify-center">
             <button
               type="submit"
-              class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
+              class="bg-primary hover:cursor-pointer hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
             >
               Submit
             </button>
