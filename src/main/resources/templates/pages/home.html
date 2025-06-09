@@ -7,10 +7,40 @@
 >
   <head>
     <title th:text="'Home - ' + ${session.user.username}">Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <main layout:fragment="content">
-      <h1 th:text="'Hello ' + ${session.user.username}"></h1>
+    <main layout:fragment="content" class="p-6">
+      <div class="flex gap-4 flex-col md:flex-row">
+        <div class="w-full md:w-65/100">
+          <h1
+            class="text-4xl font-bold text-gray-800"
+            th:text="'Hola, ' + ${session.user.username} "
+          ></h1>
+        </div>
+
+        <div class="w-full md:w-35/100">
+          <h2 class="text-xl font-semibold text-gray-700 mb-4">Progreso mensual</h2>
+          <canvas id="myChart" class="h-64 w-full"></canvas>
+        </div>
+      </div>
     </main>
   </body>
 </html>
+
+<!-- Datos desde Thymeleaf -->
+<script th:inline="javascript">
+  monthlyKm = {"Ene": 0, "Feb": 0, "Mar": 0};
+</script>
+
+<!-- Script del gráfico (no tocar lógica) -->
+<script type="module">
+  import { ChartBuilder } from '/js/charts/ChartBuilder.js';
+  import { getLineChartConf } from '/js/charts/chartTypes/lineChart.js';
+
+  const etiquetas = Object.keys(monthlyKm);
+  const datos = Object.values(monthlyKm);
+
+  const config = getLineChartConf(etiquetas, datos, 'KM por mes');
+  ChartBuilder.createLine('myChart', config);
+</script>
