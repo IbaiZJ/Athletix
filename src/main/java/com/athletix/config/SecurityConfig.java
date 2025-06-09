@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.athletix.custom.CustomAuthenticationSuccessHandler;
+import com.athletix.controller.custom.CustomAuthenticationSuccessHandler;
 import com.athletix.service.custom.CustomUserDetailsService;
 
 @Configuration
