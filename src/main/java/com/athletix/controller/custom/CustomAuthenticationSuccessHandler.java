@@ -1,4 +1,4 @@
-package com.athletix.custom;
+package com.athletix.controller.custom;
 
 import java.io.IOException;
 
