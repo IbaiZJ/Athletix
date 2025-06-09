@@ -13,12 +13,6 @@
     </a>
 
     <div th:replace="~{fragments/app/event/showMyEventsModal}"></div>
-
-    <button
-      th:href="@{/event/friends}"
-      class="bg-primary hover:bg-primary-hover w-full rounded-lg px-4 py-2 text-center text-white transition sm:w-auto"
-    >
-      Show Friends Events
-    </button>
+    <div th:replace="~{fragments/app/event/searchModal}"></div>
   </div>
 </section>

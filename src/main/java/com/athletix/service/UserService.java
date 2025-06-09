@@ -1,5 +1,8 @@
 package com.athletix.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.athletix.model.DTO.RankingDTO;
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
@@ -45,6 +49,12 @@ public class UserService {
     }
 
     @Transactional
+    public List<Users> findAllUsers() {
+        log.info("Fetching all users");
+        return userRepository.findAll();
+    }
+
+    @Transactional
     public Users findByUsername(String username) {
         if (username == null || username.isEmpty()) {
             log.warn("Username is null or empty");
@@ -68,6 +78,28 @@ public class UserService {
             return null;
         }
         return findByUsername(username);
+    }
+
+    @Transactional
+    public List<RankingDTO> getUsersRankingByDistance() {
+        log.info("Fetching users ranking by distance");
+
+        List<Object[]> results = userRepository.findAllUsersOrderByDistance();
+
+        return results.stream()
+                .map(result -> {
+                    Users user = (Users) result[0];
+                    Float totalDistance = ((Number) result[1]).floatValue();
+
+                    RankingDTO dto = new RankingDTO();
+                    dto.setProfileImage(user.getProfileImage());
+                    dto.setName(user.getName());
+                    dto.setSurname(user.getSurname());
+                    dto.setDistance(totalDistance);
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 }

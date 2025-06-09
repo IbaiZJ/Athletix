@@ -176,8 +176,8 @@ public class EventService {
 
     @Transactional
     public void deleteEvent(Integer eventId) {
-        eventRepository.deleteById(eventId);
         userEventRepository.deleteByEventId(eventId);
+        eventRepository.deleteById(eventId);
     }
 
 }

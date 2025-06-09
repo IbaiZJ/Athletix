@@ -77,4 +77,7 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<Notifications> notifications = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Trackings> trackings = new HashSet<>();
+
 }
