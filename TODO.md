@@ -6,3 +6,4 @@
 - Event page kirol mota label
 - Title-ak aldatu
 - Formulario guztiak konpondu
+- Rankingean filtroak jarri
