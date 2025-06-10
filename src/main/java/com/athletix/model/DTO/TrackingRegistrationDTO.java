@@ -4,21 +4,28 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.athletix.enums.DifficultyEnum;
+import com.athletix.enums.SportEnum;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class TrackingRegistrationDTO {
+    private Integer id;
     private String title;
     private String description;
     private Float km;
     private Integer durationH;
     private Integer durationM;
     private Integer durationS;
+    private SportEnum activity;
+    private DifficultyEnum difficulty;
 
     public Trackings toEntity(Users user) {
         Trackings tracking = new Trackings();
@@ -33,7 +40,7 @@ public class TrackingRegistrationDTO {
 
         Duration pace = duration.dividedBy(km.longValue());
         
-
+        tracking.setId(this.id);
         tracking.setTitle(this.title);
         tracking.setDescription(this.description);
         tracking.setKm(this.km);

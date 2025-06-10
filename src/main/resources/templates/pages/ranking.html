@@ -1,0 +1,53 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+  </head>
+  <body>
+    <main layout:fragment="content" class="mx-auto flex w-full max-w-4xl justify-center p-6">
+      <div class="flex w-full flex-col gap-6">
+        <h1 class="text-3xl font-bold">Ranking</h1>
+        <div class="mt-4 w-full">
+          <div
+            th:each="participant, iterStat : ${rankingUsers}"
+            class="mb-4 flex w-full items-center justify-between gap-4 border-gray-200 last:border-b-0 last:pb-0 md:border-b md:pb-4"
+          >
+            <div class="flex items-center gap-2">
+              <div class="flex h-5 w-5 items-center justify-center">
+                <svg th:replace="~{fragments/app/ranking/rankingMedal}"></svg>
+              </div>
+              <div
+                class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200 font-semibold text-gray-500"
+              >
+                <img
+                  th:if="${participant.profileImage != null}"
+                  th:src="${session.user.profileImage}"
+                  alt="Profile photo"
+                  class="h-full w-full object-cover"
+                />
+
+                <span
+                  th:unless="${participant.profileImage != null}"
+                  th:text="${#strings.toUpperCase(#strings.substring(participant.name, 0, 1) + #strings.substring(participant.surname, 0, 1))}"
+                >
+                </span>
+              </div>
+              <p
+                class="truncate text-lg text-gray-800 capitalize"
+                th:text="${participant.name} + ' ' + ${participant.surname}"
+              ></p>
+            </div>
+            <div>
+              <p th:text="${participant.distance} + ' km'" class="text-lg text-gray-800"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

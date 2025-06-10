@@ -68,13 +68,20 @@
       >
         <svg th:replace="~{fragments/app/event/svg/settingsSVG}"></svg>
       </a>
-      <a
+      <form
+        th:action="@{'/event/' + ${eventPage.id} + '/delete'}"
+        method="post"
         th:if="${eventPage.userRole.name() == 'CREATOR'}"
-        th:href="@{/event/{id}/delete(id=${eventPage.id})}"
-        class="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este evento?')"
       >
-        <svg th:replace="~{fragments/app/event/svg/binSVG}"></svg>
-      </a>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button
+          type="submit"
+          class="flex items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
+        >
+          <svg th:replace="~{fragments/app/event/svg/binSVG}"></svg>
+        </button>
+      </form>
     </div>
   </div>
 </div>
