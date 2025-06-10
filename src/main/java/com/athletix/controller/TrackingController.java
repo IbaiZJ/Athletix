@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.athletix.enums.DifficultyEnum;
 import com.athletix.enums.NotificationEnum;
+import com.athletix.enums.SportEnum;
 import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.DTO.TrackingCardDTO;
 import com.athletix.model.DTO.TrackingRegistrationDTO;
@@ -84,7 +86,13 @@ public class TrackingController {
 
     @GetMapping("/{username}/create")
     @PreAuthorize("#username == authentication.name")
-    public String createTrackingForm(@PathVariable("username") String username) {
+    public String createTrackingForm(@PathVariable("username") String username, Model model) {
+        TrackingRegistrationDTO dto = new TrackingRegistrationDTO();
+        dto.setActivity(SportEnum.RUNNING);
+        dto.setDifficulty(DifficultyEnum.EASY);
+
+        model.addAttribute("trackingEditForm", dto);
+
         log.info("Create tracking page accessed");
         return "pages/tracking/trackingForm";
     }
