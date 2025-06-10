@@ -21,6 +21,7 @@ public class UserSessionDTO implements Serializable {
     private String email;
     private String profileImage;
     private UsersTypes userType;
+    private Users trainer;
 
     public UserSessionDTO(Users user) {
         id = user.getId();
@@ -31,6 +32,7 @@ public class UserSessionDTO implements Serializable {
         email = user.getEmail();
         profileImage = user.getProfileImage();
         userType=user.getUserType();
+        trainer=user.getTrainer();
     }
-
+    
 }

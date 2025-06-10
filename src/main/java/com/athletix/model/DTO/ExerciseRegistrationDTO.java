@@ -2,6 +2,7 @@ package com.athletix.model.DTO;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+ import com.athletix.model.Users;
 
 import com.athletix.model.Exercises;
 
@@ -17,25 +18,19 @@ public class ExerciseRegistrationDTO {
     private Integer durationH;
     private Integer durationM;
     private Integer durationS;
-
-    // Eliminamos targetUserId porque la asignación va por separado
-
-    public Exercises toEntity() {
+   
+    public Exercises toEntity(Users user) {
         Exercises exercise = new Exercises();
 
         Duration duration = Duration.ofHours(this.durationH != null ? this.durationH : 0)
                 .plusMinutes(this.durationM != null ? this.durationM : 0)
                 .plusSeconds(this.durationS != null ? this.durationS : 0);
-
         exercise.setTitle(this.title);
         exercise.setDescription(this.description);
         exercise.setKm(this.km);
         exercise.setDuration(duration);
         exercise.setDate(LocalDateTime.now());
-
-        // No se setea creador ni asignación aquí
-        // Se hará en el servicio para mantener separación de responsabilidades
-
+        exercise.setCreator(user);
         return exercise;
     }
 }

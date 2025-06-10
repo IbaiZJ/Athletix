@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/appLayout}" 
+      th:with="activePage='Home'">
+
+<head>
+  <title>Asignar Entrenador</title>
+</head>
+
+<body>
+  <main layout:fragment="content">
+    <div class="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md mt-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+        ¿Quieres Cambiar el tipo de usuario?
+      </h2>
+      <form th:action="@{'/user/profiles/' + ${user.username} + '/userType'}" method="post">
+        <div class="mb-4">
+          <label for="userTypeSelect" class="block text-sm font-medium text-gray-700 mb-1">
+            Selecciona una opción:
+          </label>
+          <select id="userTypeSelect" name="userType"
+                  class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+            <option th:value="USER"
+                    th:text="'Usuario'"
+                    th:selected="${user.userType != null and user.userType.id == 1}">
+            </option>
+            <option th:value="TRAINER" th:text="'Entrenador'"
+                     th:selected="${user.userType != null and user.userType.id == 2}">
+            </option>
+          </select>
+        </div>
+
+        <div class="flex justify-center">
+          <button type="submit"
+                  class="bg-primary hover:bg-primary-hover rounded-md px-6 py-2 text-white text-sm font-medium mt-4">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>

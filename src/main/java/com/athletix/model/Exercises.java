@@ -3,7 +3,6 @@ package com.athletix.model;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -31,12 +30,7 @@ public class Exercises implements Serializable {
 
     private LocalDateTime date;
 
-    // Usuario que crea el ejercicio
     @ManyToOne
     @JoinColumn(name = "user_id") // Cambiado por claridad
     private Users creator;
-
-    // Lista de asignaciones a usuarios
-    @OneToMany(mappedBy = "exercise")
-    private List<Asignaciones> asignaciones;
 }

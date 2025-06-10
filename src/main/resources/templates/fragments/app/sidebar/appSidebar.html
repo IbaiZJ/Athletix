@@ -40,12 +40,17 @@
         <ul class="flex flex-col gap-4">
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/home', 'Home', ${activePage}, 'home')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/event', 'Events', ${activePage}, 'event')}"></li>
-          <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/profile', 'Profiles', ${activePage}, 'profile')}"></li>
+          <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/user/profiles', 'Profiles', ${activePage}, 'profile')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/friend', 'Friends', ${activePage}, 'friend')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/chat', 'Chats', ${activePage}, 'chat')}"></li>
-           <div th:if="${session.user.userType.id==2}">
+          <div th:if="${session.user.userType.id==2}">
             <li 
-                th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/exercise', 'Exercise', ${activePage})}">
+                th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/exercise', 'Exercise', ${activePage},'exercise')}">
+            </li>
+          </div>
+          <div th:if="${session.user.trainer!=null}">
+            <li 
+                th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/exercise/trainer', 'Training', ${activePage},'trainer')}">
             </li>
           </div>
         </ul>

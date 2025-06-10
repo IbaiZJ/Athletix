@@ -1,5 +1,6 @@
 package com.athletix.service;
 
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.Users;
+import com.athletix.model.UsersTypes;
 import com.athletix.repository.UserRepository;
 import com.athletix.repository.UsersTypesRepository;
 import com.athletix.util.UserValidationUtil;
@@ -75,6 +77,23 @@ public class UserService {
             return null;
         }
         return findByUsername(username);
+    }
+    @Transactional
+    public List<Users> findAllUsers() {
+    return userRepository.findAll();
+    }
+    public void save(Users user) {
+        userRepository.save(user);
+    }
+    @Transactional
+    public UsersTypes findByDescription(String description) {
+    if (description == null || description.isEmpty()) {
+        log.warn("Description is null or empty");
+        return null;
+    }
+    log.info("Searching for user type by description: {}", description);
+    return usersTypesRepository.findByDescription(description)
+            .orElse(null);
     }
 
 }

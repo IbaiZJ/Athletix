@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.athletix.enums.NotificationEnum;
 import com.athletix.model.DTO.ExerciseRegistrationDTO;
-import com.athletix.model.DTO.NotificationRequestDTO;
+import com.athletix.model.DTO.NotificationRegistrationDTO;
 import com.athletix.model.Exercises;
 import com.athletix.model.Users;
 import com.athletix.service.ExerciseService;
@@ -66,7 +66,7 @@ public class ExerciseController {
         for (Exercises exercise : exercises) {
             exerciseDTOs.add(ExerciseUtil.toExerciseCardDTO(exercise,null));
         }
-        model.addAttribute(EXERCISE_LIST, exerciseDTOs);
+        model.addAttribute("exercises", exerciseDTOs);
 
         log.info("Exercises for user {}: {}", username, exercises);
 
@@ -95,7 +95,7 @@ public class ExerciseController {
         log.info("Exercise created by {}", creator.getUsername());
 
         // Notificación para el creador
-        NotificationRequestDTO notification = new NotificationRequestDTO(
+        NotificationRegistrationDTO notification = new NotificationRegistrationDTO(
                 "Nuevo entrenamiento creado",
                 "Has creado un nuevo entrenamiento: " + dto.getTitle(),
                 NotificationEnum.CREATE_TRACKING);
@@ -104,5 +104,25 @@ public class ExerciseController {
         notificationService.reloadNotifications(request, creator);
 
         return "redirect:/exercise/" + username;
+    }
+       
+    @GetMapping("/trainer")
+    public String showTrainerExercises(Model model) {
+        Users user = userService.getCurrentUser();
+        Users trainer=user.getTrainer();
+        if (trainer == null) {
+        // Redirige a la misma página (o una por defecto)
+        return "redirect:/home"; // O la que quieras
+        }
+        List<Exercises> exercises = exerciseService.getExercisesByUser(trainer);
+        List<ExerciseCardDTO> exerciseDTOs = new ArrayList<>();
+
+        for (Exercises exercise : exercises) {
+            exerciseDTOs.add(ExerciseUtil.toExerciseCardDTO(exercise,null));
+        }
+        model.addAttribute(EXERCISE_LIST, exerciseDTOs);
+
+        log.info("Exercises for user {}: {}", user.getUsername(), exercises);
+         return "pages/userExercises"; // Asegúrate de tener esta vista
     }
 }

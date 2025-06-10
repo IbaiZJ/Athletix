@@ -32,8 +32,7 @@ public class ExerciseService {
 
     @Transactional
     public void createExercise(Users creator, ExerciseRegistrationDTO dto) {
-        Exercises exercise = dto.toEntity();
-        exercise.setCreator(creator); // asignar creador aquí
+        Exercises exercise = dto.toEntity(creator);
         exerciseRepository.save(exercise);
     }
 
