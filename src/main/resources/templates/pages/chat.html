@@ -1,26 +1,16 @@
 <!doctype html>
-<html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
   <head>
-    <title>Chat entre amigos</title>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.0/dist/sockjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
-    <script src="/js/app/chat/chat.js"></script>
+    <title th:text="'Home - ' + ${session.user.username}">Home</title>
   </head>
   <body>
-    <div id="connect-container">
-      <form id="connectForm">
-        <input type="text" id="username" placeholder="Tu nombre" />
-        <button type="submit">Conectar</button>
-      </form>
-    </div>
-
-    <div id="chat-container" style="display: none">
-      <div id="messageArea"></div>
-      <form id="sendForm">
-        <input type="text" id="recipient" placeholder="Amigo a enviar" />
-        <input type="text" id="message" placeholder="Escribe un mensaje" />
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+    <main layout:fragment="content">
+      
+    </main>
   </body>
 </html>
