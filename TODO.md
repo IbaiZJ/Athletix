@@ -6,3 +6,4 @@
 - Title-ak aldatu
 - Formulario guztiak konpondu
 - Rankingean filtroak jarri
+- HTTPS
