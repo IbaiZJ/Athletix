@@ -1,5 +1,4 @@
 - Tracking-eko perfileko irudia konpondu
-- Login egiterakoan behar duen lekura berbidali
 - Event form js-java backend
 - Forms km -> float, (bakarrik ahal da zenbaki osoa sartu)
 - Event page kirol mota label
