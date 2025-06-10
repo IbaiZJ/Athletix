@@ -1,0 +1,22 @@
+<div th:fragment="assignAdminButton(thUser)" class="flex justify-end my-4">
+   <a id="floating-button" th:href="@{/user/profiles/{username}/userType(username=${user.username})}" class="bg-primary rounded-full p-4 transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg flex items-center justify-center w-14 h-14">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 text-white"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+  </a>
+</div>
+
+<script>
+  document.getElementById('floating-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    const currentPath = window.location.pathname;
+    window.location.href = currentPath.replace(/\/$/, '') + '/userType';
+  });
+</script>

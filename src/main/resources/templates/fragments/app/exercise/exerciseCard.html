@@ -1,0 +1,30 @@
+<div
+  th:fragment="exerciseCardFragment(thExercise)"
+    class="flex  max-w-[400px] min-w-[400px] flex-col gap-4 rounded-lg p-4 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl"
+>
+  <div class="flex items-center gap-4">
+    <div>
+      <img
+      class="h-10 w-80 rounded-full object-cover"
+        th:src="${exercise.profileImage}"
+        alt="Foto de perfil"
+      />
+      <p class="text-sm text-gray-600" th:text="${exercise.username}"></p>
+      <p th:text="${#temporals.format(exercise.date, 'yyyy/MM/dd HH:mm')}"
+        class="text-sm text-gray-600"
+      ></p>
+    </div>
+  </div>
+
+<div>
+    <h3 th:text="${exercise.title}" class="text-lg font-bold capitalize"></h3>
+    <p th:text="${exercise.description}" class=" w-80 text-gray-700 capitalize"></p>
+  </div>
+
+<div class="flex rounded-lg bg-gray-99 p-3">
+    <div class="flex-1 text-center">
+      <p class="text-sm text-gray-600">Distancia</p>
+      <p th:text="${exercise.km} + ' km'" class="text-lg font-bold"></p>
+    </div>
+    </div> 
+</div>

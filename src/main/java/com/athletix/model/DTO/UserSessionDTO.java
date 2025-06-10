@@ -3,6 +3,7 @@ package com.athletix.model.DTO;
 import java.io.Serializable;
 
 import com.athletix.model.Users;
+import com.athletix.model.UsersTypes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ public class UserSessionDTO implements Serializable {
     private String surname2;
     private String email;
     private String profileImage;
+    private UsersTypes userType;
+    private Users trainer;
 
     public UserSessionDTO(Users user) {
         id = user.getId();
@@ -28,6 +31,8 @@ public class UserSessionDTO implements Serializable {
         surname2 = user.getSurname2();
         email = user.getEmail();
         profileImage = user.getProfileImage();
+        userType=user.getUserType();
+        trainer=user.getTrainer();
     }
-
+    
 }
