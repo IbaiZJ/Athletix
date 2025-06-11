@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.athletix.model.DTO.UserDTO;
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.Users;
 import com.athletix.service.FileStorageService;
@@ -49,6 +50,19 @@ public class UserController {
             log.error("User not found: {}", username);
             return "error/404";
         }
+
+        UserDTO userdto = new UserDTO();
+        userdto.setName(user.getName());
+        userdto.setSurname(user.getSurname());
+        userdto.setSurname2(user.getSurname2());
+        userdto.setGender(user.getGender());
+        userdto.setTown(user.getTown());
+        userdto.setHeight(user.getHeight());
+        userdto.setWeight(user.getWeight());
+        userdto.setBirthDate(user.getBirthDate());
+        userdto.setProfileImageURL(user.getProfileImage());
+
+        model.addAttribute("userProfile", userdto);
 
         return "pages/profile/userProfile";
     }
