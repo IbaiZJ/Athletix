@@ -13,8 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +41,7 @@ public class Friends implements Serializable {
     @Enumerated(EnumType.STRING)
     private FriendshipStatus status;
 
-    @ManyToMany(mappedBy = "friends")
+    @OneToMany(mappedBy = "friendship")
     private Set<Messages> messages = new HashSet<>();
 
 }
