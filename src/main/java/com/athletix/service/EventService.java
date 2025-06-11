@@ -100,6 +100,9 @@ public class EventService {
         dto.setFullName(user.getName() + " " + user.getSurname());
         dto.setProfileImage(user.getProfileImage());
         dto.setRole(usersEvent.getRole());
+        dto.setMail(user.getEmail());
+        dto.setPhoneNumber(user.getPhone());
+        dto.setRegistrationDate(usersEvent.getRegistrationDate());
 
         return dto;
     }
@@ -178,6 +181,16 @@ public class EventService {
     public void deleteEvent(Integer eventId) {
         eventRepository.deleteById(eventId);
         userEventRepository.deleteByEventId(eventId);
+    }
+
+     @Transactional
+    public void deleteEventParticipant(Integer eventId, String username) {
+        boolean exists = userEventRepository.findByEventIdAndUsername(eventId, username).isPresent();
+        if (!exists) {
+            throw new IllegalArgumentException("El usuario no está registrado en el evento");
+        }
+
+        userEventRepository.deleteByEventIdAndUsername(eventId, username);
     }
 
 }

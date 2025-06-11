@@ -1,6 +1,7 @@
 package com.athletix.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -69,5 +70,14 @@ public interface UserEventRepository extends JpaRepository<UsersEvents, Integer>
     List<UsersEvents> findByEventIdAndRole(Integer eventId, EventRoleEnum role);
 
     Integer countByEventId(Integer eventId);
+
+    @Query("SELECT ue FROM UsersEvents ue WHERE ue.event.id = :eventId AND ue.user.username = :username")
+    Optional<UsersEvents> findByEventIdAndUsername(@Param("eventId") Integer eventId,
+            @Param("username") String username);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM UsersEvents ue WHERE ue.event.id = :eventId AND ue.user.username = :username")
+    void deleteByEventIdAndUsername(@Param("eventId") Integer eventId, @Param("username") String username);
 
 }

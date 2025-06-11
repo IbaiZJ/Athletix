@@ -136,6 +136,14 @@ public class EventController {
         return "pages/event/eventParticipants";
     }
 
+    @PostMapping("/{id}/participants/{username}/delete")
+    public String deleteEventParticipant(@PathVariable("id") Integer id, @PathVariable("username") String username, RedirectAttributes redirect) {
+        log.info("Deleting participant {} from event {}", username, id);
+        eventService.deleteEventParticipant(id, username);
+        // redirect.addFlashAttribute("success", "Participant deleted successfully");
+        return "redirect:/event/" + id + "/participants";
+    }
+
     @GetMapping("/create")
     public String createEventForm(Model model) {
         EventRegistrationDTO dto = new EventRegistrationDTO();
