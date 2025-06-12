@@ -1,6 +1,6 @@
 <div
   th:fragment="trackingCardFragment(thTracking)"
-  class="flex max-w-[500px] flex-col gap-4 rounded-lg p-4 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl"
+  class="flex max-w-[600px] flex-col gap-4 rounded-lg p-4 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl"
 >
   <div class="flex items-center gap-4">
     <a th:href="'/user/' + ${tracking.username}"
@@ -44,12 +44,12 @@
     </div>
     <div class="h-12 self-center border-l border-gray-400"></div>
     <div class="flex-1 text-center">
-      <p th:text="#{app.tracking.statistics.pace}" class="text-sm text-gray-600"></p>
+      <p th:text="#{app.tracking.trakingCard.pace}" class="text-sm text-gray-600"></p>
       <p th:text="${tracking.pace}" class="text-lg font-bold"></p>
     </div>
     <div class="h-12 self-center border-l border-gray-400"></div>
     <div class="flex-1 text-center">
-      <p th:text="#{app.tracking.statistics.time}" class="text-sm text-gray-600"></p>
+      <p th:text="#{app.tracking.trakingCard.time}" class="text-sm text-gray-600"></p>
       <p th:text="${tracking.duration}" class="text-lg font-bold"></p>
     </div>
   </div>
