@@ -1,0 +1,82 @@
+<div
+  th:each="friend : ${meetNewFriends}"
+  class="mx-3 flex items-center justify-start gap-3 rounded-lg px-3 py-1 transition-colors duration-300 ease-in-out hover:bg-gray-50"
+>
+  <div class="block">
+    <a
+      th:href="@{/user/{username}(username=${friend.username})}"
+      class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 font-semibold text-gray-500"
+    >
+      <img
+        th:if="${friend.profileImage != null}"
+        th:src="${friend.profileImage}"
+        alt="Profile photo"
+        class="h-full w-full object-cover"
+      />
+
+      <span
+        th:unless="${friend.profileImage != null}"
+        th:text="${#strings.toUpperCase(#strings.substring(friend.name, 0, 1) + #strings.substring(friend.surname, 0, 1))}"
+      >
+      </span>
+    </a>
+  </div>
+  <div class="flex w-full items-center justify-between">
+    <a
+      th:href="@{/user/{username}(username=${friend.username})}"
+      class="text-xl font-medium"
+      th:text="${friend.username}"
+    ></a>
+    <button
+      th:attr="data-username=${friend.username}"
+      class="addFriendButton bg-primary hover:bg-primary-hover hover:cursor-pointer ml-4 rounded-lg p-2 text-white transition-colors duration-300 ease-in-out"
+    >
+      Follow
+    </button>
+    <button
+      th:attr="data-username=${friend.username}"
+      class="removeFriendButton hidden ml-4 rounded-lg bg-gray-400 p-2 text-white transition-colors duration-300 ease-in-out hover:cursor-pointer hover:bg-gray-500"
+    >
+      Unfollow
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function () {
+      console.log('✅ WebSocket connected');
+
+      setTimeout(() => {
+        document.querySelectorAll('.addFriendButton').forEach(button => {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const friendUsername = button.getAttribute('data-username');
+            console.log('🔼 Sending addFriend for:', friendUsername);
+            stompClient.send('/app/add', {}, JSON.stringify({ username: friendUsername }));
+
+            button.classList.add('hidden');
+            button.parentElement.querySelector('.removeFriendButton').classList.remove('hidden');
+          });
+        });
+
+        document.querySelectorAll('.removeFriendButton').forEach(button => {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const friendUsername = button.getAttribute('data-username');
+            console.log('🔽 Sending removeFriend for:', friendUsername);
+            stompClient.send('/app/remove', {}, JSON.stringify({ username: friendUsername }));
+
+            button.classList.add('hidden');
+            button.parentElement.querySelector('.addFriendButton').classList.remove('hidden');
+          });
+        });
+      }, 100);
+    });
+
+    stompClient.debug = null;
+  });
+</script>

@@ -98,7 +98,7 @@
 
     function updateParticipants(delta) {
       const text = participantsSpan.textContent;
-      const match = text.match(/^(\d+)/); // extrae el número
+      const match = text.match(/^(\d+)/);
       if (match) {
         let count = parseInt(match[1], 10);
         count += delta;
