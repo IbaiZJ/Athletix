@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/appLayout}" 
+      th:with="activePage='Home'">
+
+<head>
+  <title>Asignar Entrenador</title>
+</head>
+
+<body>
+  <main layout:fragment="content">
+    <div class="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md mt-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+        ¿Quieres reclamar o desreclamar a este usuario?
+      </h2>
+      <form th:action="@{'/user/profiles/' + ${user.username} + '/assigned'}" method="post">
+        <div class="mb-4">
+          <label for="trainerSelect" class="block text-sm font-medium text-gray-700 mb-1">
+            Selecciona una opción:
+          </label>
+          <select id="trainerSelect" name="trainer"
+                  class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
+            <option th:value="${session.user.username}"
+                    th:text="'Reclamar'"
+                    th:selected="${user.trainer != null and user.trainer.username == session.user.username}">
+            </option>
+            <option th:value="null" th:text="'Desreclamar (Sin entrenador)'"
+                    th:selected="${user.trainer == null}">
+            </option>
+          </select>
+        </div>
+
+        <div class="flex justify-center">
+          <button type="submit"
+                  class="bg-primary hover:bg-primary-hover rounded-md px-6 py-2 text-white text-sm font-medium mt-4">
+            Confirmar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>
