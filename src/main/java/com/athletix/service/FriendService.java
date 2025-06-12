@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +68,40 @@ public class FriendService {
         friendship.setUser2(user2);
         friendship.setStatus(FriendshipStatus.ACCEPTED);
         friendRepository.save(friendship);
+    }
+
+    @Transactional
+    public void createFriends(Users user1, Users user2) {
+        if (user1.getId() > user2.getId()) {
+            Users temp = user1;
+            user1 = user2;
+            user2 = temp;
+        }
+
+        // Verify if friendship already exists
+        if (friendRepository.existsByUser1AndUser2(user1, user2)) {
+            throw new IllegalStateException("Friendship already exists between these users");
+        }
+
+        Friends friendship = new Friends();
+        friendship.setUser1(user1);
+        friendship.setUser2(user2);
+        friendship.setStatus(FriendshipStatus.ACCEPTED);
+        friendRepository.save(friendship);
+    }
+
+    @Transactional
+    public void removeFriendship(Users user1, Users user2) {
+        if (user1.getId() > user2.getId()) {
+            Users temp = user1;
+            user1 = user2;
+            user2 = temp;
+        }
+
+        Friends friendship = friendRepository.findByUser1AndUser2(user1, user2)
+                .orElseThrow(() -> new IllegalStateException("No friendship found between these users"));
+
+        friendRepository.delete(friendship);
     }
 
     public boolean areFriends(String username1, String username2) {
@@ -172,6 +208,33 @@ public class FriendService {
                             : friendship.getUser1();
                     return new UserSessionDTO(friend);
                 })
+                .toList();
+    }
+
+    public List<UserSessionDTO> getNonFriendUsersDTO(Principal principal) {
+        if (principal == null || principal.getName() == null) {
+            throw new IllegalStateException("Usuario no autenticado");
+        }
+
+        String username = principal.getName();
+        Users currentUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado: " + username));
+
+        List<Friends> friendships = friendRepository.findAcceptedFriendshipsByUserId(currentUser.getId());
+
+        Set<Integer> friendIds = friendships.stream()
+                .map(f -> f.getUser1().getId().equals(currentUser.getId()) ? f.getUser2().getId()
+                        : f.getUser1().getId())
+                .collect(Collectors.toSet());
+
+        friendIds.add(currentUser.getId());
+
+        List<Users> nonFriends = userRepository.findAll().stream()
+                .filter(user -> !friendIds.contains(user.getId()))
+                .toList();
+
+        return nonFriends.stream()
+                .map(UserSessionDTO::new)
                 .toList();
     }
 

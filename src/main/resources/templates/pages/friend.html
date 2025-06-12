@@ -15,8 +15,10 @@
         <div class="flex w-full flex-col gap-1">
           <div th:replace="~{fragments/app/friend/friendsList}"></div>
         </div>
-        <div class="p-6">
-          <h2 th:text="#{friend.newFriends}" class="text-2xl font-bold"></h2>
+
+        <h2 th:text="#{friend.newFriends}" class="p-6 text-2xl font-bold"></h2>
+        <div class="flex w-full flex-col gap-1 mb-2">
+          <div th:replace="~{fragments/app/friend/nonFriendsList}"></div>
         </div>
       </div>
     </main>
