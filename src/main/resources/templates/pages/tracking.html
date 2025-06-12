@@ -15,7 +15,7 @@
   </head>
   <body>
     <main layout:fragment="content" class="flex h-full w-full flex-col-reverse justify-center lg:flex-row">
-      <div class="flex h-full w-full flex-col items-center gap-4 py-6 md:px-6">
+      <div class="flex h-full w-full flex-col items-center gap-4 md:px-6">
         <div th:each="tracking : ${trackings}">
           <div
             th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${tracking})}"
