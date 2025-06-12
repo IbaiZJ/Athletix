@@ -17,7 +17,6 @@
           class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700"
         ></span>
         <span
-          id="participantsCount"
           th:text="${eventPage.participantsCount} + ' participantes'"
           class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700"
         ></span>
@@ -30,7 +29,7 @@
         </div>
         <div class="flex items-center">
           <svg th:replace="~{fragments/app/event/svg/calendarSVG}"></svg>
-          <span th:text="${#temporals.format(eventPage.date, 'yyyy/MM/dd HH:mm')}"></span>
+          <span th:text="${eventPage.date}"></span>
         </div>
         <div class="flex items-center">
           <svg th:replace="~{fragments/app/event/svg/distanceSVG}"></svg>
@@ -91,20 +90,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     const followButton = document.getElementById('followButton');
     const unfollowButton = document.getElementById('unfollowButton');
-    const participantsSpan = document.getElementById('participantsCount');
 
     const path = window.location.pathname;
     const eventId = path.match(/\/event\/(\d+)/)[1];
-
-    function updateParticipants(delta) {
-      const text = participantsSpan.textContent;
-      const match = text.match(/^(\d+)/); // extrae el número
-      if (match) {
-        let count = parseInt(match[1], 10);
-        count += delta;
-        participantsSpan.textContent = `${count} participantes`;
-      }
-    }
 
     if (followButton) {
       followButton.addEventListener('click', function (e) {
@@ -118,7 +106,6 @@
 
           followButton.classList.toggle('hidden');
           unfollowButton.classList.toggle('hidden');
-          updateParticipants(1);
         });
       });
     }
@@ -135,10 +122,8 @@
 
           followButton.classList.toggle('hidden');
           unfollowButton.classList.toggle('hidden');
-          updateParticipants(-1);
         });
       });
     }
   });
 </script>
-

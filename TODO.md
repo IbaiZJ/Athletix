@@ -1,16 +1,9 @@
 - Tracking-eko perfileko irudia konpondu
+- Login egiterakoan behar duen lekura berbidali
 - Event form js-java backend
 - Forms km -> float, (bakarrik ahal da zenbaki osoa sartu)
+- Event page kirol mota label
 - Title-ak aldatu
 - Formulario guztiak konpondu
 - Rankingean filtroak jarri
 - HTTPS
-- Friends page
-- Users settings page
-- Fix all profiles for chat and friends
-- Alain notifications
-- Mark as read notifications
-- Multilanguage
-- Fix tracking forms
-- Navbar tracking
-- 404

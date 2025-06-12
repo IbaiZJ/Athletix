@@ -2,22 +2,23 @@ package com.athletix.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "messages")
 public class Messages implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -32,12 +33,12 @@ public class Messages implements Serializable {
 
     private boolean readed;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
-    private Users sender;
-
-    @ManyToOne
-    @JoinColumn(name = "friendship_id")
-    private Friends friendship;
+    @ManyToMany
+    @JoinTable(
+        name = "friends_messages",
+        joinColumns = @JoinColumn(name = "message_id"),
+        inverseJoinColumns = @JoinColumn(name = "friends_id")
+    )
+    private Set<Friends> friends = new HashSet<>();
 
 }

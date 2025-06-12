@@ -1,11 +1,6 @@
 package com.athletix.util;
 
-import java.util.List;
 import java.util.Set;
-
-import com.athletix.model.Images;
-import com.athletix.model.Users;
-import com.athletix.model.DTO.UserCardDTO;
 
 public class UserValidationUtil {
     private static final Set<String> FORBIDDEN_USERNAMES = Set.of(
@@ -38,18 +33,5 @@ public class UserValidationUtil {
             throw new IllegalArgumentException("La contraseña debe tener al menos 1 número");
         if (!password.equals(repeatPassword))
             throw new IllegalArgumentException("Las contraseñas no coinciden");
-    }
-    public static UserCardDTO toUserCardDTO(Users user, List<Images> images) {
-        return new UserCardDTO(
-                user.getUsername(),
-                user.getName() + " " + user.getSurname(),
-                user.getProfileImage(),
-                user.getTrainer(),
-                user.getEmail(),
-                user.getHeight(),
-                user.getWeight(),
-                user.getGender(),
-                user.getUserType()
-        );
     }
 }
