@@ -41,4 +41,8 @@ public class TrackingService {
         trackingRepository.save(tracking);
         log.info("Created new tracking with Title: {} for user: {}", tracking.getTitle(), user.getUsername());
     }
+
+    public Trackings getLastTracking(Users user) {
+        return trackingRepository.findFirstByUserOrderByDateDesc(user).orElse(null);
+    }
 }

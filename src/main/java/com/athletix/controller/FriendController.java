@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +22,12 @@ public class FriendController {
     private static final Logger log = LoggerFactory.getLogger(FriendController.class);
 
     private final FriendService friendService;
-    private final SimpMessagingTemplate messagingTemplate;
     private final UserService userService;
 
     public FriendController(
             FriendService friendService,
-            SimpMessagingTemplate messagingTemplate,
             UserService userService) {
         this.friendService = friendService;
-        this.messagingTemplate = messagingTemplate;
         this.userService = userService;
         log.info("FriendController initialized");
     }

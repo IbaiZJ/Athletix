@@ -1,81 +1,86 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/appLayout}" th:with="activePage='Home'">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Home'"
+>
+  <head>
+    <title th:text="#{home.title} + ' ' + ${session.user.username}"></title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
+  </head>
 
-<head>
-  <title th:text="#{home.title} + ${session.user.username}"></title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
-</head>
+  <body>
+    <main layout:fragment="content" class="mx-auto flex min-h-screen max-w-7xl flex-col p-6">
+      <div class="mb-8 flex flex-col gap-6 lg:flex-row">
+        <div class="w-full md:w-6/10">
+          <h1
+            class="text-primary mb-8 text-4xl font-extrabold md:text-5xl"
+            th:text="#{home.welcome} + ' ' + ${session.user.username}"
+          ></h1>
+          <div class="flex w-full flex-col items-center justify-center gap-10">
+            <div th:if="${tracking != null}">
+              <div
+                th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${tracking})}"
+              ></div>
+            </div>
 
-<body>
-  <main layout:fragment="content" class="p-6 max-w-7xl mx-auto min-h-screen flex flex-col">
-    <div class="flex flex-col lg:flex-row gap-6 mb-8">
-      <div class="w-6/10">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-8"
-          th:text="#{home.welcome} + ' ' + ${session.user.username}">
-        </h1>
-        <div>
+            <div class="grid grid-cols-1 gap-6">
+              <div class="grid" th:if="${registeredEvents != null}" th:each="registeredEvent : ${registeredEvents}">
+                <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex w-full flex-col gap-6 md:w-4/10">
+          <div>
+            <h2 th:text="#{home.monthlyProgress}" class="mb-6 text-2xl font-semibold text-gray-700"></h2>
+            <canvas id="myChart" class="h-64 w-full rounded"></canvas>
+          </div>
 
+          <div>
+            <h2 th:text="#{home.regression}" class="mb-6 text-2xl font-semibold text-gray-700"></h2>
+            <canvas id="regressionChart" class="h-64 w-full rounded"></canvas>
+          </div>
         </div>
       </div>
-      <div class="flex flex-col w-4/10 gap-6">
-        <div>
-          <h2 th:text="#{home.monthlyProgress}" class="text-2xl font-semibold text-gray-700 mb-6"></h2>
-          <canvas id="myChart" class="h-64 w-full rounded"></canvas>
-        </div>
-
-        <div>
-          <h2 th:text="#{home.regression}" class="text-2xl font-semibold text-gray-700 mb-6"></h2>
-          <canvas id="regressionChart" class="h-64 w-full rounded"></canvas>
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-  </main>
-</body>
-
+    </main>
+  </body>
 </html>
 
-<!-- Datos desde Thymeleaf -->
 <script th:inline="javascript">
- monthlyKm = {
-  "Ene": 25,
-  "Feb": 30,
-  "Mar": 32,
-  "Abr": 28,
-  "May": 35,
-  "Jun": 40,
-  "Jul": 38,
-  "Ago": 36,
-  "Sep": 34,
-  "Oct": 30,
-  "Nov": 27,
-  "Dic": 22
-};
+  monthlyKm = {
+    Ene: 25,
+    Feb: 30,
+    Mar: 32,
+    Abr: 28,
+    May: 35,
+    Jun: 40,
+    Jul: 38,
+    Ago: 36,
+    Sep: 34,
+    Oct: 30,
+    Nov: 27,
+    Dic: 22,
+  };
 
-monthlyPace = {
-  "Ene": 5.2,
-  "Feb": 5.0,
-  "Mar": 4.9,
-  "Abr": 5.1,
-  "May": 4.8,
-  "Jun": 4.7,
-  "Jul": 4.6,
-  "Ago": 4.7,
-  "Sep": 4.8,
-  "Oct": 5.0,
-  "Nov": 5.1,
-  "Dic": 5.3
-};
-
+  monthlyPace = {
+    Ene: 5.2,
+    Feb: 5.0,
+    Mar: 4.9,
+    Abr: 5.1,
+    May: 4.8,
+    Jun: 4.7,
+    Jul: 4.6,
+    Ago: 4.7,
+    Sep: 4.8,
+    Oct: 5.0,
+    Nov: 5.1,
+    Dic: 5.3,
+  };
 </script>
 
-<!-- Script del gráfico original (no modificado) -->
 <script type="module">
   import { ChartBuilder } from '/js/charts/ChartBuilder.js';
   import { getLineChartConf } from '/js/charts/chartTypes/lineChart.js';
@@ -87,7 +92,6 @@ monthlyPace = {
   ChartBuilder.createLine('myChart', config);
 </script>
 
-<!-- Script del nuevo gráfico de regresión lineal -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const meses = Object.keys(monthlyKm);
@@ -101,7 +105,7 @@ monthlyPace = {
     const maxKm = Math.max(...kmData);
     const trendLine = [
       { x: minKm, y: a * minKm + b },
-      { x: maxKm, y: a * maxKm + b }
+      { x: maxKm, y: a * maxKm + b },
     ];
 
     const ctx = document.getElementById('regressionChart').getContext('2d');
@@ -113,7 +117,7 @@ monthlyPace = {
             label: 'Datos reales',
             data: kmData.map((km, index) => ({ x: km, y: paceData[index] })),
             backgroundColor: 'rgba(75, 192, 192, 1)',
-            pointRadius: 8
+            pointRadius: 8,
           },
           {
             label: 'Línea de tendencia',
@@ -123,24 +127,24 @@ monthlyPace = {
             borderWidth: 2,
             fill: false,
             pointRadius: 0,
-            showLine: true
-          }
-        ]
+            showLine: true,
+          },
+        ],
       },
       options: {
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Kilómetros mensuales'
-            }
+              text: 'Kilómetros mensuales',
+            },
           },
           y: {
             title: {
               display: true,
-              text: 'Tiempo por km (min)'
-            }
-          }
+              text: 'Tiempo por km (min)',
+            },
+          },
         },
         plugins: {
           tooltip: {
@@ -150,8 +154,8 @@ monthlyPace = {
                   return `Mes: ${meses[context.dataIndex]} | ${context.parsed.y} min/km`;
                 }
                 return `Tendencia: ${context.parsed.y.toFixed(2)} min/km`;
-              }
-            }
+              },
+            },
           },
           annotation: {
             annotations: {
@@ -164,13 +168,13 @@ monthlyPace = {
                 label: {
                   content: `Ecuación: y = ${a.toFixed(4)}x + ${b.toFixed(2)}`,
                   enabled: true,
-                  position: 'right'
-                }
-              }
-            }
-          }
-        }
-      }
+                  position: 'right',
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     console.log(`Ecuación de regresión: y = ${a.toFixed(4)}x + ${b.toFixed(2)}`);

@@ -42,6 +42,7 @@
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/tracking', #{app.sidebar.tracking}, ${activePage}, 'tracking')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/friend', #{app.sidebar.friend}, ${activePage}, 'friend')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/chat', #{app.sidebar.chat}, ${activePage}, 'chat')}"></li>
+          <li th:replace="~{fragments/app/sidebar/sidebarDropdown}"></li>
         </ul>
       </div>
     </nav>
