@@ -133,6 +133,14 @@ public class EventController {
         model.addAttribute("participants", participants);
         log.info("Participants for event {}: {}", id, participants);
 
+         Events event = eventService.getEventById(id);
+    Users user = userService.getCurrentUser();
+
+    EventDTO eventDTO = new EventDTO();
+    eventDTO.setId(event.getId());
+    eventDTO.setUserRole(eventService.findUserRoleByEventId(id, user.getId())); // Si necesitas el rol
+    model.addAttribute("eventPage", eventDTO);
+
         return "pages/event/eventParticipants";
     }
 
@@ -141,6 +149,8 @@ public class EventController {
         log.info("Deleting participant {} from event {}", username, id);
         eventService.deleteEventParticipant(id, username);
         // redirect.addFlashAttribute("success", "Participant deleted successfully");
+        log.info("Deleted participant {} from event {}", username, id);
+
         return "redirect:/event/" + id + "/participants";
     }
 
