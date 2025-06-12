@@ -46,7 +46,7 @@ public class EventValidationUtil {
             throw new IllegalArgumentException("La distancia no puede ser negativa");
     }
 
-    public static void validateHour(int hour) {
+    /*public static void validateHour(int hour) {
         if (hour == null || hour.trim().isEmpty())
             throw new IllegalArgumentException("El nombre de usuario no puede ser nulo");
         if (hour < 0 || hour > 23)
@@ -65,6 +65,6 @@ public class EventValidationUtil {
     public static void validateActivity(SportEnum activity) {
         if (activity == null)
             throw new IllegalArgumentException("La actividad no puede ser nula");
-    }
+    }*/
 
 }
