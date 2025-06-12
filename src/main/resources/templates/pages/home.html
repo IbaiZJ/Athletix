@@ -19,9 +19,13 @@
             class="text-primary mb-8 text-4xl font-extrabold md:text-5xl"
             th:text="#{home.welcome} + ' ' + ${session.user.username}"
           ></h1>
-          <div></div>
+          <div class="flex w-full flex-col gap-4">
+            <div
+              th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${lastTracking})}"
+            ></div>
+          </div>
         </div>
-        <div class="flex w-full md:w-4/10 flex-col gap-6">
+        <div class="flex w-full flex-col gap-6 md:w-4/10">
           <div>
             <h2 th:text="#{home.monthlyProgress}" class="mb-6 text-2xl font-semibold text-gray-700"></h2>
             <canvas id="myChart" class="h-64 w-full rounded"></canvas>
@@ -37,7 +41,6 @@
   </body>
 </html>
 
-<!-- Datos desde Thymeleaf -->
 <script th:inline="javascript">
   monthlyKm = {
     Ene: 25,
@@ -70,7 +73,6 @@
   };
 </script>
 
-<!-- Script del gráfico original (no modificado) -->
 <script type="module">
   import { ChartBuilder } from '/js/charts/ChartBuilder.js';
   import { getLineChartConf } from '/js/charts/chartTypes/lineChart.js';
@@ -82,7 +84,6 @@
   ChartBuilder.createLine('myChart', config);
 </script>
 
-<!-- Script del nuevo gráfico de regresión lineal -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const meses = Object.keys(monthlyKm);
