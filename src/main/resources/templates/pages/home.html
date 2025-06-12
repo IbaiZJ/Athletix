@@ -28,7 +28,7 @@
 
             <div class="grid grid-cols-1 gap-6">
               <div class="grid" th:if="${registeredEvents != null}" th:each="registeredEvent : ${registeredEvents}">
-                <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
+                <div class="min-w-[400px]" th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
               </div>
             </div>
           </div>
