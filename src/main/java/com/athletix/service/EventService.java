@@ -62,7 +62,13 @@ public class EventService {
     @Transactional
     public List<EventDTO> getRegisteredEvents(Users user) {
         log.info("Fetching registered events for user: {}", user.getUsername());
-        return userEventRepository.findRegisteredEventsByUser(user);
+        List<EventDTO> events = userEventRepository.findRegisteredEventsByUser(user);
+
+        if(events.isEmpty())  {
+            return null;
+        }
+
+        return events;
     }
 
     @Transactional

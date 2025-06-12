@@ -42,14 +42,19 @@ public class HomeController {
         Users user = userService.getCurrentUser();
 
         Trackings lastTracking = trackingService.getLastTracking(user);
-        TrackingCardDTO trackingCard = TrackingUtil.toTrackingCardDTO(lastTracking, null);
-        log.info("Last tracking: {}", lastTracking.getTitle());
+        if(lastTracking != null) {
+            TrackingCardDTO trackingCard = TrackingUtil.toTrackingCardDTO(lastTracking, null);
+            model.addAttribute("tracking", trackingCard);
+            log.info("Last tracking: {}", lastTracking.getTitle());
+        } else {
+            model.addAttribute("tracking", null);
+        }
+
 
         List<EventDTO> registeredEvents = eventService.getRegisteredEvents(user);
         model.addAttribute("registeredEvents", registeredEvents);
         log.info("Save registered events in model");
 
-        model.addAttribute("tracking", trackingCard);
         
         log.info("Home page accessed");
         return "pages/home";

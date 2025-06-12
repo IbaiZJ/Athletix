@@ -20,11 +20,14 @@
             th:text="#{home.welcome} + ' ' + ${session.user.username}"
           ></h1>
           <div class="flex w-full flex-col items-center justify-center gap-10">
-            <div
-              th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${lastTracking})}"
-            ></div>
+            <div th:if="${tracking != null}">
+              <div
+                th:replace="~{fragments/app/tracking/trackingCard :: trackingCardFragment(thTracking=${tracking})}"
+              ></div>
+            </div>
+
             <div class="grid grid-cols-1 gap-6">
-              <div class="grid" th:each="registeredEvent : ${registeredEvents}">
+              <div class="grid" th:if="${registeredEvents != null}" th:each="registeredEvent : ${registeredEvents}">
                 <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
               </div>
             </div>
