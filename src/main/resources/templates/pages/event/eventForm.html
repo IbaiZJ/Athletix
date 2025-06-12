@@ -11,7 +11,7 @@
 
 <body>
   <main layout:fragment="content">
-    <h1 th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"
+    <h1 th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : #{event.eventForm.Title}"
       class="pt-6 pl-6 text-2xl font-bold text-gray-900"></h1>
     <form th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
       method="post" enctype="multipart/form-data" class="mx-auto w-full p-6" th:object="${eventEditForm}" th:with="
@@ -87,8 +87,8 @@
 
         <div class="flex justify-center">
           <button type="submit"
+          th:text="#{event.eventForm.submit}"
             class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white hover:cursor-pointer md:w-[200px]">
-            Submit
           </button>
         </div>
       </div>

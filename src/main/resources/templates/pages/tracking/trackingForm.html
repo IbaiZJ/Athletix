@@ -15,7 +15,7 @@
   <body>
     <main layout:fragment="content">
       <h1
-        th:text="${trackingEditForm.id != null} ? 'Edit Tracking ' + ${trackingEditForm.title} : 'Create Tracking '"
+        th:text="${trackingEditForm.id != null} ? 'Edit Tracking ' + ${trackingEditForm.title} : #{tracking.trackingForm.Title}"
         class="pt-6 pl-6 text-2xl font-bold text-gray-900"
       ></h1>
       <!--<form
@@ -63,23 +63,23 @@
       </form>-->
 
       <form th:action="@{'/tracking/' + ${session.user.username} + '/create'}" class="flex gap-4 flex-col mx-auto w-full p-6" method="post">
-        <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title',true,'Title', '')}"></div>
+        <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', #{tracking.trackingForm.title},true,#{tracking.trackingForm.title}, '')}"></div>
         <div
-          th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'Description', true, 'Description', '')}"
+          th:replace="~{fragments/app/textAreaInput :: appTextarea(#{tracking.trackingForm.description}, #{tracking.trackingForm.description}, true, #{tracking.trackingForm.description}, '')}"
         ></div>
         <div class="flex w-full flex-col justify-center gap-4 md:flex-row">
           <div class="flex flex-col gap-3 md:flex-row">
             <div
-              th:replace="~{fragments/app/appInput :: appInput('text', 'km', 'Distance (km)',true, 'Distance', '')}"
+              th:replace="~{fragments/app/appInput :: appInput('text', 'km', #{tracking.trackingForm.distance},true, #{tracking.trackingForm.distance}, '')}"
             ></div>
             <div
-              th:replace="~{fragments/app/appInput :: appInput('number', 'durationH', 'Hour',true, 'Hour', '')}"
+              th:replace="~{fragments/app/appInput :: appInput('number', 'durationH', #{tracking.trackingForm.hour},true, #{tracking.trackingForm.hour}, '')}"
             ></div>
             <div
-              th:replace="~{fragments/app/appInput :: appInput('number', 'durationM', 'Minute',true,'Minute', '')}"
+              th:replace="~{fragments/app/appInput :: appInput('number', 'durationM', #{tracking.trackingForm.minute},true, #{tracking.trackingForm.minute}, '')}"
             ></div>
             <div
-              th:replace="~{fragments/app/appInput :: appInput('number', 'durationS', 'Second',true,'Second', '')}"
+              th:replace="~{fragments/app/appInput :: appInput('number', 'durationS', #{tracking.trackingForm.second},true, #{tracking.trackingForm.second}, '')}"
             ></div>
           </div>
         </div>
@@ -87,6 +87,7 @@
         <div class="flex justify-center">
           <button
             type="submit"
+            th:text="#{tracking.trackingForm.submit}"
             class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white hover:cursor-pointer md:w-[200px]"
           >
             Submit
