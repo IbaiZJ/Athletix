@@ -41,26 +41,27 @@
     <div class="mt-6 flex gap-4">
       <button
         id="followButton"
+        th:text="#{app.event.eventPageHero.follow}"
         th:if="${eventPage.userRole.name() != 'CREATOR'}"
         th:classappend="${eventPage.following} ? 'hidden' : ''"
         class="bg-primary hover:bg-primary-hover rounded-lg px-6 py-2 text-center font-medium text-white transition duration-200 hover:cursor-pointer"
-      >
-        Follow
+      >  
       </button>
       <button
         id="unfollowButton"
+        th:text="#{app.event.eventPageHero.unfollow}"
         th:if="${eventPage.userRole.name() != 'CREATOR'}"
         th:classappend="${eventPage.following} ? '' : 'hidden'"
         class="rounded-lg bg-gray-500 px-6 py-2 text-center font-medium text-white transition duration-200 hover:cursor-pointer hover:bg-gray-600"
       >
-        Unfollow
       </button>
       <a
+        th:text="#{app.event.eventPageHero.participante}"
         th:href="@{/event/{id}/participants(id=${eventPage.id})}"
         class="flex items-center gap-2 rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-800 transition hover:bg-gray-200"
       >
         <svg th:replace="~{fragments/app/event/svg/socialSVG}"></svg>
-        Participantes
+       
       </a>
       <a
         th:if="${eventPage.userRole.name() == 'CREATOR'}"

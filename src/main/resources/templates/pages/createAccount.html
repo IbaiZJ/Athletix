@@ -19,45 +19,45 @@
       <form th:action="@{/user/create}" method="post" enctype="multipart/form-data" class="mx-auto w-full max-w-4xl">
         <div class="flex flex-col md:w-full md:flex-row md:gap-10">
           <div class="w-full">            
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', 'Name')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'name', #{createAccount.name})}"></div>
             <div class="flex flex-col md:flex-row md:gap-6">
-              <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', 'Surname')}"></div>
-              <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname2', 'Second Surname')}"></div>
+              <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname', #{createAccount.surname})}"></div>
+              <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'surname2', #{createAccount.surname2})}"></div>
             </div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', 'Email')}"></div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'username', 'Username')}"></div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'password', 'Password')}"></div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'repeatPassword', 'Repeat Password')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('email', 'email', #{createAccount.email})}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'username', #{createAccount.username})}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'password', #{createAccount.password})}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('password', 'repeatPassword', #{createAccount.confirmPassword})}"></div>
             <div th:replace="~{fragments/login/createError}"></div>
           </div>
           <div class="w-full">
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'town', 'Town')}"></div>
-            <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'phone', 'Telephone Number')}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('text', 'town', #{createAccount.town})}"></div>
+            <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'phone', #{createAccount.phone})}"></div>
             <div class="flex flex-col md:flex-row md:gap-6">
-              <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'height', 'Height (cm)')}"></div>
-              <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'weight', 'Weight (kg)')}"></div>
+              <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'height', #{createAccount.height})}"></div>
+              <div th:replace="~{fragments/login/inputLabel :: inputLabel('number', 'weight', #{createAccount.weight})}"></div>
             </div>
             <div class="flex flex-col md:flex-row gap-6 mb-4">
               <div th:replace="~{fragments/login/datePicker}"></div>
               <div th:replace="~{fragments/login/genderRadioBottons}"></div>
             </div>
             <div>
-              <label class="mb-2 block text-xl font-medium text-gray-700">Profile Photo</label>
+              <label th:text="#{createAccount.profilePhoto}" class="mb-2 block text-xl font-medium text-gray-700"></label>
               <div th:replace="~{fragments/login/fileInput}"></div>
             </div>
           </div>
         </div>
         <button
           type="submit"
-          class="bg-primary mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white hover:cursor-pointer focus:ring-4 md:w-auto"
+          th:text="#{createAccount.createcount}"class="bg-primary mt-4 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white hover:cursor-pointer focus:ring-4 md:w-auto"
         >
-          Create account
+          
         </button>
       </form>
       <div class="mt-4 flex w-full items-center justify-center">
-        <p class="w-full max-w-4xl text-sm font-light text-gray-500">
+        <p th:text="#{createAccount.alreadyHave}" class="w-full max-w-4xl text-sm font-light text-gray-500">
           Already have an account?
-          <a href="/login" class="text-primary font-medium hover:underline">Sign up</a>
+          <a th:text="#{createAccount.signIn}" href="/login" class="text-primary font-medium hover:underline"></a>
         </p>
       </div>
     </main>

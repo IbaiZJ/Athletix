@@ -1,24 +1,20 @@
 <section class="mx-auto mt-12 max-w-screen-xl px-4 py-8 text-center md:mt-28 lg:px-12 lg:py-16">
-  <h1 th:text="#{hero.title}" class="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-    Donde el deporte une, la comunidad crece.
-  </h1>
-  <p class="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48">
-    Conecta con otros atletas, comparte tus logros, organiza partidos, entrena en comunidad y sigue la actividad de tus
-    equipos favoritos. Ya seas amateur o profesional, Athletix es tu espacio para vivir el deporte al máximo.
+  <h1 th:text="#{landing.hero.title}" class="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl"></h1>
+  <p th:text="#{landing.hero.description}" class="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48">
   </p>
   <div class="mb-8 flex flex-col justify-center gap-4 sm:flex-row lg:mb-16">
-    <a
+    <a th:text="#{landing.hero.inicioSesion}"
       href="/login"
       class="bg-primary inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4 sm:w-auto"
     >
-      Iniciar sesión
       <img th:src="@{/svg/right-arrow.svg}" class="-mr-1 ml-2 h-5 w-5" alt="arrow right" />
     </a>
     <a
+      th:text="#{landing.hero.createCount}"
       href="/user/create"
       class="inline-flex w-full items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 sm:w-auto"
     >
-      Crear cuenta
+  
     </a>
   </div>
 </section>

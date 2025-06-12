@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="w-full" th:fragment="eventDifficulty">
-  <label class="mb-2 block text-sm font-medium text-gray-900">
-    Dificultad del evento *
+  <label  th:text="#{app.event.eventDifficulty.title}" class="mb-2 block text-sm font-medium text-gray-900">
+    
   </label>
 
   <div class="flex flex-col gap-1">
@@ -17,7 +17,7 @@
         th:checked="${withDifficulty == 'EASY'}"
         th:field="*{difficulty}"
       />
-      <label for="difficulty-easy" class="ms-2 text-sm font-medium text-gray-900">Fácil</label>
+      <label th:text="#{app.event.eventDificulty.easy}" for="difficulty-easy" class="ms-2 text-sm font-medium text-gray-900"></label>
     </div>
     <div class="flex items-center">
       <input
@@ -29,7 +29,7 @@
         th:checked="${withDifficulty == 'MEDIUM'}"
         th:field="*{difficulty}"
       />
-      <label for="difficulty-medium" class="ms-2 text-sm font-medium text-gray-900">Media</label>
+      <label th:text="#{app.event.eventDificulty.medium}" for="difficulty-medium" class="ms-2 text-sm font-medium text-gray-900"></label>
     </div>
     <div class="flex items-center">
       <input
@@ -41,7 +41,7 @@
         th:checked="${withDifficulty == 'HARD'}"
         th:field="*{difficulty}"
       />
-      <label for="difficulty-hard" class="ms-2 text-sm font-medium text-gray-900">Difícil</label>
+      <label th:text="#{app.event.eventDificulty.hard}" for="difficulty-hard" class="ms-2 text-sm font-medium text-gray-900"></label>
     </div>
   </div>
 </div>

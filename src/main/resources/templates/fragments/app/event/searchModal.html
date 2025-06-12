@@ -17,6 +17,7 @@
     @click="showModal = true"
     type="button"
     class="bg-primary hover:bg-primary-hover w-full rounded-lg px-4 py-2 text-center text-white transition hover:cursor-pointer sm:w-auto"
+    th:text="#{app.event.searchModal.buttonText}"
   >
     Find events
   </button>
@@ -28,7 +29,7 @@
     @click.self="showModal = false"
   >
     <div class="max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-xl bg-white p-6 text-left shadow-2xl">
-      <h2 class="mb-4 text-2xl font-semibold text-gray-800">Find Events</h2>
+      <h2 th:text="#{app.event.searchModal.title}" class="mb-4 text-2xl font-semibold text-gray-800"></h2>
 
       <!-- Buscador -->
       <div class="relative mb-4">
@@ -83,17 +84,17 @@
           </a>
         </template>
 
-        <p x-show="filteredEvents.length === 0" class="text-center text-gray-500">
-          No events found matching your search.
+        <p th:text="#{app.event.searchModal.notFound}" x-show="filteredEvents.length === 0" class="text-center text-gray-500">
+          
         </p>
       </div>
 
       <div class="mt-4 flex justify-end">
         <button
           @click="showModal = false"
+          th:text="#{app.event.searchModal.close}"
           class="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
         >
-          Close
         </button>
       </div>
     </div>
