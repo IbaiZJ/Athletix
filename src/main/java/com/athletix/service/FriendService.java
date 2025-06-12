@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.athletix.enums.FriendshipStatus;
 import com.athletix.model.DTO.ChatMessage;
 import com.athletix.model.DTO.ChatUserDTO;
+import com.athletix.model.DTO.UserSessionDTO;
 import com.athletix.model.Friends;
 import com.athletix.model.Messages;
 import com.athletix.model.Users;
@@ -103,7 +104,7 @@ public class FriendService {
                                 username1, username2)));
     }
 
-    public List<ChatUserDTO> getFriendDTOs(Principal principal) {
+    public List<ChatUserDTO> getFriendChatDTOs(Principal principal) {
         if (principal == null || principal.getName() == null) {
             throw new IllegalStateException("Usuario no autenticado");
         }
@@ -115,40 +116,63 @@ public class FriendService {
         List<Friends> friendships = friendRepository.findAcceptedFriendshipsByUserId(currentUser.getId());
 
         return friendships.stream()
-        .map(friendship -> {
-            Users friend = friendship.getUser1().getId().equals(currentUser.getId())
-                    ? friendship.getUser2()
-                    : friendship.getUser1();
+                .map(friendship -> {
+                    Users friend = friendship.getUser1().getId().equals(currentUser.getId())
+                            ? friendship.getUser2()
+                            : friendship.getUser1();
 
-            ChatUserDTO dto = new ChatUserDTO();
-            dto.setUsername(friend.getUsername());
-            dto.setName(friend.getName());
-            dto.setSurname(friend.getSurname());
-            dto.setProfileImage(friend.getProfileImage());
+                    ChatUserDTO dto = new ChatUserDTO();
+                    dto.setUsername(friend.getUsername());
+                    dto.setName(friend.getName());
+                    dto.setSurname(friend.getSurname());
+                    dto.setProfileImage(friend.getProfileImage());
 
-            Messages lastMsg = messageRepository.findLastMessageByFriendshipId(friendship.getId());
+                    Messages lastMsg = messageRepository.findLastMessageByFriendshipId(friendship.getId());
 
-            if (lastMsg != null) {
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.setSender(lastMsg.getSender().getUsername());
-                chatMessage.setRecipient(
-                        friend.getUsername().equals(lastMsg.getSender().getUsername())
-                                ? currentUser.getUsername()
-                                : friend.getUsername());
-                chatMessage.setContent(lastMsg.getMessage());
-                chatMessage.setTimestamp(lastMsg.getDate());
-                dto.setLastMessage(chatMessage);
-            }
+                    if (lastMsg != null) {
+                        ChatMessage chatMessage = new ChatMessage();
+                        chatMessage.setSender(lastMsg.getSender().getUsername());
+                        chatMessage.setRecipient(
+                                friend.getUsername().equals(lastMsg.getSender().getUsername())
+                                        ? currentUser.getUsername()
+                                        : friend.getUsername());
+                        chatMessage.setContent(lastMsg.getMessage());
+                        chatMessage.setTimestamp(lastMsg.getDate());
+                        dto.setLastMessage(chatMessage);
+                    }
 
-            return dto;
-        })
-        .sorted((dto1, dto2) -> {
-            LocalDateTime t1 = dto1.getLastMessage() != null ? dto1.getLastMessage().getTimestamp() : LocalDateTime.MIN;
-            LocalDateTime t2 = dto2.getLastMessage() != null ? dto2.getLastMessage().getTimestamp() : LocalDateTime.MIN;
-            return t2.compareTo(t1); 
-        })
-        .toList();
+                    return dto;
+                })
+                .sorted((dto1, dto2) -> {
+                    LocalDateTime t1 = dto1.getLastMessage() != null ? dto1.getLastMessage().getTimestamp()
+                            : LocalDateTime.MIN;
+                    LocalDateTime t2 = dto2.getLastMessage() != null ? dto2.getLastMessage().getTimestamp()
+                            : LocalDateTime.MIN;
+                    return t2.compareTo(t1);
+                })
+                .toList();
 
+    }
+
+    public List<UserSessionDTO> getFriendsDTOs(Principal principal) {
+        if (principal == null || principal.getName() == null) {
+            throw new IllegalStateException("Usuario no autenticado");
+        }
+
+        String username = principal.getName();
+        Users currentUser = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado: " + username));
+
+        List<Friends> friendships = friendRepository.findAcceptedFriendshipsByUserId(currentUser.getId());
+
+        return friendships.stream()
+                .map(friendship -> {
+                    Users friend = friendship.getUser1().getId().equals(currentUser.getId())
+                            ? friendship.getUser2()
+                            : friendship.getUser1();
+                    return new UserSessionDTO(friend);
+                })
+                .toList();
     }
 
 }
