@@ -70,7 +70,6 @@ public class FriendController {
             friendService.removeFriendship(user, friend);
         }
 
-        
         log.info("Friend removed: {}", request.getUsername());
     }
 }
