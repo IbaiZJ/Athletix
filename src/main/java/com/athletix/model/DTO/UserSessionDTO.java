@@ -2,6 +2,7 @@ package com.athletix.model.DTO;
 
 import java.io.Serializable;
 
+import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
 import com.athletix.model.UsersTypes;
 
@@ -20,7 +21,7 @@ public class UserSessionDTO implements Serializable {
     private String surname2;
     private String email;
     private String profileImage;
-    private UsersTypes userType;
+    private RoleEnum userType;
     private Users trainer;
 
     public UserSessionDTO(Users user) {

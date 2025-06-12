@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.athletix.enums.GenderEnum;
+import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
 import com.athletix.model.UsersTypes;
 
@@ -36,7 +37,7 @@ public class UserRegistrationDTO implements Serializable {
     private String profileImageURL;
     private MultipartFile profileImage;
     private Users trainer;
-    private UsersTypes type;
+    private RoleEnum type;
 
     public Users toEntity(PasswordEncoder encoder) {
         Users user = new Users();

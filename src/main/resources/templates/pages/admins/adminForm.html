@@ -23,10 +23,11 @@
                   class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm">
             <option th:value="USER"
                     th:text="'Usuario'"
-                    th:selected="${user.userType != null and user.userType.id == 1}">
+                    th:selected="${user.userType != null and user.userType.name() == 'USER'}">
             </option>
             <option th:value="TRAINER" th:text="'Entrenador'"
-                     th:selected="${user.userType != null and user.userType.id == 2}">
+                    th:selected="${user.userType != null and user.userType.name() == 'TRAINER'}">
+
             </option>
           </select>
         </div>

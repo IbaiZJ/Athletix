@@ -25,8 +25,8 @@ import com.athletix.model.DTO.UserDTO;
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.DTO.UserCardDTO;
 import com.athletix.enums.NotificationEnum;
+import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
-import com.athletix.model.UsersTypes;
 import com.athletix.service.FileStorageService;
 import com.athletix.service.NotificationService;
 import com.athletix.service.UserService;
@@ -170,33 +170,38 @@ public class UserController {
         return "pages/admins/adminForm";
     }
     @PostMapping("/profiles/{username}/userType")
-    public String assignUserType(@PathVariable("username") String username, @RequestParam("userType") String userType) {
+public String assignUserType(@PathVariable("username") String username, @RequestParam("userType") String userTypeStr) {
+    Users user = userService.findByUsername(username);
+    if (user == null) {
+        throw new IllegalArgumentException("Usuario no encontrado: " + username);
+    }
 
-        Users user = userService.findByUsername(username);
-        UsersTypes type = userService.findByDescription(userType);
-        Users trainee;
-        UsersTypes origintType=user.getUserType();
-        String origin=origintType.getDescription();
-        String trainer=user.getUsername();
-        if(type!=null)
-        {
-            if((userType.equals("USER"))||(origin.equals("TRAINER")))
-            {
-                List<Users> users =userService.findAllUsers();
-                for (Users u : users) {
-                    trainee=u.getTrainer();
-                    if(trainee!=null){
-                        if(trainer.equals(trainee.getUsername())){
-                            u.setTrainer(null);
-                            userService.save(u);
-                        }
-                    }
-                }
+    RoleEnum newType;
+    try {
+        newType = RoleEnum.valueOf(userTypeStr.toUpperCase());
+    } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Tipo de usuario inválido: " + userTypeStr);
+    }
+
+    RoleEnum currentType = user.getUserType();
+    String trainerUsername = user.getUsername();
+
+    // Si el nuevo tipo es USER o el tipo actual es TRAINER, desasignar entrenadores
+    if (newType == RoleEnum.USER || currentType == RoleEnum.TRAINER) {
+        List<Users> users = userService.findAllUsers();
+        for (Users u : users) {
+            Users assignedTrainer = u.getTrainer();
+            if (assignedTrainer != null && trainerUsername.equals(assignedTrainer.getUsername())) {
+                u.setTrainer(null);
+                userService.save(u);
             }
-            user.setUserType(type);
-            userService.save(user);
         }
+    }
 
-        return "redirect:/user/profiles";
-    }  
+    user.setUserType(newType);
+    userService.save(user);
+
+    return "redirect:/user/profiles";
+}
+
 }

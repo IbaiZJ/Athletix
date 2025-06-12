@@ -18,7 +18,9 @@ import com.athletix.model.Users;
 import com.athletix.model.UsersTypes;
 import com.athletix.repository.UserRepository;
 import com.athletix.repository.UsersTypesRepository;
+import com.athletix.service.custom.CustomUserDetailsService;
 import com.athletix.util.UserValidationUtil;
+import com.athletix.enums.RoleEnum;
 
 import jakarta.transaction.Transactional;
 
@@ -29,13 +31,16 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CustomUserDetailsService customUserDetailsService;
     @Autowired
     private UsersTypesRepository usersTypesRepository;
     public UserService(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            CustomUserDetailsService customUserDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.customUserDetailsService=customUserDetailsService;
         log.info("UserService initialized");
     }
 
@@ -49,10 +54,9 @@ public class UserService {
         UserValidationUtil.validatePassword(userDTO.getPassword(), userDTO.getRepeatPassword());
 
         Users user = userDTO.toEntity(passwordEncoder);
-        user.setUserType(usersTypesRepository.findByDescription("USER")
-        .orElseThrow(() -> new IllegalStateException("Tipo de usuario 'Trainer' no existe en la base de datos")));
-
+                
         userRepository.save(user);
+        customUserDetailsService.loadUserByUsername(userDTO.getUsername());
 
         log.info("User saved: {}", userDTO.getUsername());
     }
@@ -88,23 +92,11 @@ public class UserService {
         }
         return findByUsername(username);
     }
-    @Transactional
-    public List<Users> findAllUsers() {
-    return userRepository.findAll();
-    }
+    
     public void save(Users user) {
         userRepository.save(user);
     }
-    @Transactional
-    public UsersTypes findByDescription(String description) {
-    if (description == null || description.isEmpty()) {
-        log.warn("Description is null or empty");
-        return null;
-    }
-    log.info("Searching for user type by description: {}", description);
-    return usersTypesRepository.findByDescription(description)
-            .orElse(null);
-    }
+  
 
     @Transactional
     public List<RankingDTO> getUsersRankingByDistance() {

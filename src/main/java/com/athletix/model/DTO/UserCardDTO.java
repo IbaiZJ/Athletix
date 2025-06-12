@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import com.athletix.enums.GenderEnum;
+import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
 import com.athletix.model.UsersTypes;
 
@@ -26,6 +27,6 @@ public class UserCardDTO {
     private String height;
     private String weight;
     private GenderEnum gender;
-    private UsersTypes userType;
+    private RoleEnum userType;
 
 }

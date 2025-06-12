@@ -43,7 +43,7 @@
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/user/profiles', 'Profiles', ${activePage}, 'profile')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/friend', 'Friends', ${activePage}, 'friend')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/chat', 'Chats', ${activePage}, 'chat')}"></li>
-          <div th:if="${session.user.userType.id==2}">
+        <div th:if="${session.user.userType.name() == 'TRAINER'}">
             <li 
                 th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/exercise', 'Exercise', ${activePage},'exercise')}">
             </li>
