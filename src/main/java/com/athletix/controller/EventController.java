@@ -133,7 +133,16 @@ public class EventController {
         model.addAttribute("participants", participants);
         log.info("Participants for event {}: {}", id, participants);
 
+         Events event = eventService.getEventById(id);
+    Users user = userService.getCurrentUser();
+
+    EventDTO eventDTO = new EventDTO();
+    eventDTO.setId(event.getId());
+    eventDTO.setUserRole(eventService.findUserRoleByEventId(id, user.getId())); // Si necesitas el rol
+    model.addAttribute("eventPage", eventDTO);
+
         return "pages/event/eventParticipants";
+
     }
 
     @PostMapping("/{id}/participants/{username}/delete")
