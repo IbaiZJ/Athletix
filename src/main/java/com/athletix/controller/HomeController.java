@@ -1,14 +1,18 @@
 package com.athletix.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.athletix.model.DTO.EventDTO;
 import com.athletix.model.DTO.TrackingCardDTO;
 import com.athletix.model.Trackings;
 import com.athletix.model.Users;
+import com.athletix.service.EventService;
 import com.athletix.service.TrackingService;
 import com.athletix.service.UserService;
 import com.athletix.util.TrackingUtil;
@@ -21,12 +25,15 @@ public class HomeController {
 
     private final TrackingService trackingService;
     private final UserService userService;
+    private final EventService eventService;
 
     public HomeController(
             TrackingService trackingService,
-            UserService userService) {
+            UserService userService,
+            EventService eventService) {
         this.trackingService = trackingService;
         this.userService = userService;
+        this.eventService = eventService;
         log.info("HomeController initialized");
     }
 
@@ -36,6 +43,11 @@ public class HomeController {
 
         Trackings lastTracking = trackingService.getLastTracking(user);
         TrackingCardDTO trackingCard = TrackingUtil.toTrackingCardDTO(lastTracking, null);
+        log.info("Last tracking: {}", lastTracking.getTitle());
+
+        List<EventDTO> registeredEvents = eventService.getRegisteredEvents(user);
+        model.addAttribute("registeredEvents", registeredEvents);
+        log.info("Save registered events in model");
 
         model.addAttribute("tracking", trackingCard);
         
