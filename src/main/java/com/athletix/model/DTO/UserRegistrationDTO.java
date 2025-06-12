@@ -2,14 +2,11 @@ package com.athletix.model.DTO;
 
 import java.io.Serializable;
 
-import org.hibernate.usertype.UserType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.athletix.enums.GenderEnum;
-import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
-import com.athletix.model.UsersTypes;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,8 +33,6 @@ public class UserRegistrationDTO implements Serializable {
     private String phone;
     private String profileImageURL;
     private MultipartFile profileImage;
-    private Users trainer;
-    private RoleEnum type;
 
     public Users toEntity(PasswordEncoder encoder) {
         Users user = new Users();
@@ -54,8 +49,6 @@ public class UserRegistrationDTO implements Serializable {
         user.setPhone(this.phone);
         user.setBirthDate(this.birthDate);
         user.setProfileImage(this.profileImageURL);
-        user.setTrainer(this.trainer);
-        user.setUserType(type);
         return user;
     }
 }

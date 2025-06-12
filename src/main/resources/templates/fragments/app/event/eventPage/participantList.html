@@ -19,33 +19,19 @@
                 <td class="px-6 py-4 font-medium text-gray-900">
                     <div class="flex items-center space-x-3">
                         <img th:src="${participant.profileImage} ?: '/images/default-avatar.png'" alt="Profile"
-                            class="w-8 h-8 rounded-full object-contain">
+                             class="w-8 h-8 rounded-full object-contain">
                         <span th:text="${participant.username}">Username</span>
                     </div>
                 </td>
                 <td class="px-6 py-4 hidden lg:table-cell  " th:text="${participant.fullName}">Full Name</td>
                 <td class="px-6 py-4" th:text="${participant.role}"></td>
-                <td class="px-6 py-4 hidden lg:table-cell"
-                    th:text="${#temporals.format(participant.registrationDate, 'dd/MM/yyyy')}">01/01/2023</td>
+                <td class="px-6 py-4 hidden lg:table-cell" th:text="${#temporals.format(participant.registrationDate, 'dd/MM/yyyy')}">01/01/2023</td>
                 <td th:text="${participant.mail}" class="px-6 py-4 hidden lg:table-cell  ">robertocarlos@gmail.com</td>
                 <td th:text="${participant.phoneNumber}" class="px-6 py-4 hidden lg:table-cell  ">632334232</td>
                 <td class="px-6 py-4  flex flex-row  items-center ">
-                    <div class="lg:hidden" th:include="~{fragments/app/event/eventPage/participantInfo}"></div>
-                    <form
-                        th:action="@{'/event/' + ${eventPage.id} + '/participants/' + ${participant.username} + '/delete'}"
-                        method="post"
-                        onsubmit="return confirm('¿Estás seguro de que quieres eliminar a este participante?')"
-                        th:if="${eventPage.userRole.name() == 'CREATOR'}">
-
-
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-                        <button type="submit"
-                            class="hover:cursor-pointer bg-white hover:bg-gray-100 w-fit rounded-full border-none p-2">
-                            <svg th:replace="~{fragments/app/event/svg/binSVG}"></svg>
-                        </button>
-                    </form>
-                </td>
+                    <div  class="lg:hidden" th:include="~{fragments/app/event/eventPage/participantInfo}"></div>
+                    <div class=" hover:cursor-pointer bg-white hover:bg-gray-100 w-fit rounded-full " th:include="~{fragments/app/event/svg/binSVG}"></div>
+            </td>
             </tr>
         </tbody>
     </table>

@@ -7,15 +7,27 @@
 >
   <head>
     <title>Profiles</title>
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css" />
-    <script src="https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.min.js" type="module"></script>
-    <script type="module" src="/js/app/imageGallery.js"></script>
   </head>
-  <body layout:fragment="content" >
-    <div class="w-full max-w-md bg-[#0E1621] text-white rounded-md overflow-hidden shadow-md">
-      <div th:each="user : ${users}" >
-          <div th:replace="~{fragments/app/user/userCard :: userCardFragment(thUser=${user})}"></div>
-      </div>
-    </div>
+  <body>
+    <section layout:fragment="content">
+      <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+        <thead class="bg-gray-50 tracking-wider text-gray-700 uppercase">
+          <tr>
+            <th class="px-6 py-3">Username</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Surname</th>
+            <th class="px-6 py-3">City</th>
+            <th class="px-6 py-3">Following</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr th:replace="~{fragments/app/profile/profileTableRow}"></tr>
+          <tr th:replace="~{fragments/app/profile/profileTableRow}"></tr>
+          <tr th:replace="~{fragments/app/profile/profileTableRow}"></tr>
+          <tr th:replace="~{fragments/app/profile/profileTableRow}"></tr>
+          <tr th:replace="~{fragments/app/profile/profileTableRow}"></tr>
+        </tbody>
+      </table>
+    </section>
   </body>
 </html>

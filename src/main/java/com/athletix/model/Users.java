@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.athletix.enums.GenderEnum;
-import com.athletix.enums.RoleEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -69,8 +68,8 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "trainer")
     private Set<Users> trainees;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum userType;
+    @ManyToOne
+    private UsersTypes userType;
 
     @OneToMany(mappedBy = "user")
     private Set<UsersEvents> events = new HashSet<>();
