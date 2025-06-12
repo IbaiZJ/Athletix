@@ -37,4 +37,5 @@ public interface FriendRepository extends JpaRepository<Friends, Integer> {
     List<Friends> findAcceptedFriendshipsByUserId(@Param("userId") Integer userId);
 
     boolean existsByUser1AndUser2(Users user1, Users user2);
+    Optional<Friends> findByUser1AndUser2(Users user1, Users user2);
 }

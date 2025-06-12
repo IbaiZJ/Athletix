@@ -27,8 +27,11 @@
       class="text-xl font-medium"
       th:text="${friend.username}"
     ></a>
-    <a class="bg-primary ml-4 rounded-lg p-2 text-white" th:href="@{/chat/{friend}(friend=${friend.username})}">
-      <svg th:replace="~{fragments/app/friend/sendSVG}"></svg>
-    </a>
+    <a
+        class="bg-primary hover:bg-primary-hover ml-4 rounded-lg p-2 text-white transition-colors duration-300 ease-in-out"
+        th:href="@{/chat/{friend}(friend=${friend.username})}"
+      >
+        <svg th:replace="~{fragments/app/friend/sendSVG}"></svg>
+      </a>
   </div>
 </div>
