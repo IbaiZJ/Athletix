@@ -103,4 +103,10 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{username}/settings")
+    public String showSettingsForm(@PathVariable("username") String username) {
+        log.info("Accessing the user settings page");
+        return "pages/user/userSettingsForm";
+    }
+
 }

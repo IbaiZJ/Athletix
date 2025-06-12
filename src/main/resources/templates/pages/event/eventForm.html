@@ -3,10 +3,10 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/appLayout}"
-  th:with="activePage='Home'"
+  th:with="activePage='Events'"
 >
   <head>
-    <title>Event create form</title>
+    <title th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"> </title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/js/app/eventCreationMap.js"></script>
@@ -49,7 +49,7 @@
           ></div>
           <div class="min-h-2xs flex">
             <div
-              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Description', ${withDescription})}"
+              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'Description', false, 'Description', ${withDescription})}"
             ></div>
           </div>
 

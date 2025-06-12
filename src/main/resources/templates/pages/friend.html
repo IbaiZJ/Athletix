@@ -1,0 +1,24 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Friends'"
+>
+  <head>
+    <title th:text="'Friends - ' + ${session.user.username}">Home</title>
+  </head>
+  <body>
+    <main layout:fragment="content" class="mx-auto flex w-full max-w-4xl justify-center">
+      <div class="flex w-full flex-col">
+        <h1 class="p-6 text-3xl font-bold">Friends</h1>
+        <div class="flex w-full flex-col gap-1">
+          <div th:replace="~{fragments/app/friend/friendsList}"></div>
+        </div>
+        <div class="p-6">
+          <h2 class="text-2xl font-bold">Meet new friends</h2>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+<div th:fragment="showRegisteredEventFallbackMessage(events)">
+  <p th:if="${events == null or events.empty}" class="col-span-full text-center text-gray-500">
+    <span th:if="${events == null}">Events data not available.</span>
+    <span th:if="${events != null and events.empty}">There are no registered events at the moment.</span>
+  </p>
+</div>

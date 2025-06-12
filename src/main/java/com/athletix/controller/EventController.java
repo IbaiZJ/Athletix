@@ -77,9 +77,9 @@ public class EventController {
         log.info("Save available events in model");
 
         // My events
-        List<EventDTO> myEvents = eventService.getMyEvents(user);
-        model.addAttribute("myEvents", myEvents);
-        log.info("Save my events in model");
+        // List<EventDTO> myEvents = eventService.getMyEvents(user);
+        // model.addAttribute("myEvents", myEvents);
+        // log.info("Save my events in model");
         /*
          * // Friends events
          * List<EventDTO> friendsEvents = eventService.getFriendsEvents();
@@ -244,9 +244,10 @@ public class EventController {
 
         try {
             if (eventDTO.getProfileImage() != null && !eventDTO.getProfileImage().isEmpty()
-                    && eventDTO.getProfileImageURL() == null) {
+                    ) { // && eventDTO.getProfileImageURL() == null
                 String fileName = fileStorageService.storeFile(eventDTO.getProfileImage());
                 eventDTO.setProfileImageURL("/uploads/" + fileName);
+                // TODO: remove all images from previous event
             }
 
             // Edit event
