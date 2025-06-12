@@ -39,7 +39,7 @@
         <ul class="flex flex-col gap-4">
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/home', #{app.sidebar.home}, ${activePage}, 'home')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/event', #{app.sidebar.event}, ${activePage}, 'event')}"></li>
-          <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/profile', #{app.sidebar.profile}, ${activePage}, 'profile')}"></li>
+          <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/tracking', #{app.sidebar.tracking}, ${activePage}, 'profile')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/friend', #{app.sidebar.friend}, ${activePage}, 'friend')}"></li>
           <li th:replace="~{fragments/app/sidebar/sidebarButton :: sidebarButton('/chat', #{app.sidebar.chat}, ${activePage}, 'chat')}"></li>
         </ul>

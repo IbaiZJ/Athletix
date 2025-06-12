@@ -34,11 +34,11 @@
         <p th:text="#{app.header.userDropdown.myProfile}" class="text-sm text-gray-700"></p>
       </div>
     </a>
-    <a th:href="'/user/' + ${session.user.username} + '/settings'">
+    <!-- <a th:href="'/user/' + ${session.user.username} + '/settings'">
       <div class="cursor-pointer px-4 py-3 transition hover:bg-gray-50">
         <p th:text="#{app.header.userDropdown.settings}" class="text-sm text-gray-700"></p>
       </div>
-    </a>
+    </a> -->
     <form th:action="@{/logout}" method="post">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <button

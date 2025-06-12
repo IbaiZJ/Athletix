@@ -105,9 +105,12 @@ public class TrackingController {
         Users user = userService.getCurrentUser();
         log.info("Creating new tracking for user: {}", user.getUsername());
 
+        System.out.println(tracking);
+
         // Create tracking
         trackingService.createTracking(user, tracking);
         log.info("Tracking created for user: {}", user.getUsername());
+
 
         // Create notification
         NotificationRegistrationDTO notification = new NotificationRegistrationDTO("New activity created",
