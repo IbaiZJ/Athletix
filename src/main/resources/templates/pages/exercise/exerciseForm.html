@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}" th:with="activePage='Home'">
+
+<head>
+  <title>Exercise Form</title>
+</head>
+
+<body>
+  <main layout:fragment="content">
+    <form th:action="@{'/exercise/' + ${session.user.username} + '/create'}" method="post" class="p-6 mx-auto w-full max-w-lg">
+      
+      <!-- Title -->
+      <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', 'Title', true, 'Enter title', ${exercise != null ? exercise.title : null})}"></div>
+
+      <!-- Description -->
+      <div th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Enter description', ${exercise != null ? exercise.description : null})}"></div>
+
+      <!-- Date -->
+      <div class="flex flex-col gap-4 md:flex-row">
+        <div class="flex flex-row gap-3">
+                <div class="flex flex-row gap-3">
+        <div th:replace="~{fragments/app/appInput :: appInput('number', 'durationH', 'Hour', true, 'Hour', ${event != null ? event.durationH : 0})}"></div>
+        <div th:replace="~{fragments/app/appInput :: appInput('number', 'durationM', 'Minute', true, 'Minute', ${event != null ? event.durationM : 0})}"></div>
+        <div th:replace="~{fragments/app/appInput :: appInput('number', 'durationS', 'Second', true, 'Second', ${event != null ? event.durationS : 0})}"></div>
+        </div>
+        </div>
+    </div>
+
+      <!-- Distance (km) -->
+      <div th:replace="~{fragments/app/appInput :: appInput('number', 'km', 'Distance (km)', true, 'Enter distance', ${exercise != null ? exercise.km : 0})}"></div>
+
+
+      <!-- Submit -->
+      <div class="flex justify-center">
+        <button type="submit"
+          class="bg-primary hover:bg-primary-hover rounded-md px-4 py-2 text-sm font-medium text-white md:w-[200px] mt-6">
+          Submit
+        </button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>
