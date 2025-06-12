@@ -1,10 +1,12 @@
 package com.athletix.service;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,23 +15,32 @@ import org.springframework.stereotype.Service;
 import com.athletix.model.DTO.RankingDTO;
 import com.athletix.model.DTO.UserRegistrationDTO;
 import com.athletix.model.Users;
+import com.athletix.model.UsersTypes;
 import com.athletix.repository.UserRepository;
+import com.athletix.repository.UsersTypesRepository;
+import com.athletix.service.custom.CustomUserDetailsService;
 import com.athletix.util.UserValidationUtil;
+import com.athletix.enums.RoleEnum;
 
 import jakarta.transaction.Transactional;
 
+  
 @Service
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private UsersTypesRepository usersTypesRepository;
     public UserService(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            CustomUserDetailsService customUserDetailsService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.customUserDetailsService=customUserDetailsService;
         log.info("UserService initialized");
     }
 
@@ -43,7 +54,9 @@ public class UserService {
         UserValidationUtil.validatePassword(userDTO.getPassword(), userDTO.getRepeatPassword());
 
         Users user = userDTO.toEntity(passwordEncoder);
+                
         userRepository.save(user);
+        customUserDetailsService.loadUserByUsername(userDTO.getUsername());
 
         log.info("User saved: {}", userDTO.getUsername());
     }
@@ -79,6 +92,11 @@ public class UserService {
         }
         return findByUsername(username);
     }
+    
+    public void save(Users user) {
+        userRepository.save(user);
+    }
+  
 
     @Transactional
     public List<RankingDTO> getUsersRankingByDistance() {

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.athletix.enums.RoleEnum;
 import com.athletix.model.Users;
 import com.athletix.repository.UserRepository;
 
@@ -21,10 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        String role = null; // user.getRole();
+        
+        String role = (user.getUserType() != null) ? user.getUserType().name() : null;
         if (role == null || role.trim().isEmpty()) {
-            role = "ROLE_USER";
+            user.setUserType(RoleEnum.USER);
         } 
         // else if (!role.startsWith("ROLE_")) {
         //     role = "ROLE_" + role.toUpperCase();
@@ -33,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                List.of(new SimpleGrantedAuthority(role)));
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getUserType().name())));
         // new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase())
     }
 
