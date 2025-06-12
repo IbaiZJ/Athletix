@@ -39,7 +39,7 @@ public class ChatController {
     @GetMapping("/chat")
     public String getChats(Model model, Principal principal) {
 
-        model.addAttribute("friends", friendService.getFriendDTOs(principal));
+        model.addAttribute("friends", friendService.getFriendChatDTOs(principal));
 
         log.info("Chats page accessed");
         return "pages/chat";
