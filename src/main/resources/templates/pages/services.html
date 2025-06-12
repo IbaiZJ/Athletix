@@ -4,12 +4,112 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/mainLayout}"
 >
-  <head>
-    <title>Athletix - Services</title>
-  </head>
-  <body>
-    <main layout:fragment="content">
-      Services
-    </main>
-  </body>
+<head>
+  <title>Athletix - Servicios</title>
+</head>
+<body>
+  <main layout:fragment="content" class="p-8 bg-gray-100 text-gray-800">
+    <section class="max-w-3xl mx-auto space-y-12">
+
+      <!-- Carta principal -->
+      <div class="bg-white p-10 rounded-2xl shadow-lg mb-10">
+        <h1 class="text-5xl font-bold text-primary text-center mb-6">Servicios</h1><br>
+        <p class="mb-4 text-lg" style="text-align: justify;">
+          Nuestra aplicación ha sido diseñada para promover un estilo de vida más activo,
+          combatiendo el sedentarismo mediante la actividad física y el fortalecimiento de los vínculos sociales.
+          Integramos una variedad de funcionalidades clave orientadas a facilitar el movimiento diario,
+          mantener la motivación y potenciar el bienestar integral del usuario.
+        </p>
+      </div>
+<br><br>
+      <!-- Creación de eventos -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row md:items-center">
+        <div class="md:w-2/3 md:pr-4" style="text-align: justify;">
+          <h2 class="text-2xl font-semibold text-primary mb-2">Creación de eventos</h2>
+          <p class="text-lg">
+            Los usuarios pueden crear y gestionar sus propios eventos, ya sea una caminata grupal,
+            una sesión de yoga al aire libre o una rutina de entrenamiento compartida.
+            Esta función facilita la organización de actividades en conjunto,
+            fomentando la participación activa y el sentido de comunidad.
+          </p>
+        </div>
+        <img
+          src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"
+          alt="Creación de eventos"
+          class="md:w-[35%] rounded-lg object-cover flex-shrink-0 mt-6 md:mt-0 ml-4"
+          style="aspect-ratio: 1 / 1; max-height: 300px;"
+        />
+      </div>
+      <!-- Chats individuales y grupales -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row md:items-center">
+        <img
+          src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"
+          alt="Chats individuales y grupales"
+          class="md:w-[35%] rounded-lg object-cover flex-shrink-0 mt-6 md:mt-0 mr-4"
+          style="aspect-ratio: 1 / 1; max-height: 300px;"
+        />
+        <div class="md:w-2/3" style="text-align: justify;">
+          <h2 class="text-2xl font-semibold text-primary mb-2">Chats individuales y grupales</h2>
+          <p class="text-lg">
+            La aplicación incluye un sistema de mensajería que permite a los usuarios comunicarse
+            de forma directa o en grupos. Esta herramienta mejora la coordinación entre participantes
+            y refuerza la interacción social, especialmente útil al momento de organizar encuentros o entrenamientos.
+          </p>
+        </div>
+      </div>
+      <!-- Rutinas personalizadas por entrenadores -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row md:items-center">
+        <div class="md:w-2/3 md:pr-4" style="text-align: justify;">
+          <h2 class="text-2xl font-semibold text-primary mb-2">Rutinas personalizadas por entrenadores</h2>
+          <p class="text-lg">
+            Los usuarios con perfil de entrenador pueden diseñar y asignar planes de entrenamiento personalizados,
+            adaptados al nivel, objetivos y disponibilidad de cada persona. Esto permite acceder a asesoramiento profesional
+            sin necesidad de salir de la app, promoviendo un entrenamiento seguro y eficiente.
+          </p>
+        </div>
+        <img
+          src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"
+          alt="Rutinas personalizadas"
+          class="md:w-[35%] rounded-lg object-cover flex-shrink-0 mt-6 md:mt-0 ml-4"
+          style="aspect-ratio: 1 / 1; max-height: 300px;"
+        />
+      </div>
+      <!-- Seguimiento de actividades -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row md:items-center">
+        <img
+          src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"
+          alt="Seguimiento de actividades"
+          class="md:w-[35%] rounded-lg object-cover flex-shrink-0 mt-6 md:mt-0 mr-4"
+          style="aspect-ratio: 1 / 1; max-height: 300px;"
+        />
+        <div class="md:w-2/3" style="text-align: justify;">
+          <h2 class="text-2xl font-semibold text-primary mb-2">Seguimiento de actividades</h2>
+          <p class="text-lg">
+            Ofrecemos una herramienta completa de gestión de rutinas, con recordatorios automáticos,
+            monitoreo de avances y estadísticas personalizadas. Esto ayuda al usuario a mantenerse constante,
+            organizado y enfocado en sus metas de forma sencilla y motivadora.
+          </p>
+        </div>
+      </div>
+      <!-- Descubrimiento de oportunidades cercanas -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row md:items-center">
+        <div class="md:w-2/3 md:pr-4" style="text-align: justify;">
+          <h2 class="text-2xl font-semibold text-primary mb-2">Descubrimiento de oportunidades cercanas</h2>
+          <p class="text-lg">
+            Gracias a nuestra función de geolocalización inteligente, los usuarios pueden explorar eventos,
+            rutas recomendadas y grupos activos en su área. Esto les permite encontrar nuevas formas de mantenerse activos,
+            conectarse con su comunidad local y descubrir oportunidades para moverse más cada día.
+          </p>
+        </div>
+        <img
+          src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"
+          alt="Descubrimiento de oportunidades"
+          class="md:w-[35%] rounded-lg object-cover flex-shrink-0 mt-6 md:mt-0 ml-4"
+          style="aspect-ratio: 1 / 1; max-height: 300px;"
+        />
+      </div>
+
+    </section>
+  </main>
+</body>
 </html>
