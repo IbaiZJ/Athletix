@@ -1,0 +1,40 @@
+<!doctype html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}"
+  th:with="activePage='Events'"
+>
+  <head>
+    <title th:text="'Events - ' + ${session.user.username}">Events</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body>
+    <main layout:fragment="content" class="space-y-6 p-6">
+      <section th:replace="~{fragments/app/event/eventHeader}"></section>
+      <section>
+        <h3 class="mb-4 text-2xl font-semibold">Registered Events</h3>
+        <div class="3xl:grid-cols-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          <div class="grid" th:each="registeredEvent : ${registeredEvents}">
+            <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
+          </div>
+        </div>
+        <section
+          th:replace="~{fragments/app/event/showRegisteredEventFallbackMessage :: showRegisteredEventFallbackMessage(events=${registeredEvents})}"
+        ></section>
+      </section>
+      <section>
+        <h3 class="mb-4 text-2xl font-semibold">Available Events</h3>
+        <div class="3xl:grid-cols-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          <div class="grid" th:each="availableEvent : ${availableEvents}">
+            <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${availableEvent})}"></div>
+          </div>
+        </div>
+        <section
+          th:replace="~{fragments/app/event/showAvailableEventFallbackMessage :: showAvailableEventFallbackMessage(events=${availableEvents})}"
+        ></section>
+      </section>
+    </main>
+  </body>
+</html>

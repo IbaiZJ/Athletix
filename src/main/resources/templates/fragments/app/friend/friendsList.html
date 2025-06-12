@@ -1,0 +1,37 @@
+<div
+  th:each="friend : ${friends}"
+  class="mx-3 flex items-center justify-start gap-3 rounded-lg px-3 py-1 transition-colors duration-300 ease-in-out hover:bg-gray-50"
+>
+  <div class="block">
+    <a
+      th:href="@{/user/{username}(username=${friend.username})}"
+      class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 font-semibold text-gray-500"
+    >
+      <img
+        th:if="${friend.profileImage != null}"
+        th:src="${friend.profileImage}"
+        alt="Profile photo"
+        class="h-full w-full object-cover"
+      />
+
+      <span
+        th:unless="${friend.profileImage != null}"
+        th:text="${#strings.toUpperCase(#strings.substring(friend.name, 0, 1) + #strings.substring(friend.surname, 0, 1))}"
+      >
+      </span>
+    </a>
+  </div>
+  <div class="flex w-full items-center justify-between">
+    <a
+      th:href="@{/user/{username}(username=${friend.username})}"
+      class="text-xl font-medium"
+      th:text="${friend.username}"
+    ></a>
+    <a
+        class="bg-primary hover:bg-primary-hover ml-4 rounded-lg p-2 text-white transition-colors duration-300 ease-in-out"
+        th:href="@{/chat/{friend}(friend=${friend.username})}"
+      >
+        <svg th:replace="~{fragments/app/friend/sendSVG}"></svg>
+      </a>
+  </div>
+</div>

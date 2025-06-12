@@ -1,0 +1,228 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}" th:with="activePage='Profiles'">
+
+<head>
+  <title>Profiles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <section layout:fragment="content">
+    <div class="min-h-screen w-full px-4 py-10 bg-transparent">
+
+      <div class="w-full p-8 sm:p-14 space-y-10">
+
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 border-b border-gray-300 pb-8 sm:pb-12">
+          <div class="relative group cursor-pointer flex-shrink-0">
+            <img src="${userProfile.profileImage}" 
+              th:alt="'Foto de perfil de' + ${userProfile.name}"
+              class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-primary
+                     shadow-lg transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:shadow-primary/90" />
+            <span class="absolute inset-0 rounded-full bg-primary/40 opacity-0 group-hover:opacity-70
+                     transition-opacity duration-500 pointer-events-none"></span>
+          </div>
+          <div class="flex flex-col justify-center text-center sm:text-left">
+            <h1
+              th:text="${userProfile.name} ?: 'N/A'"class="text-4xl sm:text-7xl font-extrabold text-primary hover:text-blue-600 transition-colors duration-300"
+              title="Nombre del Usuario">
+             
+            </h1>
+
+            <button class="mt-4 px-6 py-2 self-center sm:self-start text-primary border-2 border-primary
+                     rounded-full font-semibold shadow-md hover:shadow-primary/70
+                     hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 hover:text-white
+                     transition-all duration-300" aria-label="Editar perfil">
+              Editar perfil
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-gray-800 text-base sm:text-lg font-semibold">
+
+          <div title="Ciudad"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/location.svg" alt="Ciudad"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Ciudad</p>
+              <p  th:text="${userProfile.town} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Peso"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/weight.svg" alt="Peso"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Peso</p>
+              <p th:text="(${userProfile.weight} ?: 'N/A') + ' kg'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Altura"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/height.svg" alt="Altura"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Altura</p>
+              <p th:text="(${userProfile.height} ?: 'N/A') + ' cm'" class="group-hover:text-primary transition-colors duration-300 font-bold"> />
+            </div>
+          </div>
+
+          <div title="Género"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/gender.svg" alt="Género"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Género</p>
+              <p th:text="${userProfile.gender} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Deporte favorito"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football.svg" alt="Deporte favorito"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Cumpleaños</p>
+              <p th:text="${userProfile.birthDate} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Tipo de deportista"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football_player.svg" alt="Tipo de deportista"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Tipo de deportista</p>
+              <p class="group-hover:text-primary transition-colors duration-300 font-bold">Futbolista</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/appLayout}" th:with="activePage='Profiles'">
+
+<head>
+  <title>Profiles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body th:with="initial=${(userProfile.name != null and #strings.length(userProfile.name) > 0) ? userProfile.name.substring(0,1).toUpperCase() : 'A'}">
+  <section layout:fragment="content">
+    <div class="min-h-screen w-full px-4 py-10 bg-transparent">
+
+      <div class="w-full p-8 sm:p-14 space-y-10">
+
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 border-b border-gray-300 pb-8 sm:pb-12">
+          <div class="relative group cursor-pointer flex-shrink-0">
+
+            <!-- Imagen de perfil si existe -->
+            <img th:if="${userProfile.profileImage != null and userProfile.profileImage != ''}"
+              th:src="${userProfile.profileImage}" th:alt="'Foto de perfil de ' + ${userProfile.name}"
+              class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-primary
+                     shadow-lg transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:shadow-primary/90" />
+
+            <!-- Inicial mayúscula si no hay imagen -->
+            <div th:if="${userProfile.profileImage == null or userProfile.profileImage == ''}"
+              class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-primary text-white flex items-center justify-center 
+                     text-5xl font-bold border-4 border-primary shadow-lg">
+              <span th:text="${initial}">A</span>
+            </div>
+
+            <span class="absolute inset-0 rounded-full bg-primary/40 opacity-0 group-hover:opacity-70
+                   transition-opacity duration-500 pointer-events-none"></span>
+          </div>
+
+          <div class="flex flex-col justify-center text-center sm:text-left">
+            <h1 th:text="${userProfile.name} ?: 'N/A'"
+              class="text-4xl sm:text-7xl font-extrabold text-primary hover:text-blue-600 transition-colors duration-300"
+              title="Nombre del Usuario">
+            </h1>
+
+            <button class="mt-4 px-6 py-2 self-center sm:self-start text-primary border-2 border-primary
+                     rounded-full font-semibold shadow-md hover:shadow-primary/70
+                     hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-400 hover:text-white
+                     transition-all duration-300" aria-label="Editar perfil">
+              Editar perfil
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-gray-800 text-base sm:text-lg font-semibold">
+
+          <div title="Ciudad"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/location.svg" alt="Ciudad"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Ciudad</p>
+              <p th:text="${userProfile.town} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Peso"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/weight.svg" alt="Peso"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Peso</p>
+              <p th:text="(${userProfile.weight} ?: 'N/A') + ' kg'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Altura"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/height.svg" alt="Altura"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Altura</p>
+              <p th:text="(${userProfile.height} ?: 'N/A') + ' cm'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Género"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/gender.svg" alt="Género"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Género</p>
+              <p th:text="${userProfile.gender} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Cumpleaños"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football.svg" alt="Cumpleaños"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Cumpleaños</p>
+              <p th:text="${userProfile.birthDate} ?: 'N/A'" class="group-hover:text-primary transition-colors duration-300 font-bold"></p>
+            </div>
+          </div>
+
+          <div title="Tipo de deportista"
+            class="flex items-center gap-4 cursor-pointer group rounded-lg p-3 hover:bg-primary/10 transition-colors duration-300">
+            <img src="/svg/football_player.svg" alt="Tipo de deportista"
+              class="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
+            <div>
+              <p class="uppercase text-xs tracking-widest text-gray-400">Tipo de deportista</p>
+              <p class="group-hover:text-primary transition-colors duration-300 font-bold">Futbolista</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

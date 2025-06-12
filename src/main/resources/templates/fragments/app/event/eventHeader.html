@@ -1,0 +1,18 @@
+<section class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+  <h2
+    class="text-center text-2xl font-bold text-gray-800 sm:text-3xl xl:text-left"
+    th:text="'Welcome to events, ' + ${session.user.username} + '!'"
+  ></h2>
+  <div class="flex flex-col gap-3 sm:flex-row sm:justify-center xl:justify-end">
+    <a
+      id="create-button"
+      href="/event/create"
+      class="w-full rounded-lg bg-green-600 px-4 py-2 text-center text-white transition hover:bg-green-700 sm:w-auto"
+    >
+      + Create Event
+    </a>
+
+    <!-- <div th:replace="~{fragments/app/event/showMyEventsModal}"></div> -->
+    <div th:replace="~{fragments/app/event/searchModal}"></div>
+  </div>
+</section>

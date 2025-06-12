@@ -1,0 +1,101 @@
+<script th:inline="javascript">
+  let availableEvents = /*[[${availableEvents}]]*/ 1;
+</script>
+
+<div
+  x-data="{ 
+    showModal: false, 
+    searchQuery: '', 
+    events: availableEvents, 
+    filteredEvents: availableEvents 
+  }"
+  x-init="
+    filteredEvents = events;
+"
+>
+  <button
+    @click="showModal = true"
+    type="button"
+    class="bg-primary hover:bg-primary-hover w-full rounded-lg px-4 py-2 text-center text-white transition hover:cursor-pointer sm:w-auto"
+  >
+    Find events
+  </button>
+
+  <div
+    x-show="showModal"
+    x-transition
+    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 p-4 backdrop-blur-sm"
+    @click.self="showModal = false"
+  >
+    <div class="max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-xl bg-white p-6 text-left shadow-2xl">
+      <h2 class="mb-4 text-2xl font-semibold text-gray-800">Find Events</h2>
+
+      <!-- Buscador -->
+      <div class="relative mb-4">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+        </div>
+        <input
+          x-model="searchQuery"
+          @input="filteredEvents = events.filter(event => 
+            event.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            event.location.toLowerCase().includes(searchQuery.toLowerCase())
+          )"
+          type="text"
+          class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+          placeholder="Search events..."
+        />
+      </div>
+
+      <div class="max-h-[60vh] space-y-4 overflow-y-auto pr-2">
+        <template x-for="event in filteredEvents" :key="event.id">
+          <a class="p-4" :href="`/event/${event.id}`">
+            <div class="rounded-lg border border-gray-200 p-4 hover:cursor-pointer hover:bg-gray-50">
+              <div class="mb-2 flex flex-col justify-center">
+                <h3 class="text-center text-xl font-bold text-gray-800 capitalize" x-text="event.title"></h3>
+                <p x-text="event.shortDescription" class="mb-4 text-center text-gray-600"></p>
+              </div>
+
+              <div class="mt-2 flex flex-wrap items-center justify-center text-sm text-gray-500">
+                <div class="flex items-center text-gray-700">
+                  <svg th:replace="~{fragments/app/event/svg/locationSVG}"></svg>
+                  <span x-text="event.location"></span>
+                </div>
+                <span class="mx-2">•</span>
+                <div class="flex items-center text-gray-700">
+                  <svg th:replace="~{fragments/app/event/svg/calendarSVG}"></svg>
+                  <span x-text="new Date(event.date).toLocaleDateString()"></span>
+                </div>
+                <span class="mx-2">•</span>
+                <div class="flex items-center text-gray-700">
+                  <svg th:replace="~{fragments/app/event/svg/distanceSVG}"></svg>
+                  <span x-text="event.km + ' km'"></span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </template>
+
+        <p x-show="filteredEvents.length === 0" class="text-center text-gray-500">
+          No events found matching your search.
+        </p>
+      </div>
+
+      <div class="mt-4 flex justify-end">
+        <button
+          @click="showModal = false"
+          class="cursor-pointer rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

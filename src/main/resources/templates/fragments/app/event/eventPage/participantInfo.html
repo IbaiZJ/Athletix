@@ -1,0 +1,62 @@
+<div class="flex justify-center" x-data="{ showModal: false }">
+    <button
+      @click="showModal = true"
+      type="button"
+      class="bg-white hover:bg-gray-100 w-fit rounded-full text-center text-white transition hover:cursor-pointer sm:w-auto"
+    >
+      <div th:replace="~{fragments/app/event/svg/infoSVG}"></div>
+    </button>
+
+    <div
+      x-show="showModal"
+      x-transition
+      class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 p-4 backdrop-blur-sm"
+      @click.self="showModal = false"
+    >
+      <div class="max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-xl bg-white p-8 text-left shadow-2xl">
+        <!-- Profile Header -->
+        <div class="flex items-center space-x-4 border-b border-gray-200 pb-4">
+          <img th:src="${participant.profileImage} ?: '/images/default-avatar.png'" 
+               class="h-16 w-16 rounded-full object-contain ring-2 ring-primary-200"
+               alt="Profile Image">
+          <div>
+            <h2 th:text="${participant.username}" class="text-2xl font-bold text-gray-800"></h2>
+            <p th:text="${participant.fullName}" class="text-gray-600"></p>
+          </div>
+        </div>
+
+        <!-- Participant Details -->
+        <div class="mt-6 space-y-4">
+          <div class="flex items-center space-x-2">
+            <span class="font-semibold text-gray-700">Role:</span>
+            <span th:text="${participant.role}" class="text-gray-600"></span>
+          </div>
+          
+          <div class="flex items-center space-x-2">
+            <span class="font-semibold text-gray-700">Email:</span>
+            <span th:text="${participant.mail}" class="text-gray-600"></span>
+          </div>
+          
+           <div class="flex items-center space-x-2">
+            <span class="font-semibold text-gray-700">Phone:</span>
+            <span th:text="${participant.phoneNumber}" class="text-gray-600"></span>
+          </div> 
+
+          <div class="flex items-center space-x-2">
+            <span class="font-semibold text-gray-700">Registration Date:</span>
+            <span th:text="${#temporals.format(participant.registrationDate, 'dd/MM/yyyy')}" class="text-gray-600"></span>
+          </div> 
+        </div>
+
+        <!-- Footer -->
+      
+          <button
+            @click="showModal = false"
+            class="rounded-lg bg-primary-500 px-6 py-2.5 text-white transition hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
