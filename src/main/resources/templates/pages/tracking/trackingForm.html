@@ -65,7 +65,7 @@
       <form th:action="@{'/tracking/' + ${session.user.username} + '/create'}" class="flex gap-4 flex-col mx-auto w-full p-6" method="post">
         <div th:replace="~{fragments/app/appInput :: appInput('text', 'title', #{tracking.trackingForm.title},true,#{tracking.trackingForm.title}, '')}"></div>
         <div
-          th:replace="~{fragments/app/textAreaInput :: appTextarea(#{tracking.trackingForm.description}, #{tracking.trackingForm.description}, true, #{tracking.trackingForm.description}, '')}"
+          th:replace="~{fragments/app/textAreaInput :: appTextarea('description', #{tracking.trackingForm.description}, true, #{tracking.trackingForm.description}, '')}"
         ></div>
         <div class="flex w-full flex-col justify-center gap-4 md:flex-row">
           <div class="flex flex-col gap-3 md:flex-row">

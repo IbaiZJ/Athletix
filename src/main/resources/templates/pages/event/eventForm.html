@@ -11,7 +11,7 @@
 
 <body>
   <main layout:fragment="content">
-    <h1 th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : #{event.eventForm.Title}"
+    <h1 th:text="${eventEditForm.id != null} ? #{event.eventForm.TitleEdit} + ' ' + ${eventEditForm.title} : #{event.eventForm.Title}"
       class="pt-6 pl-6 text-2xl font-bold text-gray-900"></h1>
     <form th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
       method="post" enctype="multipart/form-data" class="mx-auto w-full p-6" th:object="${eventEditForm}" th:with="
