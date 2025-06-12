@@ -28,22 +28,21 @@
         <!-- Participant Details -->
         <div class="mt-6 space-y-4">
           <div class="flex items-center space-x-2">
-            <span class="font-semibold text-gray-700">Role:</span>
+            <span th:text="#{app.event.participantInfo.role}" class="font-semibold text-gray-700"></span>
             <span th:text="${participant.role}" class="text-gray-600"></span>
           </div>
-          
           <div class="flex items-center space-x-2">
-            <span class="font-semibold text-gray-700">Email:</span>
+            <span th:text="#{app.event.participantInfo.email}" class="font-semibold text-gray-700"></span>
             <span th:text="${participant.mail}" class="text-gray-600"></span>
           </div>
           
            <div class="flex items-center space-x-2">
-            <span class="font-semibold text-gray-700">Phone:</span>
+            <span th:text="#{app.event.participantInfo.phone}" class="font-semibold text-gray-700"></span>
             <span th:text="${participant.phoneNumber}" class="text-gray-600"></span>
           </div> 
 
           <div class="flex items-center space-x-2">
-            <span class="font-semibold text-gray-700">Registration Date:</span>
+            <span th:text="#{app.event.participantInfo.registrationDate}" class="font-semibold text-gray-700"></span>
             <span th:text="${#temporals.format(participant.registrationDate, 'dd/MM/yyyy')}" class="text-gray-600"></span>
           </div> 
         </div>
@@ -52,9 +51,9 @@
       
           <button
             @click="showModal = false"
+            th:text="#{app.event.participantInfo.close}"
             class="rounded-lg bg-primary-500 px-6 py-2.5 text-white transition hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
           >
-            Close
           </button>
         </div>
       </div>

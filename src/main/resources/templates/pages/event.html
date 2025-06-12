@@ -6,7 +6,7 @@
   th:with="activePage='Events'"
 >
   <head>
-    <title th:text="'Events - ' + ${session.user.username}">Events</title>
+    <title th:text="#{event.title} + ${session.user.username}"></title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
 
@@ -14,7 +14,7 @@
     <main layout:fragment="content" class="space-y-6 p-6">
       <section th:replace="~{fragments/app/event/eventHeader}"></section>
       <section>
-        <h3 class="mb-4 text-2xl font-semibold">Registered Events</h3>
+        <h3 th:text="#{event.registered}" class="mb-4 text-2xl font-semibold"></h3>
         <div class="3xl:grid-cols-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
           <div class="grid" th:each="registeredEvent : ${registeredEvents}">
             <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${registeredEvent})}"></div>
@@ -25,7 +25,7 @@
         ></section>
       </section>
       <section>
-        <h3 class="mb-4 text-2xl font-semibold">Available Events</h3>
+        <h3 th:text="#{event.available}" class="mb-4 text-2xl font-semibold"></h3>
         <div class="3xl:grid-cols-4 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
           <div class="grid" th:each="availableEvent : ${availableEvents}">
             <div th:replace="~{fragments/app/event/eventCard :: eventCard(event=${availableEvent})}"></div>

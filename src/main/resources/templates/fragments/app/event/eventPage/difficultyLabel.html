@@ -1,10 +1,10 @@
 <div th:fragment="difficulty(difficulty)"> <!--  class="absolute top-3 right-3" -->
   <th:block th:switch="${#strings.toUpperCase(difficulty?.toString())}">
-    <span th:case="'EASY'" class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">Principiante</span>
-    <span th:case="'MEDIUM'" class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700">Intermedio</span>
-    <span th:case="'HARD'" class="rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-700">Experto</span>
-    <span th:case="*" class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
-      Sin definir (Valor: <span th:text="${difficulty}"></span>)
+    <span th:text="#{app.event.dificultyLabel.easy}" th:case="'EASY'" class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700"></span>
+    <span th:text="#{app.event.dificultyLabel.medium}" th:case="'MEDIUM'" class="rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-700"></span>
+    <span th:text="#{app.event.dificultyLabel.hard}" th:case="'HARD'" class="rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-700"></span>
+    <span th:text="#{app.event.dificultyLabel.unknown}" th:case="*" class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+       (Valor: <span th:text="${difficulty}"></span>)
     </span>
   </th:block>
 </div>

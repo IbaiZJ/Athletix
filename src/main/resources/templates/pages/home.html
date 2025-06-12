@@ -6,7 +6,7 @@
   th:with="activePage='Home'"
 >
   <head>
-    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+    <title th:text="#{home.title} + ${session.user.username}"></title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
   </head>
@@ -16,19 +16,19 @@
         <div class="w-full md:w-65/100">
           <h1
             class="text-4xl font-bold text-gray-800"
-            th:text="'Hola, ' + ${session.user.username} "
+            th:text="#{home.welcome} +'  ' + ${session.user.username} "
           ></h1>
         </div>
 
         <div class="w-full md:w-35/100">
-          <h2 class="text-xl font-semibold text-gray-700 mb-4">Progreso mensual</h2>
+          <h2 th:text="#{home.monthlyProgress}" class="text-xl font-semibold text-gray-700 mb-4"></h2>
           <canvas id="myChart" class="h-64 w-full"></canvas>
         </div>
       </div>
 
       <!-- Nuevo gráfico de regresión lineal -->
       <div class="mt-8">
-        <h2 class="text-xl font-semibold text-gray-700 mb-4">Regresión lineal: Tiempo por km</h2>
+        <h2 th:text="#{home.regression}" class="text-xl font-semibold text-gray-700 mb-4"></h2>
         <canvas id="regressionChart" class="h-64 w-full"></canvas>
       </div>
     </main>

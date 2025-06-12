@@ -11,7 +11,7 @@
   <body>
     <main layout:fragment="content" class="mx-auto flex w-full max-w-4xl justify-center p-6">
       <div class="flex w-full flex-col gap-6">
-        <h1 class="text-3xl font-bold">Ranking</h1>
+        <h1 th:text="#{ranking.h1}" class="text-3xl font-bold"></h1>
         <div class="mt-4 w-full">
           <div
             th:each="participant, iterStat : ${rankingUsers}"

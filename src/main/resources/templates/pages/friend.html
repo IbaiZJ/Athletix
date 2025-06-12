@@ -11,11 +11,12 @@
   <body>
     <main layout:fragment="content" class="mx-auto flex w-full max-w-4xl justify-center">
       <div class="flex w-full flex-col">
-        <h1 class="p-6 text-3xl font-bold">Friends</h1>
+        <h1 th:text="#{friend.title}" class="p-6 text-3xl font-bold"></h1>
         <div class="flex w-full flex-col gap-1">
           <div th:replace="~{fragments/app/friend/friendsList}"></div>
         </div>
-        <h2 class="p-6 text-2xl font-bold">Meet new friends</h2>
+
+        <h2 th:text="#{friend.newFriends}" class="p-6 text-2xl font-bold"></h2>
         <div class="flex w-full flex-col gap-1 mb-2">
           <div th:replace="~{fragments/app/friend/nonFriendsList}"></div>
         </div>
