@@ -3,10 +3,10 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/appLayout}"
-  th:with="activePage='Home'"
+  th:with="activePage='Events'"
 >
   <head>
-    <title>Event create form</title>
+    <title th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"> </title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/js/app/eventCreationMap.js"></script>
@@ -16,7 +16,7 @@
     <main layout:fragment="content">
       <h1
         th:text="${eventEditForm.id != null} ? 'Edit Event ' + ${eventEditForm.title} : 'Create Event '"
-        class="text-2xl pt-6 pl-6 font-bold text-gray-900"
+        class="pt-6 pl-6 text-2xl font-bold text-gray-900"
       ></h1>
       <form
         th:action="${eventEditForm.id != null} ? @{/event/{id}/edit(id=${eventEditForm.id})} : @{/event/create}"
@@ -49,7 +49,7 @@
           ></div>
           <div class="min-h-2xs flex">
             <div
-              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'description', false, 'Description', ${withDescription})}"
+              th:replace="~{fragments/app/textAreaInput :: appTextarea('Description', 'Description', false, 'Description', ${withDescription})}"
             ></div>
           </div>
 
@@ -109,7 +109,7 @@
           <div class="flex justify-center">
             <button
               type="submit"
-              class="bg-primary hover:cursor-pointer hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white md:w-[200px]"
+              class="bg-primary hover:bg-primary-hover mx-6 mt-6 w-full rounded-md py-2 text-sm font-medium text-white hover:cursor-pointer md:w-[200px]"
             >
               Submit
             </button>

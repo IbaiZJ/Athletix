@@ -17,5 +17,6 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
            "GROUP BY u.id " +
            "ORDER BY totalDistance DESC")
     List<Object[]> findAllUsersOrderByDistance();
+
     
 }

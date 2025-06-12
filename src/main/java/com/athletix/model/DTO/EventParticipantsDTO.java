@@ -1,5 +1,7 @@
 package com.athletix.model.DTO;
 
+import java.time.LocalDateTime;
+
 import com.athletix.enums.EventRoleEnum;
 
 import lombok.Getter;
@@ -12,4 +14,7 @@ public class EventParticipantsDTO {
     private String fullName;
     private String profileImage;
     private EventRoleEnum role;
+    private String mail;
+    private String phoneNumber;
+    private LocalDateTime registrationDate;
 }

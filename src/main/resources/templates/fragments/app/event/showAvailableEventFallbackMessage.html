@@ -1,4 +1,4 @@
-<div th:fragment="showEventFallbackMessage(events)">
+<div th:fragment="showAvailableEventFallbackMessage(events)">
   <p th:if="${events == null or events.empty}" class="col-span-full text-center text-gray-500">
     <span th:if="${events == null}">Events data not available.</span>
     <span th:if="${events != null and events.empty}">No available events to join at the moment.</span>

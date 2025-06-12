@@ -12,10 +12,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "messages")
 public class Messages implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,18 +26,18 @@ public class Messages implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "friend_chat_id")
-    private FriendsChats friendChat;  
-
-    @ManyToOne
-    @JoinColumn(name = "group_chat_id")
-    private GroupsChats groupChat; 
-
     private String message;
 
     private LocalDateTime date;
 
     private boolean readed;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false)
+    private Users sender;
+
+    @ManyToOne
+    @JoinColumn(name = "friendship_id")
+    private Friends friendship;
 
 }
