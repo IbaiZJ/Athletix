@@ -37,3 +37,6 @@ node_modules/
 
 ### tailwind ###
 /src/main/resources/static/css/tailwind.output.css
+
+## Uploads ## 
+uploads/*
