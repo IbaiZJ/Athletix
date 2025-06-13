@@ -3,10 +3,10 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{layouts/appLayout}"
-  th:with="activePage='Home'"
+  th:with="activePage='Ranking'"
 >
   <head>
-    <title th:text="'Home - ' + ${session.user.username}">Home</title>
+    <title th:text="#{ranking.h1}">Home</title>
   </head>
   <body>
     <main layout:fragment="content" class="mx-auto flex w-full max-w-4xl justify-center p-6">
@@ -26,7 +26,7 @@
               >
                 <img
                   th:if="${participant.profileImage != null}"
-                  th:src="${session.user.profileImage}"
+                  th:src="${participant.profileImage}"
                   alt="Profile photo"
                   class="h-full w-full object-cover"
                 />
